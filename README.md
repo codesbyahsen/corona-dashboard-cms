@@ -1,2 +1,2 @@
-# general-cms-laravel
-General CMS in Laravel
+# Laravel General CMS
+Laravel general CMS using Corona Dashboard Template (Dark Theme)
