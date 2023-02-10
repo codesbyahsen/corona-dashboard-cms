@@ -59,7 +59,7 @@
             <span class="nav-link">Navigation</span>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="/">
                 <span class="menu-icon">
                     <i class="mdi mdi-speedometer"></i>
                 </span>
@@ -67,7 +67,7 @@
             </a>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/forms/basic_elements.html">
+            <a class="nav-link" href="/contact-info">
                 <span class="menu-icon">
                     <i class="mdi mdi-contacts"></i>
                 </span>
@@ -75,7 +75,7 @@
             </a>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/tables/basic-table.html">
+            <a class="nav-link" href="/contact-queries">
                 <span class="menu-icon">
                     <i class="mdi mdi-account-question"></i>
                 </span>
@@ -83,7 +83,7 @@
             </a>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/charts/chartjs.html">
+            <a class="nav-link" href="/social-links">
                 <span class="menu-icon">
                     <i class="mdi mdi-facebook"></i>
                 </span>
@@ -91,7 +91,7 @@
             </a>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/icons/mdi.html">
+            <a class="nav-link" href="/terms">
                 <span class="menu-icon">
                     <i class="mdi mdi-file-document-edit-outline"></i>
                 </span>
@@ -99,7 +99,7 @@
             </a>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/icons/mdi.html">
+            <a class="nav-link" href="/privacy-policies">
                 <span class="menu-icon">
                     <i class="mdi mdi-shield"></i>
                 </span>
@@ -107,7 +107,7 @@
             </a>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/icons/mdi.html">
+            <a class="nav-link" href="/faqs">
                 <span class="menu-icon">
                     <i class="mdi mdi-frequently-asked-questions"></i>
                 </span>
@@ -115,15 +115,15 @@
             </a>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/icons/mdi.html">
+            <a class="nav-link" href="/mail-configuration">
                 <span class="menu-icon">
                     <i class="mdi mdi-at"></i>
                 </span>
-                <span class="menu-title">Mail Configurations</span>
+                <span class="menu-title">Mail Configuration</span>
             </a>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/icons/mdi.html">
+            <a class="nav-link" href="/general-settings">
                 <span class="menu-icon">
                     <i class="mdi mdi-cogs"></i>
                 </span>
