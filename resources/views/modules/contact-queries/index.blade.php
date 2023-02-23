@@ -12,7 +12,7 @@
             <h3 class="page-title"> Contact Queries </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Contact Queries</li>
                 </ol>
             </nav>
@@ -38,8 +38,7 @@
                                         <td><a href="mailto:example@gmail.com">example@gmail.com</a></td>
                                         <td>abc</td>
                                         <td>
-                                            <a href="#" title="View details"><i class="mdi mdi-file-eye"></i></a>
-                                            <a href="#" title="Edit"><i class="mdi mdi-square-edit-outline"></i></a>
+                                            <a href="{{ route('contact_queries.show') }}" title="View details"><i class="mdi mdi-file-eye"></i></a>
                                             <a href="#" title="Delete"><i class="mdi mdi-delete-outline"></i></a>
                                         </td>
                                     </tr>
