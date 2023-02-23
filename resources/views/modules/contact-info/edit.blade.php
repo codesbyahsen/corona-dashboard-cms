@@ -8,8 +8,8 @@
             <h3 class="page-title"> Edit Contact </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="#">Contact Info</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('contact_info') }}">Contact Info</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Edit Contact</li>
                 </ol>
             </nav>

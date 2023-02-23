@@ -8,8 +8,8 @@
             <h3 class="page-title"> Edit SMTP </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="#">Mail Configuration</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('smtp') }}">Mail Configuration</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Edit SMTP</li>
                 </ol>
             </nav>
