@@ -8,8 +8,8 @@
             <h3 class="page-title"> Edit FAQ </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="#">FAQs</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('faqs') }}">FAQs</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Edit FAQ</li>
                 </ol>
             </nav>

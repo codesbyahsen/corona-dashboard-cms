@@ -8,7 +8,7 @@
             <h3 class="page-title"> General Settings </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                     <li class="breadcrumb-item active" aria-current="page">General Settings</li>
                 </ol>
             </nav>
@@ -20,6 +20,7 @@
                 <div class="col-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
+                            <span class="timestamp text-muted">Updated: 1 minute ago</span>
                             {{-- <h4 class="card-title">Default form</h4> --}}
                             {{-- <p class="card-description"> Basic form layout </p> --}}
                             <div class="row">

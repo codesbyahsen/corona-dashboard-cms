@@ -10095,7 +10095,7 @@ input[type="button"].btn-block {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center; }
-  
+
   .btn-group-vertical > .btn,
   .fc .btn-group-vertical > button,
   .ajax-upload-dragdrop .btn-group-vertical > .ajax-file-upload,
@@ -10442,7 +10442,7 @@ input[type="button"].btn-block {
   .asColorPicker-wrap > .custom-select:not(:first-child) {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0; }
-  
+
   .input-group > .custom-file,
   .asColorPicker-wrap > .custom-file {
     display: flex;
@@ -15282,7 +15282,7 @@ a.text-dark:hover, a.text-dark:focus {
     border: 1px solid #000; }
   .table, .jsgrid .jsgrid-table {
     border-collapse: collapse !important; }
-    
+
     .table td,
     .jsgrid .jsgrid-table td, .table th, .jsgrid .jsgrid-table th {
       background-color: #ffffff !important; }
@@ -20857,7 +20857,7 @@ div.tagsinput {
                   width: 30px;
                   height: 30px; }
                   .sidebar .nav .nav-item.profile .profile-desc .dropdown-menu .dropdown-item.preview-item .preview-thumbnail .preview-icon i {
-                    font-size: 0.875rem; }
+                    font-size: 0.875rem; padding-top: 3px; }
               .sidebar .nav .nav-item.profile .profile-desc .dropdown-menu .dropdown-item:hover {
                 color: inherit; }
             .sidebar .nav .nav-item.profile .profile-desc .dropdown-menu .dropdown-divider {
@@ -21133,3 +21133,14 @@ div.tagsinput {
   flex-grow: 1; }
 
 /*# sourceMappingURL=maps/style.css.map */
+
+/**
+* Custom classes
+*
+**/
+.timestamp {
+    display: block;
+    text-align: right;
+    font-size: 0.650rem;
+    margin-bottom: 1rem;
+}
