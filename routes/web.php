@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/login', function () {
+    return view('modules.authentication.login');
+})->name('admin.login');
+
+Route::get('/forgot-password', function () {
+    return view('modules.authentication.forgot-password');
+})->name('admin.forgot_password');
+
+Route::get('/reset-password', function () {
+    return view('modules.authentication.reset-password');
+})->name('admin.reset_password');
+
 Route::get('/', function () {
     return view('modules.dashboard.index');
 })->name('admin.dashboard');
