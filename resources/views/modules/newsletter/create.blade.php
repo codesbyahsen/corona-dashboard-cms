@@ -2,6 +2,10 @@
 
 @section('title', 'Create Mail')
 
+@section('extra-links')
+    <link rel="stylesheet" href="{{ asset('assets/vendors/summernote/dist/summernote-bs4.css') }}">
+@endsection
+
 @section('page-content')
     <div class="content-wrapper">
         <div class="page-header">
@@ -36,7 +40,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="message">Message <span class="text-danger">*</span></label>
-                                        <textarea class="form-control" id="message" rows="4" placeholder="Message"></textarea>
+                                        <textarea class="form-control" id="summernote" rows="4" placeholder="Message"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -52,3 +56,16 @@
         </div>
     </div>
 @endsection
+
+@push('extra-scripts')
+    <script src="{{ asset('assets/vendors/summernote/dist/summernote-bs4.min.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#summernote').summernote({
+                height: 300,
+                tabsize: 2
+            });
+        });
+    </script>
+@endpush

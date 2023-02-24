@@ -2,6 +2,10 @@
 
 @section('title', 'Create FAQ')
 
+@section('extra-links')
+    <link rel="stylesheet" href="{{ asset('assets/vendors/summernote/dist/summernote-bs4.css') }}">
+@endsection
+
 @section('page-content')
     <div class="content-wrapper">
         <div class="page-header">
@@ -37,7 +41,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="answer">Answer</label>
-                                        <textarea class="form-control" name="answer" id="answer" rows="4"></textarea>
+                                        <textarea class="form-control" name="answer" id="summernote" rows="4"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -53,3 +57,16 @@
         </div>
     </div>
 @endsection
+
+@push('extra-scripts')
+    <script src="{{ asset('assets/vendors/summernote/dist/summernote-bs4.min.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#summernote').summernote({
+                height: 300,
+                tabsize: 2
+            });
+        });
+    </script>
+@endpush
