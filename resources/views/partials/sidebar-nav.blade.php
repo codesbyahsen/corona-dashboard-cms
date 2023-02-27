@@ -140,7 +140,7 @@
             <div class="collapse" id="faq_nav">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link"
-                            href="#">Category</a></li>
+                            href="#">Categories</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{ route('faqs') }}">FAQs</a></li>
                 </ul>
             </div>

@@ -651,3 +651,7 @@
         </div>
     </div>
 @endsection
+
+@push('extra-scripts')
+    <script src="{{ asset('assets') }}/js/dashboard.js"></script>
+@endpush
