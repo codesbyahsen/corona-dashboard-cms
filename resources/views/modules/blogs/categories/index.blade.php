@@ -1,6 +1,6 @@
 @extends('layout.layout')
 
-@section('title', 'FAQ Categories')
+@section('title', 'Blog Categories')
 
 @section('extra-links')
     <link rel="stylesheet" href="{{ asset('assets/vendors/datatables/datatables.min.css') }}">
@@ -9,11 +9,11 @@
 @section('page-content')
     <div class="content-wrapper">
         <div class="page-header">
-            <h3 class="page-title"> FAQ Categories </h3>
+            <h3 class="page-title"> Blog Categories </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">FAQ Categories</li>
+                    <li class="breadcrumb-item active" aria-current="page">Blog Categories</li>
                 </ol>
             </nav>
         </div>
@@ -45,7 +45,7 @@
                                     <tr>
                                         <td>Category</td>
                                         <td class="text-right">
-                                            <a href="{{ route('faqs.edit') }}" title="Edit"><i class="mdi mdi-square-edit-outline"></i></a>
+                                            <a href="#" title="Edit"><i class="mdi mdi-square-edit-outline"></i></a>
                                             <a href="#" title="Delete"><i class="mdi mdi-delete-outline"></i></a>
                                         </td>
                                     </tr>

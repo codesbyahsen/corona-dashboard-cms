@@ -1,6 +1,6 @@
 @extends('layout.layout')
 
-@section('title', 'FAQ Categories')
+@section('title', 'Blogs')
 
 @section('extra-links')
     <link rel="stylesheet" href="{{ asset('assets/vendors/datatables/datatables.min.css') }}">
@@ -9,11 +9,11 @@
 @section('page-content')
     <div class="content-wrapper">
         <div class="page-header">
-            <h3 class="page-title"> FAQ Categories </h3>
+            <h3 class="page-title"> Blogs </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">FAQ Categories</li>
+                    <li class="breadcrumb-item active" aria-current="page">Blogs</li>
                 </ol>
             </nav>
         </div>
@@ -38,13 +38,23 @@
                                 <thead>
                                     <tr>
                                         <th>Category</th>
-                                        <th class="text-right">Action</th>
+                                        <th>Title</th>
+                                        <th>Heading</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>Category</td>
-                                        <td class="text-right">
+                                        <td>Development</td>
+                                        <td>
+                                            How to learn Laravel?
+                                        </td>
+                                        <td>Laravel</td>
+                                        <td><button type="button"
+                                                class="btn btn-inverse-success btn-rounded btn-fw">Active</button></td>
+                                        <td>
+                                            <a href="{{ route('faqs.show') }}" title="View details"><i class="mdi mdi-file-eye"></i></a>
                                             <a href="{{ route('faqs.edit') }}" title="Edit"><i class="mdi mdi-square-edit-outline"></i></a>
                                             <a href="#" title="Delete"><i class="mdi mdi-delete-outline"></i></a>
                                         </td>

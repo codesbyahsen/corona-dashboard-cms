@@ -41,6 +41,30 @@ Route::get('/change-password', function () {
     return view('modules.profile.change-password');
 })->name('admin.change_password');
 
+Route::get('/blogs/categories', function () {
+    return view('modules.blogs.categories.index');
+})->name('blog_categories');
+
+Route::get('/blogs/categories/create', function () {
+    return view('modules.blogs.categories.create');
+})->name('blog_categories.create');
+
+Route::get('/blogs/categories/edit', function () {
+    return view('modules.blogs.categories.edit');
+})->name('blog_categories.edit');
+
+Route::get('/blogs', function () {
+    return view('modules.blogs.index');
+})->name('blogs');
+
+Route::get('/blogs/create', function () {
+    return view('modules.blogs.create');
+})->name('blogs.create');
+
+Route::get('/blogs/edit', function () {
+    return view('modules.blogs.edit');
+})->name('blogs.edit');
+
 Route::get('/contact-info', function () {
     return view('modules.contact-info.index');
 })->name('contact_info');
