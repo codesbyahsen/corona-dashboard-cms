@@ -77,6 +77,18 @@ Route::get('/privacy-policies', function () {
     return view('modules.privacy-policies.create-or-edit');
 })->name('privacy_policies');
 
+Route::get('/faqs/categories', function () {
+    return view('modules.faqs.categories.index');
+})->name('faq_categories');
+
+Route::get('/faqs/categories/create', function () {
+    return view('modules.faqs.categories.create');
+})->name('faq_categories.create');
+
+Route::get('/faqs/categories/edit', function () {
+    return view('modules.faqs.categories.edit');
+})->name('faq_categories.edit');
+
 Route::get('/faqs', function () {
     return view('modules.faqs.index');
 })->name('faqs');
