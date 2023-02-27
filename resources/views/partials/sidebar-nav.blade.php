@@ -107,28 +107,39 @@
             </a>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="{{ route('faqs') }}">
+            <a class="nav-link" data-toggle="collapse" href="#faq_nav" aria-expanded="false"
+                aria-controls="faq_nav">
                 <span class="menu-icon">
                     <i class="mdi mdi-frequently-asked-questions"></i>
                 </span>
                 <span class="menu-title">FAQs</span>
+                <i class="menu-arrow"></i>
             </a>
+            <div class="collapse" id="faq_nav">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link"
+                            href="#">Category</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('faqs') }}">FAQs</a></li>
+                </ul>
+            </div>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" data-toggle="collapse" href="#newsletter_nav" aria-expanded="false" aria-controls="newsletter_nav">
-              <span class="menu-icon">
-                <i class="mdi mdi-email-open-multiple"></i>
-              </span>
-              <span class="menu-title">Newsletter</span>
-              <i class="menu-arrow"></i>
+            <a class="nav-link" data-toggle="collapse" href="#newsletter_nav" aria-expanded="false"
+                aria-controls="newsletter_nav">
+                <span class="menu-icon">
+                    <i class="mdi mdi-email-open-multiple"></i>
+                </span>
+                <span class="menu-title">Newsletter</span>
+                <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="newsletter_nav">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{{ route('newsletter.subscribers') }}">Subscribers</a></li>
-                <li class="nav-item"> <a class="nav-link" href="{{ route('newsletter.mails') }}">Mails</a></li>
-              </ul>
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link"
+                            href="{{ route('newsletter.subscribers') }}">Subscribers</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('newsletter.mails') }}">Mails</a></li>
+                </ul>
             </div>
-          </li>
+        </li>
         <li class="nav-item menu-items">
             <a class="nav-link" href="{{ route('smtp') }}">
                 <span class="menu-icon">
