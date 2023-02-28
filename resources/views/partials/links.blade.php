@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="{{ asset('assets') }}/vendors/owl-carousel-2/owl.carousel.min.css">
 <link rel="stylesheet" href="{{ asset('assets') }}/vendors/owl-carousel-2/owl.theme.default.min.css">
 
-@yield('extra-links')
-
 <!-- Layout styles -->
 <link rel="stylesheet" href="{{ asset('assets') }}/css/style.css">
+
+@yield('extra-links')
