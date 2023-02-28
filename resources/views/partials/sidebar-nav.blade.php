@@ -55,9 +55,6 @@
                 </div>
             </div>
         </li>
-        <li class="nav-item nav-category">
-            <span class="nav-link">Navigation</span>
-        </li>
         <li class="nav-item menu-items">
             <a class="nav-link" href="{{ route('admin.dashboard') }}">
                 <span class="menu-icon">
@@ -66,12 +63,34 @@
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
+        <li class="nav-item nav-category">
+            <span class="nav-link">Blog</span>
+        </li>
+        <li class="nav-item menu-items">
+            <a class="nav-link" href="#">
+                <span class="menu-icon">
+                    <i class="mdi mdi-shape"></i>
+                </span>
+                <span class="menu-title">Categories</span>
+            </a>
+        </li>
+        <li class="nav-item menu-items">
+            <a class="nav-link" href="#">
+                <span class="menu-icon">
+                    <i class="mdi mdi-card-text"></i>
+                </span>
+                <span class="menu-title">Blogs</span>
+            </a>
+        </li>
+        <li class="nav-item nav-category">
+            <span class="nav-link">Contact</span>
+        </li>
         <li class="nav-item menu-items">
             <a class="nav-link" href="{{ route('contact_info') }}">
                 <span class="menu-icon">
                     <i class="mdi mdi-contacts"></i>
                 </span>
-                <span class="menu-title">Contact Info</span>
+                <span class="menu-title">Contacts</span>
             </a>
         </li>
         <li class="nav-item menu-items">
@@ -79,7 +98,7 @@
                 <span class="menu-icon">
                     <i class="mdi mdi-account-question"></i>
                 </span>
-                <span class="menu-title">Contact Queries</span>
+                <span class="menu-title">Queries</span>
             </a>
         </li>
         <li class="nav-item menu-items">
@@ -87,15 +106,18 @@
                 <span class="menu-icon">
                     <i class="mdi mdi-facebook"></i>
                 </span>
-                <span class="menu-title">Social Links</span>
+                <span class="menu-title">Social</span>
             </a>
+        </li>
+        <li class="nav-item nav-category">
+            <span class="nav-link">General</span>
         </li>
         <li class="nav-item menu-items">
             <a class="nav-link" href="{{ route('terms_and_conditions') }}">
                 <span class="menu-icon">
                     <i class="mdi mdi-file-document-edit-outline"></i>
                 </span>
-                <span class="menu-title">Terms &amp; Conditions</span>
+                <span class="menu-title">Terms</span>
             </a>
         </li>
         <li class="nav-item menu-items">
@@ -103,32 +125,49 @@
                 <span class="menu-icon">
                     <i class="mdi mdi-shield"></i>
                 </span>
-                <span class="menu-title">Privacy Policies</span>
+                <span class="menu-title">Privacy</span>
             </a>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="{{ route('faqs') }}">
+            <a class="nav-link" data-toggle="collapse" href="#faq_nav" aria-expanded="false"
+                aria-controls="faq_nav">
                 <span class="menu-icon">
                     <i class="mdi mdi-frequently-asked-questions"></i>
                 </span>
                 <span class="menu-title">FAQs</span>
+                <i class="menu-arrow"></i>
             </a>
+            <div class="collapse" id="faq_nav">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link"
+                            href="#">Categories</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('faqs') }}">FAQs</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item nav-category">
+            <span class="nav-link">News</span>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" data-toggle="collapse" href="#newsletter_nav" aria-expanded="false" aria-controls="newsletter_nav">
-              <span class="menu-icon">
-                <i class="mdi mdi-email-open-multiple"></i>
-              </span>
-              <span class="menu-title">Newsletter</span>
-              <i class="menu-arrow"></i>
+            <a class="nav-link" data-toggle="collapse" href="#newsletter_nav" aria-expanded="false"
+                aria-controls="newsletter_nav">
+                <span class="menu-icon">
+                    <i class="mdi mdi-email-open-multiple"></i>
+                </span>
+                <span class="menu-title">Newsletter</span>
+                <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="newsletter_nav">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{{ route('newsletter.subscribers') }}">Subscribers</a></li>
-                <li class="nav-item"> <a class="nav-link" href="{{ route('newsletter.mails') }}">Mails</a></li>
-              </ul>
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link"
+                            href="{{ route('newsletter.subscribers') }}">Subscribers</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('newsletter.mails') }}">Mails</a></li>
+                </ul>
             </div>
-          </li>
+        </li>
+        <li class="nav-item nav-category">
+            <span class="nav-link">Settings</span>
+        </li>
         <li class="nav-item menu-items">
             <a class="nav-link" href="{{ route('smtp') }}">
                 <span class="menu-icon">

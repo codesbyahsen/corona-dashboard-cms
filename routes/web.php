@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BlogCategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,6 +42,31 @@ Route::get('/change-password', function () {
     return view('modules.profile.change-password');
 })->name('admin.change_password');
 
+# blog categories
+Route::controller(BlogCategoryController::class)->group(function () {
+    Route::prefix('blogs/categories')->group(function () {
+        Route::get('/', 'index')->name('blog_categories');
+        Route::get('/create', 'create')->name('blog_categories.create');
+        Route::post('/store', 'store')->name('blog_categories.store');
+        Route::get('/edit/{id}', 'edit')->name('blog_categories.edit');
+        Route::put('/update/{id}', 'update')->name('blog_categories.update');
+        Route::delete('/destroy/{id}', 'destroy')->name('blog_categories.destroy');
+    });
+});
+
+
+Route::get('/blogs', function () {
+    return view('modules.blogs.index');
+})->name('blogs');
+
+Route::get('/blogs/create', function () {
+    return view('modules.blogs.create');
+})->name('blogs.create');
+
+Route::get('/blogs/edit', function () {
+    return view('modules.blogs.edit');
+})->name('blogs.edit');
+
 Route::get('/contact-info', function () {
     return view('modules.contact-info.index');
 })->name('contact_info');
@@ -76,6 +102,18 @@ Route::get('/terms', function () {
 Route::get('/privacy-policies', function () {
     return view('modules.privacy-policies.create-or-edit');
 })->name('privacy_policies');
+
+Route::get('/faqs/categories', function () {
+    return view('modules.faqs.categories.index');
+})->name('faq_categories');
+
+Route::get('/faqs/categories/create', function () {
+    return view('modules.faqs.categories.create');
+})->name('faq_categories.create');
+
+Route::get('/faqs/categories/edit', function () {
+    return view('modules.faqs.categories.edit');
+})->name('faq_categories.edit');
 
 Route::get('/faqs', function () {
     return view('modules.faqs.index');
