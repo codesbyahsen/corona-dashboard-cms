@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BlogCategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,17 +42,18 @@ Route::get('/change-password', function () {
     return view('modules.profile.change-password');
 })->name('admin.change_password');
 
-Route::get('/blogs/categories', function () {
-    return view('modules.blogs.categories.index');
-})->name('blog_categories');
+# blog categories
+Route::controller(BlogCategoryController::class)->group(function () {
+    Route::prefix('blogs/categories')->group(function () {
+        Route::get('/', 'index')->name('blog_categories');
+        Route::get('/create', 'create')->name('blog_categories.create');
+        Route::post('/store', 'store')->name('blog_categories.store');
+        Route::get('/edit/{id}', 'edit')->name('blog_categories.edit');
+        Route::put('/update/{id}', 'update')->name('blog_categories.update');
+        Route::delete('/destroy/{id}', 'destroy')->name('blog_categories.destroy');
+    });
+});
 
-Route::get('/blogs/categories/create', function () {
-    return view('modules.blogs.categories.create');
-})->name('blog_categories.create');
-
-Route::get('/blogs/categories/edit', function () {
-    return view('modules.blogs.categories.edit');
-})->name('blog_categories.edit');
 
 Route::get('/blogs', function () {
     return view('modules.blogs.index');
