@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 class BlogCategoryController extends Controller
 {
     public $blogCategory;
+    const TITLE = 'Blog Categories';
 
     public function __construct(BlogCategory $blogCategory)
     {
@@ -68,7 +69,7 @@ class BlogCategoryController extends Controller
         if (!$result) {
             return back()->with('error', 'Something went wrong, try again!');
         }
-        return redirect()->route('blog_categories')->with('success', 'Category created successfully.');
+        return redirect()->route('blog_categories')->with('success', 'Category updated successfully.');
     }
 
     /**

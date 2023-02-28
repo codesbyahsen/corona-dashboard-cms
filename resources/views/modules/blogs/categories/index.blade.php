@@ -4,6 +4,7 @@
 
 @section('extra-links')
     <link rel="stylesheet" href="{{ asset('assets/vendors/datatables/datatables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/toastr/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/sweetalert2/borderless.min.css') }}">
 @endsection
 
@@ -67,60 +68,10 @@
 
 @push('extra-scripts')
     <script src="{{ asset('assets/vendors/datatables/datatables.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/toastr/toastr.min.js') }}"></script>
+    <x-toastr-notification />
     <script src="{{ asset('assets/vendors/sweetalert2/sweetalert2.min.js') }}"></script>
-
-    <script type="text/javascript">
-        function confirmToDelete(url) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!',
-                customClass: {
-                    confirmButton: 'btn btn-primary',
-                    cancelButton: 'btn btn-outline-danger ml-2'
-                },
-                buttonsStyling: false
-            }).then(function(e) {
-                if (e.value === true) {
-                    $.ajax({
-                        type: 'DELETE',
-                        url: url,
-                        data: {
-                            _token: '{{ csrf_token() }}'
-                        },
-                        dataType: 'JSON',
-                        success: function(result) {
-                            if (result.success === true) {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Deleted!',
-                                    text: result.message,
-                                    customClass: {
-                                        confirmButton: 'btn btn-success'
-                                    }
-                                }).then(function() {
-                                    location.reload();
-                                });
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Oops...!',
-                                    text: result.message,
-                                    customClass: {
-                                        confirmButton: 'btn btn-success'
-                                    }
-                                }).then(function() {
-                                    location.reload();
-                                });
-                            }
-                        }
-                    });
-                }
-            });
-        }
-    </script>
+    <x-sweet-alert />
     <script>
         $(document).ready(function() {
             $('#faqs').DataTable();
