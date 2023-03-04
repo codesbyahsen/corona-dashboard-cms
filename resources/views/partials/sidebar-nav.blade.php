@@ -67,7 +67,7 @@
             <span class="nav-link">Blog</span>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('blog_categories') }}">
                 <span class="menu-icon">
                     <i class="mdi mdi-shape"></i>
                 </span>
@@ -75,7 +75,7 @@
             </a>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('blogs') }}">
                 <span class="menu-icon">
                     <i class="mdi mdi-card-text"></i>
                 </span>

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class BlogCategory extends Model
+class Blog extends Model
 {
     use HasFactory;
 
@@ -16,7 +16,18 @@ class BlogCategory extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'image',
+        'heading',
+        'title',
+        'sub_title',
+        'quote',
+        'description',
+        'is_active'
+    ];
+
+    const STATUS_ACTIVE = 1;
+    const STATUS_INACTIVE = 0;
 
     /**
      * Get the collection of data
@@ -33,7 +44,7 @@ class BlogCategory extends Model
      */
     public function get($id)
     {
-        return $this->find($id);
+        return $this->where('id', $id)->with('blogCategories')->first();
     }
 
     /**
@@ -51,8 +62,8 @@ class BlogCategory extends Model
 
     // ==============================| Relations |============================== //
 
-    public function blogs(): BelongsToMany
+    public function blogCategories(): BelongsToMany
     {
-        return $this->belongsToMany(Blog::class, 'category_blog');
+        return $this->belongsToMany(BlogCategory::class, 'category_blog');
     }
 }

@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 class BlogCategoryController extends Controller
 {
     public $blogCategory;
-    const TITLE = 'Blog Categories';
 
     public function __construct(BlogCategory $blogCategory)
     {
@@ -24,7 +23,7 @@ class BlogCategoryController extends Controller
     public function index()
     {
         $blogCategories = $this->blogCategory->getAll();
-        return view('modules.blogs.categories.index', compact('blogCategories'));
+        return view('modules.blog-categories.index', compact('blogCategories'));
     }
 
     /**
@@ -32,7 +31,7 @@ class BlogCategoryController extends Controller
      */
     public function create()
     {
-        return view('modules.blogs.categories.create');
+        return view('modules.blog-categories.create');
     }
 
     /**
@@ -55,7 +54,7 @@ class BlogCategoryController extends Controller
     {
         $id = decrypt($id);
         $blogCategory = $this->blogCategory->get($id);
-        return view('modules.blogs.categories.edit', compact('blogCategory'));
+        return view('modules.blog-categories.edit', compact('blogCategory'));
     }
 
     /**
