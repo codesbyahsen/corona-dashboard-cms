@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\BlogCategoryController;
+use App\Http\Controllers\Admin\BlogController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,7 +45,7 @@ Route::get('/change-password', function () {
 
 # blog categories
 Route::controller(BlogCategoryController::class)->group(function () {
-    Route::prefix('blogs/categories')->group(function () {
+    Route::prefix('blog/categories')->group(function () {
         Route::get('/', 'index')->name('blog_categories');
         Route::get('/create', 'create')->name('blog_categories.create');
         Route::post('/store', 'store')->name('blog_categories.store');
@@ -54,18 +55,20 @@ Route::controller(BlogCategoryController::class)->group(function () {
     });
 });
 
+# blogs
+Route::controller(BlogController::class)->group(function () {
+    Route::prefix('blogs')->group(function () {
+        Route::get('/', 'index')->name('blogs');
+        Route::get('/show', 'show')->name('blogs.show');
+        Route::get('/create', 'create')->name('blogs.create');
+        Route::post('/store', 'store')->name('blogs.store');
+        Route::get('/edit/{id}', 'edit')->name('blogs.edit');
+        Route::put('/update/{id}', 'update')->name('blogs.update');
+        Route::put('/status-update/{id}', 'updateStatus')->name('blogs_status.update');
+        Route::delete('/destroy/{id}', 'destroy')->name('blogs.destroy');
+    });
+});
 
-Route::get('/blogs', function () {
-    return view('modules.blogs.index');
-})->name('blogs');
-
-Route::get('/blogs/create', function () {
-    return view('modules.blogs.create');
-})->name('blogs.create');
-
-Route::get('/blogs/edit', function () {
-    return view('modules.blogs.edit');
-})->name('blogs.edit');
 
 Route::get('/contact-info', function () {
     return view('modules.contact-info.index');
