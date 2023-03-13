@@ -30,33 +30,59 @@ class Blog extends Model
     const STATUS_INACTIVE = 0;
 
     /**
-     * Get the collection of data
+     * Get the collection of blogs
      */
-    public function getAll(): Collection
+    public function getAllBlogs(): Collection
     {
         return $this->all();
     }
 
     /**
-     * Get the specified record
-     *
-     * @param int  $id
+     * Get the specified blog record
      */
-    public function get($id)
+    public function getBlog($id)
     {
-        return $this->where('id', $id)->with('blogCategories')->first();
+        return $this->find($id);
     }
 
     /**
-     * Get the specified column value
-     *
-     * @param int  $id
-     * @param string  $attribute
-     * @return string
+     * Get the specified blog column value
      */
-    public function getColumnValue($id, $attribute): string
+    public function getBlogColumnValue($id, $attribute): string
     {
         return $this->where('id', $id)->value($attribute);
+    }
+
+    /**
+     * Store blog in storage.
+     */
+    public function createBlog(array $blogDetails)
+    {
+        return $this->create($blogDetails);
+    }
+
+    /**
+     * Update specified blog in storage.
+     */
+    public function updateBlog($id, array $blogDetails)
+    {
+        return $this->find($id)->update($blogDetails);
+    }
+
+    /**
+     * Update specified blog in storage.
+     */
+    public function updateBlogStatus($id, array $blogStatus)
+    {
+        return $this->find($id)->update($blogStatus);
+    }
+
+    /**
+     * Destroy specified blog from storage.
+     */
+    public function destroyBlog($id)
+    {
+        return $this->find($id)->delete();
     }
 
 
