@@ -30,8 +30,8 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = $this->blog->getAll();
-        return view('modules.blogs.index', compact('blogs'));
+        $blogs = $this->blog->getAllBlogs();
+        return view('admin.modules.blogs.index', compact('blogs'));
     }
 
     /**
@@ -39,8 +39,8 @@ class BlogController extends Controller
      */
     public function create()
     {
-        $blogCategories = $this->blogCategory->getAll();
-        return view('modules.blogs.create', compact('blogCategories'));
+        $blogCategories = $this->blogCategory->getAllBlogCategories();
+        return view('admin.modules.blogs.create', compact('blogCategories'));
     }
 
     /**
@@ -50,13 +50,13 @@ class BlogController extends Controller
     {
         $imageName = null;
         if ($request->hasFile('image')) {
-            $imageName = 'blog_' . time() . '.' . $request->image->extension();
+            $imageName = 'blog_' . uniqid() . '_' . time() . '.' . $request->image->extension();
         }
 
         // replace image value with custom image name
-        $blog = array_replace($request->validated(), array('image' => $imageName));
+        $blogDetails = array_replace($request->validated(), array('image' => $imageName));
 
-        $result = $this->blog->create($blog);
+        $result = $this->blog->createBlog($blogDetails);
 
         // store blog categories
         if (isset($result)) {
@@ -70,7 +70,7 @@ class BlogController extends Controller
         if (!$result) {
             return back()->with('error', 'Something went wrong, try again!');
         }
-        return redirect()->route('blogs')->with('success', 'Blog created successfully.');
+        return redirect()->route('blogs')->with('success', 'The blog created successfully.');
     }
 
     /**
@@ -87,9 +87,9 @@ class BlogController extends Controller
     public function edit(string $id)
     {
         $id = decrypt($id);
-        $blogCategories = $this->blogCategory->getAll();
-        $blog = $this->blog->get($id);
-        return view('modules.blogs.edit', compact('blog', 'blogCategories'));
+        $blogCategories = $this->blogCategory->getAllBlogCategories();
+        $blog = $this->blog->getBlog($id);
+        return view('admin.modules.blogs.edit', compact('blog', 'blogCategories'));
     }
 
     /**
@@ -100,21 +100,21 @@ class BlogController extends Controller
         $id = decrypt($id);
         $imageName = null;
         if ($request->hasFile('image')) {
-            $imageName = 'blog_' . time() . '.' . $request->image->extension();
+            $imageName = 'blog_' . uniqid() . '_' . time() . '.' . $request->image->extension();
         } else {
-            $imageName = $this->blog->getColumnValue($id, 'image');
+            $imageName = $this->blog->getBlogColumnValue($id, 'image');
         }
 
         // replace image value with custom image name
         $blog = array_replace($request->validated(), array('image' => $imageName));
 
-        $result = $this->blog->get($id)->update($blog);
+        $result = $this->blog->updateBlog($id, $blog);
         $this->handleUploadFile($request->image, self::PATH_BLOG_IMAGE, $imageName);
 
         if (!$result) {
             return back()->with('error', 'Something went wrong, try again!');
         }
-        return redirect()->route('blogs')->with('success', 'Blog updated successfully.');
+        return redirect()->route('blogs')->with('success', 'The blog updated successfully.');
     }
 
     /**
@@ -123,10 +123,10 @@ class BlogController extends Controller
     public function updateStatus($id)
     {
         $id = decrypt($id);
-        $blog = $this->blog->get($id);
+        $blog = $this->blog->getBlog($id);
         $status = ($blog->is_active == Blog::STATUS_ACTIVE ? Blog::STATUS_INACTIVE : Blog::STATUS_ACTIVE);
-        // dd($status);
-        $result = $this->blog->get($id)->update(['is_active' => $status]);
+        $blogStatus = array('is_active' => $status);
+        $result = $this->blog->updateBlogStatus($id, $blogStatus);
 
         if (!isset($result)) {
             return back()->with('error', 'Something went wrong, try again!');
@@ -140,11 +140,11 @@ class BlogController extends Controller
     public function destroy(string $id)
     {
         $id = decrypt($id);
-        $result = $this->blog->get($id)->delete();
+        $result = $this->blog->destroyBlog($id);
 
         if (!$result) {
             return response()->json(['success' => false, 'message' => 'Something went wrong, try again!']);
         }
-        return response()->json(['success' => true, 'message' => 'Blog deleted successfully'], 200);
+        return response()->json(['success' => true, 'message' => 'The blog deleted successfully'], 200);
     }
 }

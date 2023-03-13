@@ -29,9 +29,9 @@ class StoreRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'The category name field is required.',
-            'name.unique' => 'The category name has already been taken.',
-            'name.max' => 'The category name must not be greater than 50 characters.'
+            'name.required' => __('The category name field is required.'),
+            'name.unique' => __('The category name has already been taken.'),
+            'name.max' => __('The category name must not be greater than 50 characters.')
         ];
     }
 }
