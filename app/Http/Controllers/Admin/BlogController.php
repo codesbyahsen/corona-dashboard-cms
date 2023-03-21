@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Blog;
 use App\Traits\FileUpload;
 use App\Models\BlogCategory;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Blog\StoreRequest;

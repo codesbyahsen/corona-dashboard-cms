@@ -86,7 +86,7 @@
             <span class="nav-link">Contact</span>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="{{ route('contact_info') }}">
+            <a class="nav-link" href="{{ route('contacts') }}">
                 <span class="menu-icon">
                     <i class="mdi mdi-contacts"></i>
                 </span>

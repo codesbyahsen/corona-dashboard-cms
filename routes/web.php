@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\ContactController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,7 +44,7 @@ Route::get('/change-password', function () {
     return view('admin.modules.profile.change-password');
 })->name('admin.change_password');
 
-# blog categories
+# blog category
 Route::controller(BlogCategoryController::class)->group(function () {
     Route::prefix('blog/categories')->group(function () {
         Route::get('/', 'index')->name('blog.categories');
@@ -55,7 +56,7 @@ Route::controller(BlogCategoryController::class)->group(function () {
     });
 });
 
-# blogs
+# blog
 Route::controller(BlogController::class)->group(function () {
     Route::prefix('blogs')->group(function () {
         Route::get('/', 'index')->name('blogs');
@@ -69,22 +70,20 @@ Route::controller(BlogController::class)->group(function () {
     });
 });
 
+# contact
+Route::controller(ContactController::class)->group(function () {
+    Route::prefix('contacts')->group(function () {
+        Route::get('/', 'index')->name('contacts');
+        Route::get('/show/{id}', 'show')->name('contacts.show');
+        Route::get('/create', 'create')->name('contacts.create');
+        Route::post('/store', 'store')->name('contacts.store');
+        Route::get('/edit/{id}', 'edit')->name('contacts.edit');
+        Route::put('/update/{id}', 'update')->name('contacts.update');
+        Route::put('/status-update/{id}', 'updateStatus')->name('contacts_status.update');
+        Route::delete('/destroy/{id}', 'destroy')->name('contacts.destroy');
+    });
+});
 
-Route::get('/contact-info', function () {
-    return view('admin.modules.contact-info.index');
-})->name('contact_info');
-
-Route::get('/contact-info/show', function () {
-    return view('admin.modules.contact-info.show');
-})->name('contact_info.show');
-
-Route::get('/contact-info/create', function () {
-    return view('admin.modules.contact-info.create');
-})->name('contact_info.create');
-
-Route::get('/contact-info/edit', function () {
-    return view('admin.modules.contact-info.edit');
-})->name('contact_info.edit');
 
 Route::get('/contact-queries', function () {
     return view('admin.modules.contact-queries.index');

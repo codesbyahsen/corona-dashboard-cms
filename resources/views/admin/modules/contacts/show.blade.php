@@ -1,16 +1,16 @@
 @extends('admin.layout.app')
 
-@section('title', 'Show Contact Info')
+@section('title', 'Contact Details')
 
 @section('page-content')
     <div class="content-wrapper">
         <div class="page-header">
-            <h3 class="page-title"> Show Contact Info </h3>
+            <h3 class="page-title"> Contact Details </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('contact_info') }}">Contact Info</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Show Contact Info</li>
+                    <li class="breadcrumb-item"><a href="{{ route('contacts') }}">Contacts</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Contact Details</li>
                 </ol>
             </nav>
         </div>
@@ -20,42 +20,49 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
-                            <a href="{{ url()->previous() }}" title="Back" class="mb-3">
+                            <a href="javascript:void(0)" onclick="history.back()" title="Back" class="mb-3">
                                 <i class="mdi mdi-arrow-left"></i>
                               </a>
-                            <span class="timestamp text-muted">Sent: 1 minute ago</span>
+                            <span class="timestamp text-muted">Created: {{ $contact->created_at->diffForHumans() ?? '' }}</span>
+                        </div>
+                        <div class="py-2">
+                            <a href="{{ route('contacts.edit', encrypt($contact->id)) }}" class="btn btn-dark btn-icon-text" title="Edit">
+                                <i class="mdi mdi-square-edit-outline btn-icon-append"></i>
+                            </a>
                         </div>
                         <div class="row pt-2">
                             <div class="col-12">
-                                <small class="font-weight-light text-muted">Contact Type: Head Office</small>
+                                <small class="font-weight-light text-muted">Contact Type: {{ ($contact->type == config('constants.CONTACT_TYPE_HEAD_OFFICE')) ? 'Head Office' : 'Sub Office' }}</small>
                             </div>
                         </div>
                         <div class="row pt-3">
                             <div class="col-md-6">
                                 <label for="title" class="font-weight-light d-block">Title:</label>
-                                <p id="title">Head Office RYK</p>
+                                <p id="title">{{ $contact->title ?? '' }}</p>
                             </div>
                             <div class="col-md-6">
                                 <label for="email" class="font-weight-light d-block">Email:</label>
-                                <p id="email">headoffice@gmail.com</p>
+                                <p id="email">{{ $contact->email ?? '' }}</p>
                             </div>
                         </div>
 
                         <div class="row pt-2">
                             <div class="col-md-6">
                                 <label for="phone" class="font-weight-light d-block">Phone:</label>
-                                <p id="phone">0334 4090444</p>
+                                <p id="phone">{{ $contact->phone ?? '' }}</p>
                             </div>
                             <div class="col-md-6">
                                 <label for="mobile" class="font-weight-light d-block">Mobile:</label>
-                                <p id="mobile">0301 8549444</p>
+                                <p id="mobile">{{ $contact->mobile ?? '' }}</p>
                             </div>
                         </div>
 
                         <div class="row pt-2">
                             <div class="col-12">
                                 <label for="address" class="font-weight-light d-block">Address:</label>
-                                <p id="address">16-C, Block Z, Scheme No. 3, Gulshan Iqbal, Rahim Yar Khan, Punjab, Pakistan, 64200.</p>
+                                <p id="address">
+                                    {{ ($contact->address_line_one ?? '') . ($contact->address_line_one ? ', ' : '') . ($contact->address_line_two ?? '') . ($contact->address_line_two ? ', ' : '') . ($contact->city ?? '') . ($contact->city ? ', ' : '') . ($contact->state ?? '') . ($contact->state ? ', ' : '') . ($contact->country ?? '') . ($contact->country ? ', ' : '') . ($contact->post_code ?? '') }}.
+                                </p>
                             </div>
                         </div>
 
