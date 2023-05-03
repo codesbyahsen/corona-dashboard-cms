@@ -10,8 +10,7 @@ use Illuminate\Http\Request;
 
 class BlogCategoryController extends Controller
 {
-    public $blogCategory;
-    const TITLE = 'Blog Categories';
+    public BlogCategory $blogCategory;
 
     public function __construct(BlogCategory $blogCategory)
     {
@@ -23,8 +22,8 @@ class BlogCategoryController extends Controller
      */
     public function index()
     {
-        $blogCategories = $this->blogCategory->getAll();
-        return view('modules.blogs.categories.index', compact('blogCategories'));
+        $blogCategories = $this->blogCategory->getAllBlogCategories();
+        return view('admin.modules.blog-categories.index', compact('blogCategories'));
     }
 
     /**
@@ -32,7 +31,7 @@ class BlogCategoryController extends Controller
      */
     public function create()
     {
-        return view('modules.blogs.categories.create');
+        return view('admin.modules.blog-categories.create');
     }
 
     /**
@@ -40,12 +39,12 @@ class BlogCategoryController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $result = $this->blogCategory->create($request->validated());
+        $result = $this->blogCategory->createBlogCategory($request->validated());
 
         if (!$result) {
             return back()->with('error', 'Something went wrong, try again!');
         }
-        return redirect()->route('blog_categories')->with('success', 'Category created successfully.');
+        return redirect()->route('blog.categories')->with('success', 'The blog category created successfully.');
     }
 
     /**
@@ -54,8 +53,8 @@ class BlogCategoryController extends Controller
     public function edit(string $id)
     {
         $id = decrypt($id);
-        $blogCategory = $this->blogCategory->get($id);
-        return view('modules.blogs.categories.edit', compact('blogCategory'));
+        $blogCategory = $this->blogCategory->getBlogCategory($id);
+        return view('admin.modules.blog-categories.edit', compact('blogCategory'));
     }
 
     /**
@@ -64,12 +63,12 @@ class BlogCategoryController extends Controller
     public function update(UpdateRequest $request, string $id)
     {
         $id = decrypt($id);
-        $result = $this->blogCategory->get($id)->update($request->validated());
+        $result = $this->blogCategory->updateBlogCategory($id, $request->validated());
 
         if (!$result) {
             return back()->with('error', 'Something went wrong, try again!');
         }
-        return redirect()->route('blog_categories')->with('success', 'Category updated successfully.');
+        return redirect()->route('blog.categories')->with('success', 'The blog category updated successfully.');
     }
 
     /**
@@ -78,11 +77,11 @@ class BlogCategoryController extends Controller
     public function destroy(string $id)
     {
         $id = decrypt($id);
-        $result = $this->blogCategory->get($id)->delete();
+        $result = $this->blogCategory->destroyBlogCategory($id);
 
         if (!$result) {
             return response()->json(['success' => false, 'message' => 'Something went wrong, try again!']);
         }
-        return response()->json(['success' => true, 'message' => 'Category deleted successfully'], 200);
+        return response()->json(['success' => true, 'message' => 'The blog category deleted successfully'], 200);
     }
 }
