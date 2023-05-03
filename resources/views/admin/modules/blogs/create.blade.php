@@ -2,7 +2,7 @@
 
 @section('title', 'Create Blog')
 
-@section('extra-links')
+@section('injected-links')
     <link rel="stylesheet" href="{{ asset('assets/vendors/dropify/dropify.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/select2/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/summernote/dist/summernote-bs4.css') }}">
@@ -127,7 +127,7 @@
     </div>
 @endsection
 
-@push('extra-scripts')
+@push('injected-scripts')
     <script src="{{ asset('assets/vendors/dropify/dropify.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/select2/select2.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/summernote/dist/summernote-bs4.min.js') }}"></script>

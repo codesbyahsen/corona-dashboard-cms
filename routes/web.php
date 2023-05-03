@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\ContactController;
+use App\Http\Controllers\Admin\SystemSettings\GeneralSetupController;
+use App\Http\Controllers\Admin\SystemSettings\MailConfigurationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +17,51 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::prefix('admin')->as('admin.')->group(function () {
+    # blog category
+    Route::controller(BlogCategoryController::class)->prefix('blog/categories')->group(function () {
+        Route::get('/', 'index')->name('blog.categories');
+        Route::get('/create', 'create')->name('blog.categories.create');
+        Route::post('/store', 'store')->name('blog.categories.store');
+        Route::get('/edit/{id}', 'edit')->name('blog.categories.edit');
+        Route::put('/update/{id}', 'update')->name('blog.categories.update');
+        Route::delete('/destroy/{id}', 'destroy')->name('blog.categories.destroy');
+    });
+
+    # blog
+    Route::controller(BlogController::class)->prefix('blogs')->group(function () {
+        Route::get('/', 'index')->name('blogs');
+        Route::get('/show/{id}', 'show')->name('blogs.show');
+        Route::get('/create', 'create')->name('blogs.create');
+        Route::post('/store', 'store')->name('blogs.store');
+        Route::get('/edit/{id}', 'edit')->name('blogs.edit');
+        Route::put('/update/{id}', 'update')->name('blogs.update');
+        Route::put('/status-update/{id}', 'updateStatus')->name('blogs_status.update');
+        Route::delete('/destroy/{id}', 'destroy')->name('blogs.destroy');
+    });
+
+    # mail configuration
+    Route::controller(MailConfigurationController::class)->prefix('mail-config')->group(function () {
+        Route::get('/', 'index')->name('smtp');
+        Route::get('/show', 'show')->name('smtp.show');
+        Route::get('/create', 'create')->name('smtp.create');
+        Route::get('/edit', 'edit')->name('smtp.edit');
+    });
+
+    # contact
+    Route::controller(ContactController::class)->prefix('contacts')->group(function () {
+        Route::get('/', 'index')->name('contacts');
+        Route::get('/show/{id}', 'show')->name('contacts.show');
+        Route::get('/create', 'create')->name('contacts.create');
+        Route::post('/store', 'store')->name('contacts.store');
+        Route::get('/edit/{id}', 'edit')->name('contacts.edit');
+        Route::put('/update/{id}', 'update')->name('contacts.update');
+        Route::put('/status-update/{id}', 'updateStatus')->name('contacts_status.update');
+        Route::delete('/destroy/{id}', 'destroy')->name('contacts.destroy');
+    });
+});
+
 
 Route::get('/login', function () {
     return view('admin.modules.authentication.login');
@@ -44,46 +91,6 @@ Route::get('/change-password', function () {
     return view('admin.modules.profile.change-password');
 })->name('admin.change_password');
 
-# blog category
-Route::controller(BlogCategoryController::class)->group(function () {
-    Route::prefix('blog/categories')->group(function () {
-        Route::get('/', 'index')->name('blog.categories');
-        Route::get('/create', 'create')->name('blog.categories.create');
-        Route::post('/store', 'store')->name('blog.categories.store');
-        Route::get('/edit/{id}', 'edit')->name('blog.categories.edit');
-        Route::put('/update/{id}', 'update')->name('blog.categories.update');
-        Route::delete('/destroy/{id}', 'destroy')->name('blog.categories.destroy');
-    });
-});
-
-# blog
-Route::controller(BlogController::class)->group(function () {
-    Route::prefix('blogs')->group(function () {
-        Route::get('/', 'index')->name('blogs');
-        Route::get('/show/{id}', 'show')->name('blogs.show');
-        Route::get('/create', 'create')->name('blogs.create');
-        Route::post('/store', 'store')->name('blogs.store');
-        Route::get('/edit/{id}', 'edit')->name('blogs.edit');
-        Route::put('/update/{id}', 'update')->name('blogs.update');
-        Route::put('/status-update/{id}', 'updateStatus')->name('blogs_status.update');
-        Route::delete('/destroy/{id}', 'destroy')->name('blogs.destroy');
-    });
-});
-
-# contact
-Route::controller(ContactController::class)->group(function () {
-    Route::prefix('contacts')->group(function () {
-        Route::get('/', 'index')->name('contacts');
-        Route::get('/show/{id}', 'show')->name('contacts.show');
-        Route::get('/create', 'create')->name('contacts.create');
-        Route::post('/store', 'store')->name('contacts.store');
-        Route::get('/edit/{id}', 'edit')->name('contacts.edit');
-        Route::put('/update/{id}', 'update')->name('contacts.update');
-        Route::put('/status-update/{id}', 'updateStatus')->name('contacts_status.update');
-        Route::delete('/destroy/{id}', 'destroy')->name('contacts.destroy');
-    });
-});
-
 
 Route::get('/contact-queries', function () {
     return view('admin.modules.contact-queries.index');
@@ -98,11 +105,11 @@ Route::get('/social-links', function () {
 })->name('social_links');
 
 Route::get('/terms', function () {
-    return view('admin.modules.terms-and-conditions.create-or-edit');
+    return view('admin.modules.terms.create-or-edit');
 })->name('terms_and_conditions');
 
 Route::get('/privacy-policies', function () {
-    return view('admin.modules.privacy-policies.create-or-edit');
+    return view('admin.modules.privacy.create-or-edit');
 })->name('privacy_policies');
 
 Route::get('/faqs/categories', function () {
@@ -153,22 +160,4 @@ Route::get('/newsletter/edit', function () {
     return view('admin.modules.newsletter.edit');
 })->name('newsletter.edit');
 
-Route::get('/mail-configuration', function () {
-    return view('admin.modules.mail-configuration.index');
-})->name('smtp');
-
-Route::get('/mail-configuration/show', function () {
-    return view('admin.modules.mail-configuration.show');
-})->name('smtp.show');
-
-Route::get('/mail-configuration/create', function () {
-    return view('admin.modules.mail-configuration.create');
-})->name('smtp.create');
-
-Route::get('/mail-configuration/edit', function () {
-    return view('admin.modules.mail-configuration.edit');
-})->name('smtp.edit');
-
-Route::get('/general-settings', function () {
-    return view('admin.modules.general-settings.create-or-edit');
-})->name('general_settings');
+Route::get('/general-settings', [GeneralSetupController::class, 'index'])->name('general_settings');

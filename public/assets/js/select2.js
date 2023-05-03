@@ -1,6 +1,9 @@
 (function($) {
   'use strict';
 
+  if ($('.countries').length) {
+    $(".countries").select2();
+  }
   if ($(".js-example-basic-single").length) {
     $(".js-example-basic-single").select2();
   }
