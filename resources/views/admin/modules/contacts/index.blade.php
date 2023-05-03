@@ -50,13 +50,22 @@
                                             <td>{{ $headOffice->title ?? '' }}</td>
                                             <td>{{ $headOffice->phone ?? '' }}</td>
                                             <td>{{ $headOffice->email ?? '' }}</td>
-                                            <td><button type="button"
-                                                    class="btn btn-inverse-success btn-rounded btn-fw">Active</button></td>
+                                            <td>
+                                                <form action="{{ route('contacts_status.update', encrypt($headOffice->id)) }}"
+                                                    method="POST">
+                                                    @csrf @method('PUT')
+                                                    <button type="submit" style="border: none; background: none;">
+                                                        <span
+                                                            class="badge rounded-pill {{ $headOffice->is_active == config('constants.CONTACT_STATUS_ACTIVE') ? 'btn-inverse-success' : 'btn-inverse-danger' }}">{{ $headOffice->is_active == config('constants.CONTACT_STATUS_ACTIVE') ? 'Active' : 'Disabled' }}
+                                                        </span>
+                                                    </button>
+                                                </form>
+                                            </td>
                                             <td>
                                                 <a href="{{ route('contacts.show', encrypt($headOffice->id ?? '')) }}"
                                                     title="View details"><i class="mdi mdi-file-eye"></i></a>
-                                                    <a href="{{ route('contacts.edit', encrypt($headOffice->id ?? '')) }}"
-                                                        title="Edit"><i class="mdi mdi-square-edit-outline"></i></a>
+                                                <a href="{{ route('contacts.edit', encrypt($headOffice->id ?? '')) }}"
+                                                    title="Edit"><i class="mdi mdi-square-edit-outline"></i></a>
                                             </td>
                                         </tr>
                                     </tbody>
