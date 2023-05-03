@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Requests\BlogCategory;
+namespace App\Http\Requests\Blog;
 
+use Illuminate\Validation\Rules\File;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRequest extends FormRequest
@@ -22,16 +23,13 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'unique:blog_categories,name,'. decrypt($this->id), 'max:50']
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'name.required' => __('The category name field is required.'),
-            'name.unique' => __('The category name has already been taken.'),
-            'name.max' => __('The category name must not be greater than 50 characters.')
+            'image' => ['required', File::types(['png', 'jpg', 'jpeg'])->max(1024)],
+            'heading' => ['required', 'min:3'],
+            'title' => ['required', 'unique:blogs,title,' . decrypt($this->id)],
+            'sub_title' => ['nullable'],
+            'category' => ['required', 'distinct'],
+            'quote' => ['nullable', 'max:220'],
+            'description' => ['required', 'max:10000'],
         ];
     }
 }

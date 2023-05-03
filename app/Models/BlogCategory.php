@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class BlogCategory extends Model
 {
@@ -18,32 +19,58 @@ class BlogCategory extends Model
     protected $fillable = ['name'];
 
     /**
-     * Get the collection of data
+     * Get the collection of blog categories
      */
-    public function getAll(): Collection
+    public function getAllBlogCategories(): Collection
     {
         return $this->all();
     }
 
     /**
-     * Get the specified record
-     *
-     * @param int  $id
+     * Get the specified blog category record
      */
-    public function get($id)
+    public function getBlogCategory($id)
     {
         return $this->find($id);
     }
 
     /**
      * Get the specified column value
-     *
-     * @param int  $id
-     * @param string  $attribute
-     * @return string
      */
-    public function getColumnValue($id, $attribute): string
+    public function getBlogCategoryColumnValue($id, $attribute): string
     {
         return $this->where('id', $id)->value($attribute);
+    }
+
+    /**
+     * Store blog category in storage.
+     */
+    public function createBlogCategory(array $blogCategoryDetails)
+    {
+        return $this->create($blogCategoryDetails);
+    }
+
+    /**
+     * Update specified blog category in storage.
+     */
+    public function updateBlogCategory($id, array $blogCategoryDetails)
+    {
+        return $this->find($id)->update($blogCategoryDetails);
+    }
+
+    /**
+     * Destroy specified blog category from storage.
+     */
+    public function destroyBlogCategory($id)
+    {
+        return $this->find($id)->delete();
+    }
+
+
+    // ==============================| Relations |============================== //
+
+    public function blogs(): BelongsToMany
+    {
+        return $this->belongsToMany(Blog::class, 'category_blog');
     }
 }
