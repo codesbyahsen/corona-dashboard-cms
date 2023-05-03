@@ -77,7 +77,10 @@ class BlogController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $id = decrypt($id);
+        $blog = $this->blog->getBlogWithCategories($id);
+        // dd($blog);
+        return view('admin.modules.blogs.show', compact('blog'));
     }
 
     /**

@@ -9,7 +9,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('smtp') }}">Mail Configurations</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.smtp') }}">Mail Configurations</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Show Mail Configuration</li>
                 </ol>
             </nav>

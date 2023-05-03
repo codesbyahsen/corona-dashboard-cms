@@ -15,4 +15,4 @@
 <script src="{{ asset('assets') }}/js/settings.js"></script>
 <script src="{{ asset('assets') }}/js/todolist.js"></script>
 
-@stack('extra-scripts')
+@stack('injected-scripts')

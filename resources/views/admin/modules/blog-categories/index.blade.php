@@ -71,7 +71,7 @@
     <script src="{{ asset('assets/vendors/toastr/toastr.min.js') }}"></script>
     <x-toastr-notification />
     <script src="{{ asset('assets/vendors/sweetalert2/sweetalert2.min.js') }}"></script>
-    <x-sweet-alert />
+    <script src="{{ asset('assets/js/custom.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('#faqs').DataTable();

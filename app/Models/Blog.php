@@ -46,6 +46,14 @@ class Blog extends Model
     }
 
     /**
+     * Get the specified blog record with its categories
+     */
+    public function getBlogWithCategories($id)
+    {
+        return $this->find($id)->with('blogCategories')->first();
+    }
+
+    /**
      * Get the specified blog column value
      */
     public function getBlogColumnValue($id, $attribute): string

@@ -70,8 +70,8 @@
                                             <td>
                                                 <a href="{{ route('blogs.show', encrypt($blog->id)) }}"
                                                     title="View details"><i class="mdi mdi-file-eye"></i></a>
-                                                <a href="{{ route('blogs.edit', encrypt($blog->id)) }}" title="Edit"><i
-                                                        class="mdi mdi-square-edit-outline"></i></a>
+                                                <a href="{{ route('blogs.edit', encrypt($blog->id)) }}" title="Edit">
+                                                    <i class="mdi mdi-square-edit-outline"></i></a>
                                                 <a href="javascript:void(0)"
                                                     onclick="confirmToDelete('{{ route('blogs.destroy', encrypt($blog->id)) }}')"
                                                     title="Delete"><i class="mdi mdi-delete-outline"></i></a>
@@ -93,7 +93,7 @@
     <script src="{{ asset('assets/vendors/toastr/toastr.min.js') }}"></script>
     <x-toastr-notification />
     <script src="{{ asset('assets/vendors/sweetalert2/sweetalert2.min.js') }}"></script>
-    <x-sweet-alert />
+    <script src="{{ asset('assets/js/custom.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('#faqs').DataTable();

@@ -67,7 +67,7 @@
             <span class="nav-link">Blog</span>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="{{ route('blog.categories') }}">
+            <a class="nav-link" href="{{ route('admin.blog.categories') }}">
                 <span class="menu-icon">
                     <i class="mdi mdi-shape"></i>
                 </span>
@@ -75,7 +75,7 @@
             </a>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="{{ route('blogs') }}">
+            <a class="nav-link" href="{{ route('admin.blogs') }}">
                 <span class="menu-icon">
                     <i class="mdi mdi-card-text"></i>
                 </span>
@@ -86,7 +86,7 @@
             <span class="nav-link">Contact</span>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="{{ route('contacts') }}">
+            <a class="nav-link" href="{{ route('admin.contacts') }}">
                 <span class="menu-icon">
                     <i class="mdi mdi-contacts"></i>
                 </span>
@@ -166,10 +166,26 @@
             </div>
         </li>
         <li class="nav-item nav-category">
-            <span class="nav-link">Settings</span>
+            <span class="nav-link">System Settings</span>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="{{ route('smtp') }}">
+            <a class="nav-link" href="{{ route('general_settings') }}">
+                <span class="menu-icon">
+                    <i class="mdi mdi-cogs"></i>
+                </span>
+                <span class="menu-title">General Setup</span>
+            </a>
+        </li>
+        <li class="nav-item menu-items">
+            <a class="nav-link" href="{{ route('general_settings') }}">
+                <span class="menu-icon">
+                    <i class="mdi mdi-tune"></i>
+                </span>
+                <span class="menu-title">Environment Setup</span>
+            </a>
+        </li>
+        <li class="nav-item menu-items">
+            <a class="nav-link" href="{{ route('admin.smtp') }}">
                 <span class="menu-icon">
                     <i class="mdi mdi-at"></i>
                 </span>
@@ -177,12 +193,21 @@
             </a>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="{{ route('general_settings') }}">
+            <a class="nav-link" data-toggle="collapse" href="#pages_media_nav" aria-expanded="false"
+                aria-controls="pages_media_nav">
                 <span class="menu-icon">
-                    <i class="mdi mdi-cogs"></i>
+                    <i class="mdi mdi-briefcase"></i>
                 </span>
-                <span class="menu-title">General Settings</span>
+                <span class="menu-title">Pages &amp; Social</span>
+                <i class="menu-arrow"></i>
             </a>
+            <div class="collapse" id="pages_media_nav">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link"
+                            href="{{ route('newsletter.subscribers') }}">Pages</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('newsletter.mails') }}">Social</a></li>
+                </ul>
+            </div>
         </li>
     </ul>
 </nav>
