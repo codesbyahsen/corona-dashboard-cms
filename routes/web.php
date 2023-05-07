@@ -32,32 +32,36 @@ Route::prefix('admin')->as('admin.')->group(function () {
     # blog
     Route::controller(BlogController::class)->prefix('blogs')->group(function () {
         Route::get('/', 'index')->name('blogs');
-        Route::get('/show/{id}', 'show')->name('blogs.show');
         Route::get('/create', 'create')->name('blogs.create');
         Route::post('/store', 'store')->name('blogs.store');
+        Route::get('/show/{id}', 'show')->name('blogs.show');
         Route::get('/edit/{id}', 'edit')->name('blogs.edit');
         Route::put('/update/{id}', 'update')->name('blogs.update');
-        Route::put('/status-update/{id}', 'updateStatus')->name('blogs_status.update');
+        Route::put('/update-status/{id}', 'updateStatus')->name('blogs.update.status');
         Route::delete('/destroy/{id}', 'destroy')->name('blogs.destroy');
     });
 
     # mail configuration
     Route::controller(MailConfigurationController::class)->prefix('mail-config')->group(function () {
         Route::get('/', 'index')->name('smtp');
-        Route::get('/show', 'show')->name('smtp.show');
         Route::get('/create', 'create')->name('smtp.create');
-        Route::get('/edit', 'edit')->name('smtp.edit');
+        Route::post('/store', 'store')->name('smtp.store');
+        Route::get('/show/{id}', 'show')->name('smtp.show');
+        Route::get('/edit/{id}', 'edit')->name('smtp.edit');
+        Route::put('/update/{id}', 'update')->name('smtp.update');
+        Route::patch('/update-status/{id}', 'updateStatus')->name('smtp.update.status');
+        Route::delete('/destroy/{id}', 'destroy')->name('smtp.destroy');
     });
 
     # contact
     Route::controller(ContactController::class)->prefix('contacts')->group(function () {
         Route::get('/', 'index')->name('contacts');
-        Route::get('/show/{id}', 'show')->name('contacts.show');
         Route::get('/create', 'create')->name('contacts.create');
         Route::post('/store', 'store')->name('contacts.store');
+        Route::get('/show/{id}', 'show')->name('contacts.show');
         Route::get('/edit/{id}', 'edit')->name('contacts.edit');
         Route::put('/update/{id}', 'update')->name('contacts.update');
-        Route::put('/status-update/{id}', 'updateStatus')->name('contacts_status.update');
+        Route::put('/update-status/{id}', 'updateStatus')->name('contacts.update.status');
         Route::delete('/destroy/{id}', 'destroy')->name('contacts.destroy');
     });
 });

@@ -31,7 +31,7 @@ class StoreRequest extends FormRequest
         return [
             'name.required' => __('The category name field is required.'),
             'name.unique' => __('The category name has already been taken.'),
-            'name.max' => __('The category name must not be greater than 50 characters.')
+            'name.max' => __('The category name must not be greater than :max characters.')
         ];
     }
 }

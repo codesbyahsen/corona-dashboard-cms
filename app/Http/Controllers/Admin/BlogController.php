@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Blog;
 use App\Traits\FileUpload;
-use App\Models\BlogCategory;
+use Illuminate\Http\Request;
+use App\Services\BlogService;
+use App\Services\BlogCategoryService;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Blog\StoreRequest;
@@ -14,14 +15,14 @@ class BlogController extends Controller
 {
     use FileUpload;
 
-    public Blog $blog;
-    public BlogCategory $blogCategory;
+    public BlogService $blogService;
+    public BlogCategoryService $blogCategoryService;
     const PATH_BLOG_IMAGE = 'blog/main-image';
 
-    public function __construct(Blog $blog, BlogCategory $blogCategory)
+    public function __construct(BlogService $blogService, BlogCategoryService $blogCategoryService)
     {
-        $this->blog = $blog;
-        $this->blogCategory = $blogCategory;
+        $this->blogService = $blogService;
+        $this->blogCategoryService = $blogCategoryService;
     }
 
     /**
@@ -29,7 +30,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = $this->blog->getAllBlogs();
+        $blogs = $this->blogService->getAllBlogs();
         return view('admin.modules.blogs.index', compact('blogs'));
     }
 
@@ -38,7 +39,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        $blogCategories = $this->blogCategory->getAllBlogCategories();
+        $blogCategories = $this->blogCategoryService->getAllBlogCategories();
         return view('admin.modules.blogs.create', compact('blogCategories'));
     }
 
@@ -53,9 +54,9 @@ class BlogController extends Controller
         }
 
         // replace image value with custom image name
-        $blogDetails = array_replace($request->validated(), array('image' => $imageName));
+        $blog = array_replace($request->validated(), array('image' => $imageName));
 
-        $result = $this->blog->createBlog($blogDetails);
+        $result = $this->blogService->createBlog($blog);
 
         // store blog categories
         if (isset($result)) {
@@ -67,7 +68,7 @@ class BlogController extends Controller
         $this->handleUploadFile($request->image, self::PATH_BLOG_IMAGE, $imageName);
 
         if (!$result) {
-            return back()->with('error', 'Something went wrong, try again!');
+            return back()->with('error', 'Failed to create blog, try again!');
         }
         return redirect()->route('blogs')->with('success', 'The blog created successfully.');
     }
@@ -78,8 +79,7 @@ class BlogController extends Controller
     public function show(string $id)
     {
         $id = decrypt($id);
-        $blog = $this->blog->getBlogWithCategories($id);
-        // dd($blog);
+        $blog = $this->blogService->getBlogWithCategories($id);
         return view('admin.modules.blogs.show', compact('blog'));
     }
 
@@ -89,8 +89,8 @@ class BlogController extends Controller
     public function edit(string $id)
     {
         $id = decrypt($id);
-        $blogCategories = $this->blogCategory->getAllBlogCategories();
-        $blog = $this->blog->getBlog($id);
+        $blogCategories = $this->blogCategoryService->getAllBlogCategories();
+        $blog = $this->blogService->getBlog($id);
         return view('admin.modules.blogs.edit', compact('blog', 'blogCategories'));
     }
 
@@ -104,17 +104,17 @@ class BlogController extends Controller
         if ($request->hasFile('image')) {
             $imageName = 'blog_' . uniqid() . '_' . time() . '.' . $request->image->extension();
         } else {
-            $imageName = $this->blog->getBlogColumnValue($id, 'image');
+            $imageName = $this->blogService->getBlogColumnValue($id, 'image');
         }
 
         // replace image value with custom image name
         $blog = array_replace($request->validated(), array('image' => $imageName));
 
-        $result = $this->blog->updateBlog($id, $blog);
+        $result = $this->blogService->updateBlog($id, $blog);
         $this->handleUploadFile($request->image, self::PATH_BLOG_IMAGE, $imageName);
 
         if (!$result) {
-            return back()->with('error', 'Something went wrong, try again!');
+            return back()->with('error', 'Failed to update blog, try again!');
         }
         return redirect()->route('blogs')->with('success', 'The blog updated successfully.');
     }
@@ -122,16 +122,13 @@ class BlogController extends Controller
     /**
      * Update the specified status in storage
      */
-    public function updateStatus($id)
+    public function updateStatus(Request $request, $id)
     {
         $id = decrypt($id);
-        $blog = $this->blog->getBlog($id);
-        $status = ($blog->is_active == Blog::STATUS_ACTIVE ? Blog::STATUS_INACTIVE : Blog::STATUS_ACTIVE);
-        $blogStatus = array('is_active' => $status);
-        $result = $this->blog->updateBlogStatus($id, $blogStatus);
+        $result = $this->blogService->updateBlogStatus($id, $request->is_active);
 
-        if (!isset($result)) {
-            return back()->with('error', 'Something went wrong, try again!');
+        if (!$result) {
+            return back()->with('error', 'Failed to update blog status, try again!');
         }
         return back();
     }
@@ -142,7 +139,7 @@ class BlogController extends Controller
     public function destroy(string $id)
     {
         $id = decrypt($id);
-        $result = $this->blog->destroyBlog($id);
+        $result = $this->blogService->destroyBlog($id);
 
         if (!$result) {
             return response()->json(['success' => false, 'message' => 'Something went wrong, try again!']);

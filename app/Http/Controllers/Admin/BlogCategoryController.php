@@ -5,16 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BlogCategory\StoreRequest;
 use App\Http\Requests\BlogCategory\UpdateRequest;
-use App\Models\BlogCategory;
-use Illuminate\Http\Request;
+use App\Services\BlogCategoryService;
 
 class BlogCategoryController extends Controller
 {
-    public BlogCategory $blogCategory;
+    public BlogCategoryService $blogCategoryService;
 
-    public function __construct(BlogCategory $blogCategory)
+    public function __construct(BlogCategoryService $blogCategoryService)
     {
-        $this->blogCategory = $blogCategory;
+        $this->blogCategoryService = $blogCategoryService;
     }
 
     /**
@@ -22,7 +21,7 @@ class BlogCategoryController extends Controller
      */
     public function index()
     {
-        $blogCategories = $this->blogCategory->getAllBlogCategories();
+        $blogCategories = $this->blogCategoryService->getAllBlogCategories();
         return view('admin.modules.blog-categories.index', compact('blogCategories'));
     }
 
@@ -39,10 +38,10 @@ class BlogCategoryController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $result = $this->blogCategory->createBlogCategory($request->validated());
+        $result = $this->blogCategoryService->createBlogCategory($request->validated());
 
         if (!$result) {
-            return back()->with('error', 'Something went wrong, try again!');
+            return back()->with('error', 'Failed to create blog category, try again!');
         }
         return redirect()->route('blog.categories')->with('success', 'The blog category created successfully.');
     }
@@ -53,7 +52,7 @@ class BlogCategoryController extends Controller
     public function edit(string $id)
     {
         $id = decrypt($id);
-        $blogCategory = $this->blogCategory->getBlogCategory($id);
+        $blogCategory = $this->blogCategoryService->getBlogCategory($id);
         return view('admin.modules.blog-categories.edit', compact('blogCategory'));
     }
 
@@ -63,10 +62,10 @@ class BlogCategoryController extends Controller
     public function update(UpdateRequest $request, string $id)
     {
         $id = decrypt($id);
-        $result = $this->blogCategory->updateBlogCategory($id, $request->validated());
+        $result = $this->blogCategoryService->updateBlogCategory($id, $request->validated());
 
         if (!$result) {
-            return back()->with('error', 'Something went wrong, try again!');
+            return back()->with('error', 'Failed to update blog category, try again!');
         }
         return redirect()->route('blog.categories')->with('success', 'The blog category updated successfully.');
     }
@@ -77,7 +76,7 @@ class BlogCategoryController extends Controller
     public function destroy(string $id)
     {
         $id = decrypt($id);
-        $result = $this->blogCategory->destroyBlogCategory($id);
+        $result = $this->blogCategoryService->destroyBlogCategory($id);
 
         if (!$result) {
             return response()->json(['success' => false, 'message' => 'Something went wrong, try again!']);
