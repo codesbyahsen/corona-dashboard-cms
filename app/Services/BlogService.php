@@ -20,15 +20,7 @@ class BlogService
      */
     public function getBlog(string $id): Blog
     {
-        return Blog::find($id);
-    }
-
-    /**
-     * Get record by id with its categories from database.
-     */
-    public function getBlogWithCategories(string $id): Blog
-    {
-        return Blog::whereId($id)->with('blogCategories')->first();
+        return Blog::with('blogCategories')->find($id);
     }
 
     /**
@@ -60,7 +52,9 @@ class BlogService
      */
     public function updateBlogStatus(string $id, $status): bool
     {
-        return (bool) Blog::whereId($id)->update(['is_active' => $status]);
+        return (bool) Blog::withoutTimestamps(function () use ($id, $status) {
+            Blog::find($id)->update(['is_active' => $status]);
+        });
     }
 
     /**

@@ -12,7 +12,7 @@ class GeneralSetupController extends Controller
      */
     public function index()
     {
-        return view('admin.modules.system-settings.general-setup.index');
+        return view('admin.modules.system-settings.system-setup.general');
     }
 
     /**

@@ -3,8 +3,12 @@
 use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\ContactController;
+use App\Http\Controllers\Admin\FaqCategoryController;
+use App\Http\Controllers\Admin\FaqController;
+use App\Http\Controllers\Admin\SystemSettings\EnvironmentSetupController;
 use App\Http\Controllers\Admin\SystemSettings\GeneralSetupController;
 use App\Http\Controllers\Admin\SystemSettings\MailConfigurationController;
+use App\Http\Controllers\Admin\SystemSettings\PageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,8 +41,31 @@ Route::prefix('admin')->as('admin.')->group(function () {
         Route::get('/show/{id}', 'show')->name('blogs.show');
         Route::get('/edit/{id}', 'edit')->name('blogs.edit');
         Route::put('/update/{id}', 'update')->name('blogs.update');
-        Route::put('/update-status/{id}', 'updateStatus')->name('blogs.update.status');
+        Route::patch('/update-status/{id}', 'updateStatus')->name('blogs.update.status');
         Route::delete('/destroy/{id}', 'destroy')->name('blogs.destroy');
+    });
+
+    # faq category
+    Route::controller(FaqCategoryController::class)->prefix('faq-categories')->group(function () {
+        Route::get('/', 'index')->name('faq_categories');
+        Route::get('/create', 'create')->name('faq_categories.create');
+        Route::post('/store', 'store')->name('faq_categories.store');
+        Route::get('/show/{id}', 'show')->name('faq_categories.show');
+        Route::get('/edit/{id}', 'edit')->name('faq_categories.edit');
+        Route::put('/update/{id}', 'update')->name('faq_categories.update');
+        Route::delete('/destroy/{id}', 'destroy')->name('faq_categories.destroy');
+    });
+
+    # faq
+    Route::controller(FaqController::class)->prefix('faqs')->group(function () {
+        Route::get('/', 'index')->name('faqs');
+        Route::get('/create', 'create')->name('faqs.create');
+        Route::post('/store', 'store')->name('faqs.store');
+        Route::get('/show/{id}', 'show')->name('faqs.show');
+        Route::get('/edit/{id}', 'edit')->name('faqs.edit');
+        Route::put('/update/{id}', 'update')->name('faqs.update');
+        Route::patch('/update-status/{id}', 'updateStatus')->name('faqs.update.status');
+        Route::delete('/destroy/{id}', 'destroy')->name('faqs.destroy');
     });
 
     # mail configuration
@@ -64,6 +91,11 @@ Route::prefix('admin')->as('admin.')->group(function () {
         Route::put('/update-status/{id}', 'updateStatus')->name('contacts.update.status');
         Route::delete('/destroy/{id}', 'destroy')->name('contacts.destroy');
     });
+
+    Route::get('/general-settings', [GeneralSetupController::class, 'index'])->name('general_settings');
+    Route::get('/environment-settings', [EnvironmentSetupController::class, 'index'])->name('environment_settings');
+    Route::get('/terms', [PageController::class, 'terms'])->name('terms_and_conditions');
+    Route::get('/privacy-policies', [PageController::class, 'privacy'])->name('privacy_policies');
 });
 
 
@@ -108,41 +140,6 @@ Route::get('/social-links', function () {
     return view('admin.modules.social-links.create-or-edit');
 })->name('social_links');
 
-Route::get('/terms', function () {
-    return view('admin.modules.terms.create-or-edit');
-})->name('terms_and_conditions');
-
-Route::get('/privacy-policies', function () {
-    return view('admin.modules.privacy.create-or-edit');
-})->name('privacy_policies');
-
-Route::get('/faqs/categories', function () {
-    return view('admin.modules.faqs.categories.index');
-})->name('faq_categories');
-
-Route::get('/faqs/categories/create', function () {
-    return view('admin.modules.faqs.categories.create');
-})->name('faq_categories.create');
-
-Route::get('/faqs/categories/edit', function () {
-    return view('admin.modules.faqs.categories.edit');
-})->name('faq_categories.edit');
-
-Route::get('/faqs', function () {
-    return view('admin.modules.faqs.index');
-})->name('faqs');
-
-Route::get('/faqs/show', function () {
-    return view('admin.modules.faqs.show');
-})->name('faqs.show');
-
-Route::get('/faqs/create', function () {
-    return view('admin.modules.faqs.create');
-})->name('faqs.create');
-
-Route::get('/faqs/edit', function () {
-    return view('admin.modules.faqs.edit');
-})->name('faqs.edit');
 
 Route::get('/newsletter/subscribers', function () {
     return view('admin.modules.newsletter.subscribers.index');
@@ -164,4 +161,3 @@ Route::get('/newsletter/edit', function () {
     return view('admin.modules.newsletter.edit');
 })->name('newsletter.edit');
 
-Route::get('/general-settings', [GeneralSetupController::class, 'index'])->name('general_settings');

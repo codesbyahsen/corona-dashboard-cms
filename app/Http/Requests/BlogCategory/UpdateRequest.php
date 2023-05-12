@@ -22,7 +22,7 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'unique:blog_categories,name,'. decrypt($this->id), 'max:50']
+            'name' => ['required', 'string', 'unique:blog_categories,name,'. $this->id, 'max:50']
         ];
     }
 

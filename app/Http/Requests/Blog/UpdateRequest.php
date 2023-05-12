@@ -25,7 +25,7 @@ class UpdateRequest extends FormRequest
         return [
             'image' => ['required', File::types(['png', 'jpg', 'jpeg'])->max(1024)],
             'heading' => ['required', 'min:3'],
-            'title' => ['required', 'unique:blogs,title,' . decrypt($this->id)],
+            'title' => ['required', 'unique:blogs,title,' . $this->id],
             'sub_title' => ['nullable'],
             'category' => ['required', 'distinct'],
             'quote' => ['nullable', 'max:220'],

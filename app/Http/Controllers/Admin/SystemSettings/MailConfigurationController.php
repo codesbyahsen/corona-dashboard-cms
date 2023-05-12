@@ -51,6 +51,7 @@ class MailConfigurationController extends Controller
      */
     public function show(string $id)
     {
+        $id = decrypt($id);
         $mailConfiguration = $this->mailConfigurationService->getMailConfiguration($id);
         return view('admin.modules.system-settings.mail-configuration.show', compact('mailConfiguration'));
     }
@@ -60,6 +61,7 @@ class MailConfigurationController extends Controller
      */
     public function edit(string $id)
     {
+        $id = decrypt($id);
         $mailConfiguration = $this->mailConfigurationService->getMailConfiguration($id);
         return view('admin.modules.system-settings.mail-configuration.edit', compact('mailConfiguration'));
     }
@@ -69,8 +71,6 @@ class MailConfigurationController extends Controller
      */
     public function update(UpdateRequest $request, string $id)
     {
-        $id = decrypt($id);
-
         $result = $this->mailConfigurationService->updateMailConfiguration($id, $request->validated());
         if (!$result) {
             return back()->with('error', 'Failed to update mail configuration, try again.');

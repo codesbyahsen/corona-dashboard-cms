@@ -27,7 +27,7 @@
                         {{-- <h4 class="card-title">Default form</h4> --}}
                         {{-- <p class="card-description"> Basic form layout </p> --}}
                         <form class="forms-sample"
-                            action="{{ route('admin.smtp.update', encrypt($mailConfiguration?->id)) }}" method="POST">
+                            action="{{ route('admin.smtp.update', $mailConfiguration?->id) }}" method="POST">
                             @csrf @method('PUT')
                             <div class="row">
                                 <div class="col-lg-6 col-md-6">

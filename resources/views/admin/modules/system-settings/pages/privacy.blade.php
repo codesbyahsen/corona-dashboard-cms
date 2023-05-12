@@ -2,7 +2,7 @@
 
 @section('title', 'Privacy Policies')
 
-@section('extra-links')
+@section('injected-links')
     <link rel="stylesheet" href="{{ asset('assets/vendors/summernote/dist/summernote-bs4.css') }}">
 @endsection
 
@@ -18,6 +18,7 @@
             </nav>
         </div>
 
+        <x-pages-navigation />
 
         <div class="row">
             <div class="col-12 grid-margin stretch-card">
@@ -66,7 +67,7 @@
     </div>
 @endsection
 
-@push('extra-scripts')
+@push('injected-scripts')
     <script src="{{ asset('assets/vendors/summernote/dist/summernote-bs4.min.js') }}"></script>
 
     <script>

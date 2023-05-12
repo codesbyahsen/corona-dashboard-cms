@@ -23,7 +23,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'transport' => ['required', 'max:50'],
-            'host' => ['required', 'max:100', 'unique:mail_configurations,host,' . decrypt($this->id)],
+            'host' => ['required', 'max:100', 'unique:mail_configurations,host,' . $this->id],
             'port' => ['required', 'max:6'],
             'encryption' => ['required', 'max:50'],
             'username' => ['required', 'max:20'],

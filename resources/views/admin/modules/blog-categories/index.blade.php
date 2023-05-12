@@ -2,7 +2,7 @@
 
 @section('title', 'Blog Categories')
 
-@section('extra-links')
+@section('injected-links')
     <link rel="stylesheet" href="{{ asset('assets/vendors/datatables/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/toastr/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/sweetalert2/borderless.min.css') }}">
@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="mb-4 pr-2 float-right" title="Create new">
-                    <a href="{{ route('blog.categories.create') }}" class="btn btn-dark" type="button">
+                    <a href="{{ route('admin.blog.categories.create') }}" class="btn btn-dark" type="button">
                         <i class="mdi mdi-plus"></i>
                     </a>
                 </div>
@@ -48,10 +48,10 @@
                                         <tr>
                                             <td>{{ $blogCategory->name ?? '' }}</td>
                                             <td class="text-right">
-                                                <a href="{{ route('blog.categories.edit', encrypt($blogCategory->id)) }}"
+                                                <a href="{{ route('admin.blog.categories.edit', encrypt($blogCategory->id)) }}"
                                                     title="Edit"><i class="mdi mdi-square-edit-outline"></i></a>
                                                 <a href="javascript:void(0)"
-                                                    onclick="confirmToDelete('{{ route('blog.categories.destroy', encrypt($blogCategory->id)) }}')"
+                                                    onclick="confirmToDelete('{{ route('admin.blog.categories.destroy', $blogCategory->id) }}')"
                                                     title="Delete"><i class="mdi mdi-delete-outline"></i></a>
                                             </td>
                                         </tr>
@@ -66,7 +66,7 @@
     </div>
 @endsection
 
-@push('extra-scripts')
+@push('injected-scripts')
     <script src="{{ asset('assets/vendors/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/toastr/toastr.min.js') }}"></script>
     <x-toastr-notification />

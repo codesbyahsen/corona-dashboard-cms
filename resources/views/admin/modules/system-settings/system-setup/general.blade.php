@@ -9,14 +9,16 @@
 @section('page-content')
     <div class="content-wrapper">
         <div class="page-header">
-            <h3 class="page-title"> General Settings </h3>
+            <h3 class="page-title"> System Setup </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">General Settings</li>
+                    <li class="breadcrumb-item active" aria-current="page">General</li>
                 </ol>
             </nav>
         </div>
+
+        <x-system-setup-navigation />
 
         <span class="timestamp text-muted" title="12 April 2023">Updated: 1 minute ago</span>
         <form class="forms-sample" action="#">

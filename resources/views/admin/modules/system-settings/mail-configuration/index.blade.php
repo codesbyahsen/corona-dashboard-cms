@@ -20,6 +20,8 @@
             </nav>
         </div>
 
+        <x-system-setup-navigation />
+
         <div class="row">
             <div class="col-12">
                 <div class="mb-4 pr-2 float-right" title="Add new">
@@ -55,19 +57,20 @@
                                             <td>{{ $mail?->from_address ?? '' }}</td>
                                             <td>{{ $mail?->port ?? '' }}</td>
                                             <td>
-                                                <form action="{{ route('admin.smtp.update.status', $mail?->id) }}" method="POST" title="{{ $mail?->is_active == true ? 'Click to disable' : 'Click to active' }}">
+                                                <form action="{{ route('admin.smtp.update.status', $mail?->id) }}" method="POST" title="{{ $mail?->is_active == config('constants.MAIL_CONFIGURATION_STATUS_ACTIVE') ? 'Click to disable' : 'Click to active' }}">
                                                     @csrf @method('PATCH')
-                                                    <input type="text" name="status" value="{{ $mail?->is_active == true ? false : true }}" hidden />
-                                                    <button type="submit"
-                                                        class="btn {{ $mail?->is_active == true ? 'btn-inverse-success' : 'btn-inverse-danger' }} btn-rounded btn-fw">
-                                                        {{ $mail?->is_active == true ? 'Active' : 'Disabled' }}
+                                                    <input type="text" name="status" value="{{ $mail?->is_active == config('constants.MAIL_CONFIGURATION_STATUS_ACTIVE') ? config('constants.MAIL_CONFIGURATION_STATUS_INACTIVE') : config('constants.MAIL_CONFIGURATION_STATUS_ACTIVE') }}" hidden />
+                                                    <button type="submit" style="border: none; background: none;">
+                                                        <span class="badge rounded-pill {{ $mail?->is_active == config('constants.MAIL_CONFIGURATION_STATUS_ACTIVE') ? 'btn-inverse-success' : 'btn-inverse-danger' }}">
+                                                            {{ $mail?->is_active == config('constants.MAIL_CONFIGURATION_STATUS_ACTIVE') ? 'Active' : 'Disabled' }}
+                                                        </span>
                                                     </button>
                                                 </form>
                                             </td>
                                             <td>
-                                                <a href="{{ route('admin.smtp.show', $mail?->id) }}" title="View details"><i
+                                                <a href="{{ route('admin.smtp.show', encrypt($mail?->id)) }}" title="View details"><i
                                                         class="mdi mdi-file-eye"></i></a>
-                                                <a href="{{ route('admin.smtp.edit', $mail?->id) }}" title="Edit"><i
+                                                <a href="{{ route('admin.smtp.edit', encrypt($mail?->id)) }}" title="Edit"><i
                                                         class="mdi mdi-square-edit-outline"></i></a>
                                                 <a href="javascript:void(0)" title="Delete" onclick="confirmToDelete('{{ route('admin.smtp.destroy', $mail?->id) }}')"><i class="mdi mdi-delete-outline"></i></a>
                                             </td>

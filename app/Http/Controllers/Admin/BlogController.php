@@ -70,7 +70,7 @@ class BlogController extends Controller
         if (!$result) {
             return back()->with('error', 'Failed to create blog, try again!');
         }
-        return redirect()->route('blogs')->with('success', 'The blog created successfully.');
+        return redirect()->route('admin.blogs')->with('success', 'The blog created successfully.');
     }
 
     /**
@@ -79,7 +79,7 @@ class BlogController extends Controller
     public function show(string $id)
     {
         $id = decrypt($id);
-        $blog = $this->blogService->getBlogWithCategories($id);
+        $blog = $this->blogService->getBlog($id);
         return view('admin.modules.blogs.show', compact('blog'));
     }
 
@@ -99,7 +99,6 @@ class BlogController extends Controller
      */
     public function update(UpdateRequest $request, string $id)
     {
-        $id = decrypt($id);
         $imageName = null;
         if ($request->hasFile('image')) {
             $imageName = 'blog_' . uniqid() . '_' . time() . '.' . $request->image->extension();
@@ -116,7 +115,7 @@ class BlogController extends Controller
         if (!$result) {
             return back()->with('error', 'Failed to update blog, try again!');
         }
-        return redirect()->route('blogs')->with('success', 'The blog updated successfully.');
+        return redirect()->route('admin.blogs')->with('success', 'The blog updated successfully.');
     }
 
     /**
@@ -124,8 +123,7 @@ class BlogController extends Controller
      */
     public function updateStatus(Request $request, $id)
     {
-        $id = decrypt($id);
-        $result = $this->blogService->updateBlogStatus($id, $request->is_active);
+        $result = $this->blogService->updateBlogStatus($id, $request->status);
 
         if (!$result) {
             return back()->with('error', 'Failed to update blog status, try again!');
@@ -138,7 +136,6 @@ class BlogController extends Controller
      */
     public function destroy(string $id)
     {
-        $id = decrypt($id);
         $result = $this->blogService->destroyBlog($id);
 
         if (!$result) {

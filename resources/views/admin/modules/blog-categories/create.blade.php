@@ -22,7 +22,7 @@
                     <div class="card-body">
                         {{-- <h4 class="card-title">Default form</h4> --}}
                         {{-- <p class="card-description"> Basic form layout </p> --}}
-                        <form class="forms-sample" action="{{ route('blog.categories.store') }}" method="POST">
+                        <form class="forms-sample" action="{{ route('admin.blog.categories.store') }}" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="col-12">

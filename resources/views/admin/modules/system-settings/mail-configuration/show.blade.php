@@ -20,12 +20,30 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
-                            <a href="{{ url()->previous() }}" title="Back" class="mb-3">
+                            <a href="{{ route('admin.smtp') }}" title="Back" class="mb-3">
                                 <i class="mdi mdi-arrow-left"></i>
-                              </a>
-                            <span class="timestamp text-muted" title="Created: {{ $mailConfiguration?->created_at->format('d-M-Y') }}">Updated: {{ $mailConfiguration?->updated_at->diffForHumans() }}</span>
+                            </a>
+                            <span class="timestamp text-muted">Created:
+                                {{ $mailConfiguration?->created_at->diffForHumans() ?? '' }}</span>
                         </div>
-                        <div class="row pt-3">
+                        <div class="py-3 d-flex justify-content-between">
+                            <a href="{{ route('admin.smtp.edit', encrypt($mailConfiguration?->id)) }}" class="btn btn-dark btn-icon-text"
+                                title="Edit">
+                                <i class="mdi mdi-square-edit-outline btn-icon-append"></i>
+                            </a>
+
+                            <form action="{{ route('admin.smtp.update.status', $mailConfiguration?->id) }}" method="POST" title="{{ $mailConfiguration?->is_active == config('constants.MAIL_CONFIGURATION_STATUS_ACTIVE') ? 'Click to disable' : 'Click to active' }}">
+                                @csrf @method('PATCH')
+                                <input type="text" name="status" value="{{ $mailConfiguration?->is_active == config('constants.MAIL_CONFIGURATION_STATUS_ACTIVE') ? config('constants.MAIL_CONFIGURATION_STATUS_INACTIVE') : config('constants.MAIL_CONFIGURATION_STATUS_ACTIVE') }}" hidden />
+                                <button type="submit" style="border: none; background: none;">
+                                    <span class="badge rounded-pill {{ $mailConfiguration?->is_active == true ? 'btn-inverse-success' : 'btn-inverse-danger' }}">
+                                        {{ $mailConfiguration?->is_active == true ? 'Active' : 'Disabled' }}
+                                    </span>
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="row pt-4">
                             <div class="col-md-4">
                                 <label for="mailTransport" class="font-weight-light d-block">Mail Transport:</label>
                                 <p id="mailTransport">{{ $mailConfiguration?->transport ?? '' }}</p>

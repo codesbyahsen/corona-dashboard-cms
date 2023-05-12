@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Lwwcas\LaravelCountries\Database\Seeders\LcDatabaseSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,7 +22,8 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call([
-            ContactSeeder::class
+            ContactSeeder::class,
+            LcDatabaseSeeder::class
         ]);
     }
 }

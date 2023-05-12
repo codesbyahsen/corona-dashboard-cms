@@ -15,7 +15,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('blogs') }}">Blogs</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.blogs') }}">Blogs</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Create Blog</li>
                 </ol>
             </nav>
@@ -28,7 +28,7 @@
                     <div class="card-body">
                         {{-- <h4 class="card-title">Default form</h4> --}}
                         {{-- <p class="card-description"> Basic form layout </p> --}}
-                        <form class="forms-sample" action="{{ route('blogs.store') }}" method="POST"
+                        <form class="forms-sample" action="{{ route('admin.blogs.store') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="row">
@@ -44,7 +44,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label>Category &#40;ies&#41; <span class="text-danger">*</span></label>
-                                        <select name="category[]" class="js-example-basic-multiple" multiple="multiple"
+                                        <select name="category" class="dropdown-select-multiple" multiple="multiple"
                                             style="width:100%">
                                             @foreach ($blogCategories as $blogCategory)
                                                 <option value="{{ $blogCategory->id }}">{{ $blogCategory->name ?? '' }}
@@ -130,8 +130,8 @@
 @push('injected-scripts')
     <script src="{{ asset('assets/vendors/dropify/dropify.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/select2/select2.min.js') }}"></script>
-    <script src="{{ asset('assets/vendors/summernote/dist/summernote-bs4.min.js') }}"></script>
     <script src="{{ asset('assets/js/select2.js') }}"></script>
+    <script src="{{ asset('assets/vendors/summernote/dist/summernote-bs4.min.js') }}"></script>
 
     <script>
         $(document).ready(function() {

@@ -9,7 +9,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('blog.categories') }}">Blog Categories</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.blog.categories') }}">Blog Categories</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Edit Blog Category</li>
                 </ol>
             </nav>
@@ -22,7 +22,7 @@
                     <div class="card-body">
                         {{-- <h4 class="card-title">Default form</h4> --}}
                         {{-- <p class="card-description"> Basic form layout </p> --}}
-                        <form class="forms-sample" action="{{ route('blog.categories.update', encrypt($blogCategory->id)) }}" method="POST">
+                        <form class="forms-sample" action="{{ route('admin.blog.categories.update', $blogCategory->id) }}" method="POST">
                             @csrf @method('PUT')
                             <div class="row">
                                 <div class="col-12">
@@ -40,7 +40,7 @@
                             <div class="row pt-3 pr-3">
                                 <button type="submit" class="btn btn-primary btn-icon-text ml-auto">
                                     <i class="mdi mdi-file-check btn-icon-prepend"></i> Submit </button>
-                                <a href="{{ route('blog.categories') }}" class="btn btn-outline-secondary btn-md ml-2">
+                                <a href="{{ route('admin.blog.categories') }}" class="btn btn-outline-secondary btn-md ml-2">
                                     Cancel </a>
                             </div>
                         </form>

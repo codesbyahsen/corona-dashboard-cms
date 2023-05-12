@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\MailConfiguration;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -21,7 +22,7 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->string('from_address')->nullable();
             $table->string('from_name')->nullable();
-            $table->boolean('is_active')->default(false)->nullable();
+            $table->boolean('is_active')->default(MailConfiguration::STATUS_INACTIVE)->nullable();
             $table->timestamps();
         });
     }

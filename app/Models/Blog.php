@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -27,6 +28,13 @@ class Blog extends Model
 
     const STATUS_ACTIVE = 1;
     const STATUS_INACTIVE = 0;
+
+    public function image(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => isset($value) && !empty($value) ? asset('uploads/blog/main-image/' . $value) : null
+        );
+    }
 
 
     // ==============================| Relations |============================== //

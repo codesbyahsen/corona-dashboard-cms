@@ -2,7 +2,7 @@
 
 @section('title', 'Blogs')
 
-@section('extra-links')
+@section('injected-links')
     <link rel="stylesheet" href="{{ asset('assets/vendors/datatables/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/toastr/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/sweetalert2/borderless.min.css') }}">
@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="mb-4 pr-2 float-right" title="Create new">
-                    <a href="{{ route('blogs.create') }}" class="btn btn-dark" type="button">
+                    <a href="{{ route('admin.blogs.create') }}" class="btn btn-dark" type="button">
                         <i class="mdi mdi-plus"></i>
                     </a>
                 </div>
@@ -36,7 +36,7 @@
                     <div class="card-body">
                         {{-- <h4 class="card-title">FAQs</h4> --}}
                         <div class="table-responsive">
-                            <table class="table" id="faqs">
+                            <table class="table" id="blogs">
                                 <thead>
                                     <tr>
                                         <th>Image</th>
@@ -50,16 +50,21 @@
                                     @foreach ($blogs as $blog)
                                         <tr>
                                             <td>
-                                                <img src="{{ asset('uploads/blog/main-image') . '/' . $blog->image }}"
-                                                    alt="">
+                                                @isset($blog?->image)
+                                                    <img src="{{ $blog?->image ?? '' }}"
+                                                        alt="{{ Str::limit($blog?->title, 10, '...') }}">
+                                                @endisset
                                             </td>
                                             <td>
-                                                {{ $blog->title ?? '' }}</td>
-                                            <td>{{ $blog->heading ?? '' }}</td>
+                                                {{ $blog?->title ?? '' }}</td>
+                                            <td>{{ $blog?->heading ?? '' }}</td>
                                             <td>
-                                                <form action="{{ route('blogs_status.update', encrypt($blog->id)) }}"
+                                                <form action="{{ route('admin.blogs.update.status', $blog->id) }}"
                                                     method="POST">
-                                                    @csrf @method('PUT')
+                                                    @csrf @method('PATCH')
+                                                    <input type="text" name="status"
+                                                        value="{{ $blog->is_active == config('constants.BLOG_STATUS_ACTIVE') ? config('constants.BLOG_STATUS_INACTIVE') : config('constants.BLOG_STATUS_ACTIVE') }}"
+                                                        hidden />
                                                     <button type="submit" style="border: none; background: none;">
                                                         <span
                                                             class="badge rounded-pill {{ $blog->is_active == config('constants.BLOG_STATUS_ACTIVE') ? 'btn-inverse-success' : 'btn-inverse-danger' }}">{{ $blog->is_active == config('constants.BLOG_STATUS_ACTIVE') ? 'Active' : 'Disabled' }}
@@ -68,12 +73,13 @@
                                                 </form>
                                             </td>
                                             <td>
-                                                <a href="{{ route('blogs.show', encrypt($blog->id)) }}"
+                                                <a href="{{ route('admin.blogs.show', encrypt($blog->id)) }}"
                                                     title="View details"><i class="mdi mdi-file-eye"></i></a>
-                                                <a href="{{ route('blogs.edit', encrypt($blog->id)) }}" title="Edit">
+                                                <a href="{{ route('admin.blogs.edit', encrypt($blog->id)) }}"
+                                                    title="Edit">
                                                     <i class="mdi mdi-square-edit-outline"></i></a>
                                                 <a href="javascript:void(0)"
-                                                    onclick="confirmToDelete('{{ route('blogs.destroy', encrypt($blog->id)) }}')"
+                                                    onclick="confirmToDelete('{{ route('admin.blogs.destroy', $blog->id) }}')"
                                                     title="Delete"><i class="mdi mdi-delete-outline"></i></a>
                                             </td>
                                         </tr>
@@ -88,7 +94,7 @@
     </div>
 @endsection
 
-@push('extra-scripts')
+@push('injected-scripts')
     <script src="{{ asset('assets/vendors/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/toastr/toastr.min.js') }}"></script>
     <x-toastr-notification />
@@ -96,7 +102,7 @@
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('#faqs').DataTable();
+            $('#blogs').DataTable();
         });
     </script>
 @endpush

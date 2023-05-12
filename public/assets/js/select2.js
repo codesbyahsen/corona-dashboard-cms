@@ -1,13 +1,13 @@
-(function($) {
-  'use strict';
+(function ($) {
+    'use strict';
 
-  if ($('.countries').length) {
-    $(".countries").select2();
-  }
-  if ($(".js-example-basic-single").length) {
-    $(".js-example-basic-single").select2();
-  }
-  if ($(".js-example-basic-multiple").length) {
-    $(".js-example-basic-multiple").select2();
-  }
+    if ($('.countries').length) {
+        $(".countries").select2();
+    }
+    if ($(".dropdown-select-single").length) {
+        $(".dropdown-select-single").select2();
+    }
+    if ($(".dropdown-select-multiple").length) {
+        $(".dropdown-select-multiple").select2();
+    }
 })(jQuery);

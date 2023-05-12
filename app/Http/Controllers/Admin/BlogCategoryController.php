@@ -43,7 +43,7 @@ class BlogCategoryController extends Controller
         if (!$result) {
             return back()->with('error', 'Failed to create blog category, try again!');
         }
-        return redirect()->route('blog.categories')->with('success', 'The blog category created successfully.');
+        return redirect()->route('admin.blog.categories')->with('success', 'The blog category created successfully.');
     }
 
     /**
@@ -61,13 +61,12 @@ class BlogCategoryController extends Controller
      */
     public function update(UpdateRequest $request, string $id)
     {
-        $id = decrypt($id);
         $result = $this->blogCategoryService->updateBlogCategory($id, $request->validated());
 
         if (!$result) {
             return back()->with('error', 'Failed to update blog category, try again!');
         }
-        return redirect()->route('blog.categories')->with('success', 'The blog category updated successfully.');
+        return redirect()->route('admin.blog.categories')->with('success', 'The blog category updated successfully.');
     }
 
     /**
@@ -75,7 +74,6 @@ class BlogCategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        $id = decrypt($id);
         $result = $this->blogCategoryService->destroyBlogCategory($id);
 
         if (!$result) {

@@ -40,11 +40,20 @@ class MailConfigurationService
     }
 
     /**
+     * Update or disabled all statuses in database.
+     */
+    private function updateAllStatus(): void
+    {
+        MailConfiguration::IsActive()->update(['is_active' => MailConfiguration::STATUS_INACTIVE]);
+    }
+
+    /**
      * Update status by id in database.
      */
     public function updateMailConfigurationStatus(string $id, $status): bool
     {
-        return (bool) MailConfiguration::whereId($id)->update(['is_active' => $status]);
+        $this->updateAllStatus();
+        return MailConfiguration::whereId($id)->update(['is_active' => $status]);
     }
 
     /**

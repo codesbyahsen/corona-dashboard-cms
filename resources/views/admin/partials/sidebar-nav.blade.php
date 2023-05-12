@@ -113,22 +113,6 @@
             <span class="nav-link">General</span>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="{{ route('terms_and_conditions') }}">
-                <span class="menu-icon">
-                    <i class="mdi mdi-file-document-edit-outline"></i>
-                </span>
-                <span class="menu-title">Terms</span>
-            </a>
-        </li>
-        <li class="nav-item menu-items">
-            <a class="nav-link" href="{{ route('privacy_policies') }}">
-                <span class="menu-icon">
-                    <i class="mdi mdi-shield"></i>
-                </span>
-                <span class="menu-title">Privacy</span>
-            </a>
-        </li>
-        <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#faq_nav" aria-expanded="false"
                 aria-controls="faq_nav">
                 <span class="menu-icon">
@@ -140,8 +124,8 @@
             <div class="collapse" id="faq_nav">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link"
-                            href="#">Categories</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{ route('faqs') }}">FAQs</a></li>
+                            href="{{ route('admin.faq_categories') }}">Categories</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('admin.faqs') }}">FAQs</a></li>
                 </ul>
             </div>
         </li>
@@ -168,15 +152,15 @@
         <li class="nav-item nav-category">
             <span class="nav-link">System Settings</span>
         </li>
-        <li class="nav-item menu-items">
-            <a class="nav-link" href="{{ route('general_settings') }}">
+        <li class="nav-item menu-items {{ request()->routeIs('admin.general_settings') || request()->routeIs('admin.environment_settings') || request()->is('admin/mail-config*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.general_settings') }}">
                 <span class="menu-icon">
                     <i class="mdi mdi-cogs"></i>
                 </span>
-                <span class="menu-title">General Setup</span>
+                <span class="menu-title">System Setup</span>
             </a>
         </li>
-        <li class="nav-item menu-items">
+        {{-- <li class="nav-item menu-items">
             <a class="nav-link" href="{{ route('general_settings') }}">
                 <span class="menu-icon">
                     <i class="mdi mdi-tune"></i>
@@ -191,8 +175,8 @@
                 </span>
                 <span class="menu-title">Mail Configuration</span>
             </a>
-        </li>
-        <li class="nav-item menu-items">
+        </li> --}}
+        <li class="nav-item menu-items {{ request()->routeIs('admin.terms_and_conditions') || request()->routeIs('admin.privacy_policies') ? 'active' : '' }}">
             <a class="nav-link" data-toggle="collapse" href="#pages_media_nav" aria-expanded="false"
                 aria-controls="pages_media_nav">
                 <span class="menu-icon">
@@ -201,11 +185,11 @@
                 <span class="menu-title">Pages &amp; Social</span>
                 <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="pages_media_nav">
+            <div class="collapse {{ request()->routeIs('admin.terms_and_conditions') || request()->routeIs('admin.privacy_policies') ? 'show' : '' }}" id="pages_media_nav">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link"
-                            href="{{ route('newsletter.subscribers') }}">Pages</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{ route('newsletter.mails') }}">Social</a></li>
+                    <li class="nav-item"> <a class="nav-link {{ request()->routeIs('admin.terms_and_conditions') || request()->routeIs('admin.privacy_policies') ? 'active' : '' }}"
+                            href="{{ route('admin.terms_and_conditions') }}">Pages</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('social_links') }}">Social</a></li>
                 </ul>
             </div>
         </li>

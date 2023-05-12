@@ -28,4 +28,9 @@ class MailConfiguration extends Model
 
     const STATUS_ACTIVE = 1;
     const STATUS_INACTIVE = 0;
+
+    public function scopeIsActive($query)
+    {
+        return $query->where('is_active', self::STATUS_ACTIVE);
+    }
 }
