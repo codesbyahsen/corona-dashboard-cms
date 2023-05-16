@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Lwwcas\LaravelCountries\Database\Seeders\LcDatabaseSeeder;
+use Database\Seeders\CountrySeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             ContactSeeder::class,
-            LcDatabaseSeeder::class
+            CountrySeeder::class
         ]);
     }
 }

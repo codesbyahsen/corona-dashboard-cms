@@ -72,13 +72,13 @@
 
                                     <ul class="pl-1 ml-3">
                                         <li>
-                                            <small>Minimum 8 characters long - the more, the better</small>
+                                            <small>Minimum 8 characters long - the more, the better.</small>
                                         </li>
                                         <li>
-                                            <small>At least one lowercase character</small>
+                                            <small>At least one lowercase &amp; one uppercase character.</small>
                                         </li>
                                         <li>
-                                            <small>At least one number, symbol, or whitespace character</small>
+                                            <small>At least one number, symbol, or whitespace character.</small>
                                         </li>
                                     </ul>
                                 </div>

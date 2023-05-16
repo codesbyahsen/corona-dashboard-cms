@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('transport')->nullable();
             $table->string('host')->nullable();
-            $table->string('port')->nullable();
+            $table->string('port', 7)->nullable();
             $table->string('encryption')->nullable();
             $table->string('username')->nullable();
             $table->string('password')->nullable();

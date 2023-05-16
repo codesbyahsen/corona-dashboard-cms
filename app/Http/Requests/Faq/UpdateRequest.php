@@ -23,7 +23,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'faq_category_id' => ['required'],
-            'question' => ['required', 'max:500', 'unique:faqs,question,' . $this->id],
+            'question' => ['required', 'max:650', 'unique:faqs,question,' . $this->id],
             'answer' => ['required', 'max:3000']
         ];
     }

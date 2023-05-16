@@ -24,11 +24,11 @@ class StoreRequest extends FormRequest
     {
         return [
             'image' => ['required', File::types(['png', 'jpg', 'jpeg'])->max(1024)],
-            'heading' => ['required', 'min:3'],
+            'heading' => ['required', 'min:3', 'max:140'],
             'title' => ['required', 'unique:blogs,title'],
             'sub_title' => ['nullable'],
             'category' => ['required', 'distinct'],
-            'quote' => ['nullable', 'max:220'],
+            'quote' => ['nullable', 'max:420'],
             'description' => ['required', 'max:10000'],
         ];
     }

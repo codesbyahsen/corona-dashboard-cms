@@ -23,7 +23,7 @@
                             <a href="{{ url()->previous() }}" title="Back" class="mb-3">
                                 <i class="mdi mdi-arrow-left"></i>
                               </a>
-                            <span class="timestamp text-muted">Created: 1 minute ago</span>
+                            <span class="timestamp text-muted">Received: 1 minute ago</span>
                         </div>
                         <div class="row pt-3">
                             <div class="col-md-4">

@@ -23,7 +23,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'faq_category_id' => ['required'],
-            'question' => ['required', 'max:500', 'unique:faqs,question'],
+            'question' => ['required', 'max:650', 'unique:faqs,question'],
             'answer' => ['required', 'max:3000']
         ];
     }
