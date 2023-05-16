@@ -10,7 +10,7 @@ class FaqService
 /**
      * Get all record from database.
      */
-    public function getAllFaqs(): Collection
+    public function getAll(): Collection
     {
         return Faq::with('faqCategory')->get();
     }
@@ -18,7 +18,7 @@ class FaqService
     /**
      * Get record by id from database.
      */
-    public function getFaq(string $id): Faq
+    public function get(string $id): Faq
     {
         return Faq::with('faqCategory')->find($id);
     }
@@ -26,7 +26,7 @@ class FaqService
     /**
      * Store new record in database.
      */
-    public function createFaq(array $faq): Faq
+    public function create(array $faq): Faq
     {
         return Faq::create($faq);
     }
@@ -34,7 +34,7 @@ class FaqService
     /**
      * Update record by id in database.
      */
-    public function updateFaq(string $id, array $faq): bool
+    public function update(string $id, array $faq): bool
     {
         return Faq::find($id)->update($faq);
     }
@@ -42,7 +42,7 @@ class FaqService
     /**
      * Update status by id in database.
      */
-    public function updateFaqStatus(string $id, $status): bool
+    public function updateStatus(string $id, $status): bool
     {
         return (bool) Faq::withoutTimestamps(function () use ($id, $status) {
             Faq::find($id)->update(['is_active' => $status]);
@@ -52,7 +52,7 @@ class FaqService
     /**
      * Delete record by id from database.
      */
-    public function destroyFaq(string $id): bool
+    public function destroy(string $id): bool
     {
         return Faq::find($id)->delete();
     }

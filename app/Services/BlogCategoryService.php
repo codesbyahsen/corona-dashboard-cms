@@ -10,7 +10,7 @@ class BlogCategoryService
     /**
      * Get all record from database.
      */
-    public function getAllBlogCategories(): Collection
+    public function getAll(): Collection
     {
         return BlogCategory::all();
     }
@@ -18,7 +18,7 @@ class BlogCategoryService
     /**
      * Get record by id from database.
      */
-    public function getBlogCategory(string $id): BlogCategory
+    public function get(string $id): BlogCategory
     {
         return BlogCategory::find($id);
     }
@@ -26,7 +26,7 @@ class BlogCategoryService
     /**
      * Store new record in database.
      */
-    public function createBlogCategory(array $blogCategory): BlogCategory
+    public function create(array $blogCategory): BlogCategory
     {
         return BlogCategory::create($blogCategory);
     }
@@ -34,7 +34,7 @@ class BlogCategoryService
     /**
      * Update record by id in database.
      */
-    public function updateBlogCategory(string $id, array $blogCategory): bool
+    public function update(string $id, array $blogCategory): bool
     {
         return BlogCategory::find($id)->update($blogCategory);
     }
@@ -42,7 +42,7 @@ class BlogCategoryService
     /**
      * Delete record by id from database.
      */
-    public function destroyBlogCategory(string $id): bool
+    public function destroy(string $id): bool
     {
         return BlogCategory::find($id)->delete();
     }

@@ -21,7 +21,7 @@ class BlogCategoryController extends Controller
      */
     public function index()
     {
-        $blogCategories = $this->blogCategoryService->getAllBlogCategories();
+        $blogCategories = $this->blogCategoryService->getAll();
         return view('admin.modules.blog-categories.index', compact('blogCategories'));
     }
 
@@ -38,7 +38,7 @@ class BlogCategoryController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $result = $this->blogCategoryService->createBlogCategory($request->validated());
+        $result = $this->blogCategoryService->create($request->validated());
 
         if (!$result) {
             return back()->with('error', 'Failed to create blog category, try again!');
@@ -52,7 +52,7 @@ class BlogCategoryController extends Controller
     public function edit(string $id)
     {
         $id = decrypt($id);
-        $blogCategory = $this->blogCategoryService->getBlogCategory($id);
+        $blogCategory = $this->blogCategoryService->get($id);
         return view('admin.modules.blog-categories.edit', compact('blogCategory'));
     }
 
@@ -61,7 +61,7 @@ class BlogCategoryController extends Controller
      */
     public function update(UpdateRequest $request, string $id)
     {
-        $result = $this->blogCategoryService->updateBlogCategory($id, $request->validated());
+        $result = $this->blogCategoryService->update($id, $request->validated());
 
         if (!$result) {
             return back()->with('error', 'Failed to update blog category, try again!');
@@ -74,7 +74,7 @@ class BlogCategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        $result = $this->blogCategoryService->destroyBlogCategory($id);
+        $result = $this->blogCategoryService->destroy($id);
 
         if (!$result) {
             return response()->json(['success' => false, 'message' => 'Something went wrong, try again!']);

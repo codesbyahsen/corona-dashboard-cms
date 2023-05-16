@@ -10,7 +10,7 @@ class BlogService
     /**
      * Get all record from database.
      */
-    public function getAllBlogs(): Collection
+    public function getAll(): Collection
     {
         return Blog::all();
     }
@@ -18,7 +18,7 @@ class BlogService
     /**
      * Get record by id from database.
      */
-    public function getBlog(string $id): Blog
+    public function get(string $id): Blog
     {
         return Blog::with('blogCategories')->find($id);
     }
@@ -26,7 +26,7 @@ class BlogService
     /**
      * Get the specified record's column value
      */
-    public function getBlogColumnValue($id, $attribute): mixed
+    public function getColumnValue($id, $attribute): mixed
     {
         return Blog::whereId($id)->value($attribute);
     }
@@ -34,7 +34,7 @@ class BlogService
     /**
      * Store new record in database.
      */
-    public function createBlog(array $blog): Blog
+    public function create(array $blog): Blog
     {
         return Blog::create($blog);
     }
@@ -42,7 +42,7 @@ class BlogService
     /**
      * Update record by id in database.
      */
-    public function updateBlog(string $id, array $blog): bool
+    public function update(string $id, array $blog): bool
     {
         return Blog::find($id)->update($blog);
     }
@@ -50,7 +50,7 @@ class BlogService
     /**
      * Update status by id in database.
      */
-    public function updateBlogStatus(string $id, $status): bool
+    public function updateStatus(string $id, $status): bool
     {
         return (bool) Blog::withoutTimestamps(function () use ($id, $status) {
             Blog::find($id)->update(['is_active' => $status]);
@@ -60,7 +60,7 @@ class BlogService
     /**
      * Delete record by id from database.
      */
-    public function destroyBlog(string $id): bool
+    public function destroy(string $id): bool
     {
         return Blog::find($id)->delete();
     }

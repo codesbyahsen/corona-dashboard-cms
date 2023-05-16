@@ -10,7 +10,7 @@ class MailConfigurationService
     /**
      * Get all record from database.
      */
-    public function getAllMailConfigurations(): Collection
+    public function getAll(): Collection
     {
         return MailConfiguration::all();
     }
@@ -18,7 +18,7 @@ class MailConfigurationService
     /**
      * Get record by id from database.
      */
-    public function getMailConfiguration(string $id): MailConfiguration
+    public function get(string $id): MailConfiguration
     {
         return MailConfiguration::find($id);
     }
@@ -26,7 +26,7 @@ class MailConfigurationService
     /**
      * Store new record in database.
      */
-    public function createMailConfiguration(array $mailConfigurations): MailConfiguration
+    public function create(array $mailConfigurations): MailConfiguration
     {
         return MailConfiguration::create($mailConfigurations);
     }
@@ -34,7 +34,7 @@ class MailConfigurationService
     /**
      * Update record by id in database.
      */
-    public function updateMailConfiguration(string $id, array $mailConfigurations): bool
+    public function update(string $id, array $mailConfigurations): bool
     {
         return MailConfiguration::find($id)->update($mailConfigurations);
     }
@@ -50,7 +50,7 @@ class MailConfigurationService
     /**
      * Update status by id in database.
      */
-    public function updateMailConfigurationStatus(string $id, $status): bool
+    public function updateStatus(string $id, $status): bool
     {
         $this->updateAllStatus();
         return MailConfiguration::whereId($id)->update(['is_active' => $status]);
@@ -59,7 +59,7 @@ class MailConfigurationService
     /**
      * Delete record by id from database.
      */
-    public function destroyMailConfiguration(string $id): bool
+    public function destroy(string $id): bool
     {
         return MailConfiguration::find($id)->delete();
     }

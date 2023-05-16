@@ -18,7 +18,7 @@ class GeneralSetupService
     /**
      * Get record by id from database.
      */
-    public function getSpecified(string $id): GeneralSetting
+    public function get(string $id): GeneralSetting
     {
         return GeneralSetting::find($id);
     }
@@ -26,7 +26,7 @@ class GeneralSetupService
     /**
      * Get the specified record's column value
      */
-    public function getSpecifiedColumnValue($id, $attribute): mixed
+    public function getColumnValue($id, $attribute): mixed
     {
         return GeneralSetting::whereId($id)->value($attribute);
     }

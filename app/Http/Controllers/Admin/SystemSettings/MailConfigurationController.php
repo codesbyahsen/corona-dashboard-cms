@@ -22,7 +22,7 @@ class MailConfigurationController extends Controller
      */
     public function index()
     {
-        $mailConfigurations = $this->mailConfigurationService->getAllMailConfigurations();
+        $mailConfigurations = $this->mailConfigurationService->getAll();
         return view('admin.modules.system-settings.mail-configuration.index', compact('mailConfigurations'));
     }
 
@@ -39,7 +39,7 @@ class MailConfigurationController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $result = $this->mailConfigurationService->createMailConfiguration($request->validated());
+        $result = $this->mailConfigurationService->create($request->validated());
         if (!$result) {
             return redirect()->route('admin.smtp')->with('error', 'Failed to create mail configuration, try again.');
         }
@@ -52,7 +52,7 @@ class MailConfigurationController extends Controller
     public function show(string $id)
     {
         $id = decrypt($id);
-        $mailConfiguration = $this->mailConfigurationService->getMailConfiguration($id);
+        $mailConfiguration = $this->mailConfigurationService->get($id);
         return view('admin.modules.system-settings.mail-configuration.show', compact('mailConfiguration'));
     }
 
@@ -62,7 +62,7 @@ class MailConfigurationController extends Controller
     public function edit(string $id)
     {
         $id = decrypt($id);
-        $mailConfiguration = $this->mailConfigurationService->getMailConfiguration($id);
+        $mailConfiguration = $this->mailConfigurationService->get($id);
         return view('admin.modules.system-settings.mail-configuration.edit', compact('mailConfiguration'));
     }
 
@@ -71,7 +71,7 @@ class MailConfigurationController extends Controller
      */
     public function update(UpdateRequest $request, string $id)
     {
-        $result = $this->mailConfigurationService->updateMailConfiguration($id, $request->validated());
+        $result = $this->mailConfigurationService->update($id, $request->validated());
         if (!$result) {
             return back()->with('error', 'Failed to update mail configuration, try again.');
         }
@@ -83,7 +83,7 @@ class MailConfigurationController extends Controller
      */
     public function updateStatus(Request $request, string $id)
     {
-        $status = $this->mailConfigurationService->updateMailConfigurationStatus($id, $request->status);
+        $status = $this->mailConfigurationService->updateStatus($id, $request->status);
         if (!$status) {
             return back()->with('error', 'Failed to update mail configuration status, try again.');
         }
@@ -95,7 +95,7 @@ class MailConfigurationController extends Controller
      */
     public function destroy(string $id)
     {
-        $result = $this->mailConfigurationService->destroyMailConfiguration($id);
+        $result = $this->mailConfigurationService->destroy($id);
         if (!$result) {
             return response()->json(['success' => false, 'message' => 'Something went wrong, try again!']);
         }

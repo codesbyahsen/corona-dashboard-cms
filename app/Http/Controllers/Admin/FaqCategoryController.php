@@ -21,7 +21,7 @@ class FaqCategoryController extends Controller
      */
     public function index()
     {
-        $faqCategories = $this->faqCategoryService->getAllFaqCategories();
+        $faqCategories = $this->faqCategoryService->getAll();
         return view('admin.modules.faqs.categories.index', compact('faqCategories'));
     }
 
@@ -38,7 +38,7 @@ class FaqCategoryController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $result = $this->faqCategoryService->createFaqCategory($request->validated());
+        $result = $this->faqCategoryService->create($request->validated());
         if (!$result) {
             return redirect()->route('admin.faq_categories')->with('error', 'Failed to create faq category, try again.');
         }
@@ -51,7 +51,7 @@ class FaqCategoryController extends Controller
     public function edit(string $id)
     {
         $id = decrypt($id);
-        $faqCategory = $this->faqCategoryService->getFaqCategory($id);
+        $faqCategory = $this->faqCategoryService->get($id);
         return view('admin.modules.faqs.categories.edit', compact('faqCategory'));
     }
 
@@ -60,7 +60,7 @@ class FaqCategoryController extends Controller
      */
     public function update(UpdateRequest $request, string $id)
     {
-        $result = $this->faqCategoryService->updateFaqCategory($id, $request->validated());
+        $result = $this->faqCategoryService->update($id, $request->validated());
         if (!$result) {
             return redirect()->route('admin.faq_categories')->with('error', 'Failed to update faq category, try again.');
         }
@@ -72,7 +72,7 @@ class FaqCategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        $result = $this->faqCategoryService->destroyFaqCategory($id);
+        $result = $this->faqCategoryService->destroy($id);
         if (!$result) {
             return response()->json(['success' => false, 'message' => 'Something went wrong, try again!']);
         }

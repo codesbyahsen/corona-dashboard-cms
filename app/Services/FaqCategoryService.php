@@ -10,7 +10,7 @@ class FaqCategoryService
 /**
      * Get all record from database.
      */
-    public function getAllFaqCategories(): Collection
+    public function getAll(): Collection
     {
         return FaqCategory::all();
     }
@@ -18,7 +18,7 @@ class FaqCategoryService
     /**
      * Get record by id from database.
      */
-    public function getFaqCategory(string $id): FaqCategory
+    public function get(string $id): FaqCategory
     {
         return FaqCategory::find($id);
     }
@@ -26,7 +26,7 @@ class FaqCategoryService
     /**
      * Store new record in database.
      */
-    public function createFaqCategory(array $faqCategory): FaqCategory
+    public function create(array $faqCategory): FaqCategory
     {
         return FaqCategory::create($faqCategory);
     }
@@ -34,7 +34,7 @@ class FaqCategoryService
     /**
      * Update record by id in database.
      */
-    public function updateFaqCategory(string $id, array $faqCategory): bool
+    public function update(string $id, array $faqCategory): bool
     {
         return FaqCategory::find($id)->update($faqCategory);
     }
@@ -42,7 +42,7 @@ class FaqCategoryService
     /**
      * Delete record by id from database.
      */
-    public function destroyFaqCategory(string $id): bool
+    public function destroy(string $id): bool
     {
         return FaqCategory::find($id)->delete();
     }

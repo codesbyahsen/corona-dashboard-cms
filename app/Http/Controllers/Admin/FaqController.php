@@ -25,7 +25,7 @@ class FaqController extends Controller
      */
     public function index()
     {
-        $faqs = $this->faqService->getAllFaqs();
+        $faqs = $this->faqService->getAll();
         return view('admin.modules.faqs.index', compact('faqs'));
     }
 
@@ -34,7 +34,7 @@ class FaqController extends Controller
      */
     public function create()
     {
-        $faqCategories = $this->faqCategoryService->getAllFaqCategories();
+        $faqCategories = $this->faqCategoryService->getAll();
         return view('admin.modules.faqs.create', compact('faqCategories'));
     }
 
@@ -43,7 +43,7 @@ class FaqController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $result = $this->faqService->createFaq($request->validated());
+        $result = $this->faqService->create($request->validated());
         if (!$result) {
             return redirect()->route('admin.faqs')->with('error', 'Failed to create faq, try again.');
         }
@@ -56,7 +56,7 @@ class FaqController extends Controller
     public function show(string $id)
     {
         $id = decrypt($id);
-        $faq = $this->faqService->getFaq($id);
+        $faq = $this->faqService->get($id);
         return view('admin.modules.faqs.show', compact('faq'));
     }
 
@@ -66,8 +66,8 @@ class FaqController extends Controller
     public function edit(string $id)
     {
         $id = decrypt($id);
-        $faqCategories = $this->faqCategoryService->getAllFaqCategories();
-        $faq = $this->faqService->getFaq($id);
+        $faqCategories = $this->faqCategoryService->getAll();
+        $faq = $this->faqService->get($id);
         return view('admin.modules.faqs.edit', compact('faqCategories', 'faq'));
     }
 
@@ -76,7 +76,7 @@ class FaqController extends Controller
      */
     public function update(UpdateRequest $request, string $id)
     {
-        $result = $this->faqService->updateFaq($id, $request->validated());
+        $result = $this->faqService->update($id, $request->validated());
         if (!$result) {
             return redirect()->route('admin.faqs')->with('error', 'Failed to update faq, try again.');
         }
@@ -88,7 +88,7 @@ class FaqController extends Controller
      */
     public function updateStatus(Request $request, $id)
     {
-        $result = $this->faqService->updateFaqStatus($id, $request->status);
+        $result = $this->faqService->updateStatus($id, $request->status);
 
         if (!$result) {
             return back()->with('error', 'Failed to update faq status, try again!');
@@ -101,7 +101,7 @@ class FaqController extends Controller
      */
     public function destroy(string $id)
     {
-        $result = $this->faqService->destroyFaq($id);
+        $result = $this->faqService->destroy($id);
         if (!$result) {
             return response()->json(['success' => false, 'message' => 'Something went wrong, try again!']);
         }
