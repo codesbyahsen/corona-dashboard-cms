@@ -11,10 +11,7 @@ use App\Http\Requests\Faq\UpdateRequest;
 
 class FaqController extends Controller
 {
-    private FaqService $faqService;
-    private FaqCategoryService $faqCategoryService;
-
-    public function __construct(FaqService $faqService, FaqCategoryService $faqCategoryService)
+    public function __construct(private FaqService $faqService, private FaqCategoryService $faqCategoryService)
     {
         $this->faqService = $faqService;
         $this->faqCategoryService = $faqCategoryService;

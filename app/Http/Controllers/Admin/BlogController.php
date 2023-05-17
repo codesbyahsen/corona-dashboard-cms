@@ -15,11 +15,9 @@ class BlogController extends Controller
 {
     use FileUpload;
 
-    public BlogService $blogService;
-    public BlogCategoryService $blogCategoryService;
     const PATH_BLOG_IMAGE = 'blog/main-image';
 
-    public function __construct(BlogService $blogService, BlogCategoryService $blogCategoryService)
+    public function __construct(private BlogService $blogService, private BlogCategoryService $blogCategoryService)
     {
         $this->blogService = $blogService;
         $this->blogCategoryService = $blogCategoryService;

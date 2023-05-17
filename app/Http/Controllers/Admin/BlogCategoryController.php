@@ -9,9 +9,7 @@ use App\Services\BlogCategoryService;
 
 class BlogCategoryController extends Controller
 {
-    public BlogCategoryService $blogCategoryService;
-
-    public function __construct(BlogCategoryService $blogCategoryService)
+    public function __construct(private BlogCategoryService $blogCategoryService)
     {
         $this->blogCategoryService = $blogCategoryService;
     }

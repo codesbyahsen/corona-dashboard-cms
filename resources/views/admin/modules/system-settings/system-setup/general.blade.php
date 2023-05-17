@@ -244,8 +244,9 @@
                                         <label for="timezone">Timezone</label>
                                         <select class="countries" name="timezone" style="width:100%">
                                             <option value="">Select</option>
-                                            <option value="">(GMT-08:00) Pacific Time (US & Canada)</option>
-                                            <option value="">UTC</option>
+                                            @foreach ($timezones as $timezone)
+                                            <option value="{{ $timezone ?? '' }}">{{ $timezone ?? '' }}</option>
+                                            @endforeach
                                         </select>
                                         @error('timezone')
                                             <span class="text-danger small">{{ $message }}</span>

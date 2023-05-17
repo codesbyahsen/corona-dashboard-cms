@@ -23,8 +23,8 @@ class UpdateOrStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'logo' => ['required', File::types(['png', 'jpg', 'jpeg'])->max(1024 * 2)],
-            'favicon' => ['required', File::types(['png', 'jpg', 'jpeg'])->max(512)],
+            'logo' => ['nullable', File::types(['png', 'jpg', 'jpeg'])->max(1024 * 2)],
+            'favicon' => ['nullable', File::types(['png', 'jpg', 'jpeg'])->max(512)],
             'name' => ['required', 'max:120'],
             'tagline' => ['nullable'],
             'phone' => ['required', 'max:20'],

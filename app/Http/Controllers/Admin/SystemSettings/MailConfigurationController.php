@@ -10,9 +10,7 @@ use App\Http\Requests\MailConfiguration\UpdateRequest;
 
 class MailConfigurationController extends Controller
 {
-    private MailConfigurationService $mailConfigurationService;
-
-    public function __construct(MailConfigurationService $mailConfigurationService)
+    public function __construct(private MailConfigurationService $mailConfigurationService)
     {
         $this->mailConfigurationService = $mailConfigurationService;
     }

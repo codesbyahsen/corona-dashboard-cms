@@ -9,9 +9,7 @@ use App\Http\Requests\FaqCategory\UpdateRequest;
 
 class FaqCategoryController extends Controller
 {
-    private FaqCategoryService $faqCategoryService;
-
-    public function __construct(FaqCategoryService $faqCategoryService)
+    public function __construct(private FaqCategoryService $faqCategoryService)
     {
         $this->faqCategoryService = $faqCategoryService;
     }
