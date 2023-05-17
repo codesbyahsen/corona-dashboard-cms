@@ -7,6 +7,14 @@ use App\Models\Page;
 class PageService
 {
     /**
+     * Get record by type from database.
+     */
+    public function get(string $pageType): Page
+    {
+        return Page::whereType($pageType)->first();
+    }
+
+    /**
      * Store or update record in database.
      */
     public function updateOrStore(string $pageType, array $pageDetails): Page

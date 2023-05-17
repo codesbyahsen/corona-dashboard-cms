@@ -21,7 +21,8 @@ class PageController extends Controller
      */
     public function termsAndConditions()
     {
-        return view('admin.modules.system-settings.pages.terms');
+        $termsAndConditions = $this->pageService->get(Page::TYPE_TERMS_AND_CONDITIONS);
+        return view('admin.modules.system-settings.pages.terms', compact('termsAndConditions'));
     }
 
     /**
@@ -42,7 +43,8 @@ class PageController extends Controller
      */
     public function privacyPolicy()
     {
-        return view('admin.modules.system-settings.pages.privacy');
+        $privacyPolicy = $this->pageService->get(Page::TYPE_PRIVACY_POLICY);
+        return view('admin.modules.system-settings.pages.privacy', compact('privacyPolicy'));
     }
 
     /**
@@ -50,7 +52,7 @@ class PageController extends Controller
      */
     public function storePrivacyPolicy(PrivacyPolicyRequest $request)
     {
-        $result = $this->pageService->updateOrStore(Page::TYPE_PRIVACY_POLICIES, $request->validated());
+        $result = $this->pageService->updateOrStore(Page::TYPE_PRIVACY_POLICY, $request->validated());
         if (!$result) {
             return back()->with('error', 'Failed to create privacy policy, try again.');
         }
