@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class GeneralSetting extends Model
 {
@@ -32,4 +33,18 @@ class GeneralSetting extends Model
         'primary_color',
         'secondary_color'
     ];
+
+    public function logo(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => isset($value) && !empty($value) ? asset('uploads/general-settings/' . $value) : null
+        );
+    }
+
+    public function favicon(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => isset($value) && !empty($value) ? asset('uploads/general-settings/' . $value) : null
+        );
+    }
 }

@@ -92,7 +92,11 @@ Route::prefix('admin')->as('admin.')->group(function () {
         Route::delete('/destroy/{id}', 'destroy')->name('contacts.destroy');
     });
 
-    Route::get('/general-settings', [GeneralSetupController::class, 'index'])->name('general_settings');
+    Route::controller(GeneralSetupController::class)->prefix('general-settings')->group(function () {
+        Route::get('/', 'index')->name('general_settings');
+        Route::post('/', 'store')->name('general_settings.store');
+    });
+
     Route::get('/environment-settings', [EnvironmentSetupController::class, 'index'])->name('environment_settings');
     Route::get('/terms', [PageController::class, 'terms'])->name('terms_and_conditions');
     Route::get('/privacy-policies', [PageController::class, 'privacy'])->name('privacy_policies');
@@ -160,4 +164,3 @@ Route::get('/newsletter/create', function () {
 Route::get('/newsletter/edit', function () {
     return view('admin.modules.newsletter.edit');
 })->name('newsletter.edit');
-

@@ -23,7 +23,7 @@
                             <a href="{{ route('admin.blogs') }}" title="Back" class="mb-3">
                                 <i class="mdi mdi-arrow-left"></i>
                             </a>
-                            <span class="timestamp text-muted" title="Created: {{ $blog->updated_at->format('d-M-Y') }}">Updated:
+                            <span class="timestamp text-muted" title="Created: {{ $blog->updated_at->format('d-M-Y') ?? '' }}">Updated:
                                 {{ $blog->updated_at->diffForHumans() ?? '' }}</span>
                         </div>
                         <div class="py-3 d-flex justify-content-between">
