@@ -98,8 +98,16 @@ Route::prefix('admin')->as('admin.')->group(function () {
     });
 
     Route::get('/environment-settings', [EnvironmentSetupController::class, 'index'])->name('environment_settings');
-    Route::get('/terms', [PageController::class, 'terms'])->name('terms_and_conditions');
-    Route::get('/privacy-policies', [PageController::class, 'privacy'])->name('privacy_policies');
+
+    Route::controller(PageController::class)->prefix('terms-and-conditions')->group(function () {
+        Route::get('/', 'termsAndConditions')->name('terms_and_conditions');
+        Route::post('/store', 'storeTermsAndConditions')->name('terms_and_conditions.store');
+    });
+
+    Route::controller(PageController::class)->prefix('privacy-policy')->group(function () {
+        Route::get('/', 'privacyPolicy')->name('privacy_policy');
+        Route::post('/store', 'storePrivacyPolicy')->name('privacy_policy.store');
+    });
 });
 
 

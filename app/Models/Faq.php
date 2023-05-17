@@ -17,8 +17,8 @@ class Faq extends Model
      */
     protected $fillable = ['faq_category_id', 'question', 'answer', 'is_active'];
 
-    const STATUS_ACTIVE = 1;
-    const STATUS_INACTIVE = 0;
+    const STATUS_ACTIVE = true;
+    const STATUS_INACTIVE = false;
 
 
     // ==============================| Relations |============================== //
