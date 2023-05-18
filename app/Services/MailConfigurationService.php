@@ -36,7 +36,7 @@ class MailConfigurationService
      */
     public function update(string $id, array $mailConfigurations): bool
     {
-        return MailConfiguration::find($id)->update($mailConfigurations);
+        return $this->get($id)->update($mailConfigurations);
     }
 
     /**
@@ -53,7 +53,7 @@ class MailConfigurationService
     public function updateStatus(string $id, $status): bool
     {
         $this->updateAllStatus();
-        return MailConfiguration::whereId($id)->update(['is_active' => $status]);
+        return $this->get($id)->update(['is_active' => $status]);
     }
 
     /**
@@ -61,6 +61,6 @@ class MailConfigurationService
      */
     public function destroy(string $id): bool
     {
-        return MailConfiguration::find($id)->delete();
+        return $this->get($id)->delete();
     }
 }

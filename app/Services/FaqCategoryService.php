@@ -36,7 +36,7 @@ class FaqCategoryService
      */
     public function update(string $id, array $faqCategory): bool
     {
-        return FaqCategory::find($id)->update($faqCategory);
+        return $this->get($id)->update($faqCategory);
     }
 
     /**
@@ -44,6 +44,6 @@ class FaqCategoryService
      */
     public function destroy(string $id): bool
     {
-        return FaqCategory::find($id)->delete();
+        return $this->get($id)->delete();
     }
 }

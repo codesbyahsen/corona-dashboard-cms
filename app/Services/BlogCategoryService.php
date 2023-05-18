@@ -36,7 +36,7 @@ class BlogCategoryService
      */
     public function update(string $id, array $blogCategory): bool
     {
-        return BlogCategory::find($id)->update($blogCategory);
+        return $this->get($id)->update($blogCategory);
     }
 
     /**
@@ -44,6 +44,6 @@ class BlogCategoryService
      */
     public function destroy(string $id): bool
     {
-        return BlogCategory::find($id)->delete();
+        return $this->get($id)->delete();
     }
 }

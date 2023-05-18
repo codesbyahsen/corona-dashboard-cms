@@ -36,7 +36,7 @@ class FaqService
      */
     public function update(string $id, array $faq): bool
     {
-        return Faq::find($id)->update($faq);
+        return $this->get($id)->update($faq);
     }
 
     /**
@@ -45,7 +45,7 @@ class FaqService
     public function updateStatus(string $id, $status): bool
     {
         return (bool) Faq::withoutTimestamps(function () use ($id, $status) {
-            Faq::find($id)->update(['is_active' => $status]);
+            $this->get($id)->update(['is_active' => $status]);
         });
     }
 
@@ -54,6 +54,6 @@ class FaqService
      */
     public function destroy(string $id): bool
     {
-        return Faq::find($id)->delete();
+        return $this->get($id)->delete();
     }
 }
