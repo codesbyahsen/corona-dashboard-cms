@@ -9,7 +9,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('faq_categories') }}">Blog Categories</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.faq_categories') }}">Blog Categories</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Create Blog Category</li>
                 </ol>
             </nav>

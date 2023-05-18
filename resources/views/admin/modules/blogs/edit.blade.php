@@ -28,7 +28,7 @@
                     <div class="card-body">
                         {{-- <h4 class="card-title">Default form</h4> --}}
                         {{-- <p class="card-description"> Basic form layout </p> --}}
-                        <form class="forms-sample" action="{{ route('admin.blogs.update', $blog->id) }}" method="POST">
+                        <form class="forms-sample" action="{{ route('admin.blogs.update', $blog->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf @method('PUT')
                             <div class="row justify-content-center" style="height: 300px;">
                                 <img src="{{ $blog?->image ?? '' }}" style="max-height: 100%; max-width: 100%;"
@@ -36,18 +36,22 @@
                             </div>
                             <div class="row mt-4">
                                 <div class="col-12">
-                                    <label for="">Image <span class="text-danger">*</span></label>
+                                    <label for="">Image</label>
                                     <input type="file" name="image" class="dropify" />
+                                    @error('image')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label>Category &#40;ies&#41; <span class="text-danger">*</span></label>
-                                        <select name="category" class="dropdown-select-multiple" multiple="multiple"
+                                        <select name="category[]" class="dropdown-select-multiple" multiple="multiple"
                                             style="width:100%">
                                             @foreach ($blogCategories as $key => $blogCategory)
-                                                <option value="{{ $blogCategory->id }}" @selected(isset($blog?->blogCategories[$key]['id']) == $blogCategory->id)>{{ $blogCategory->name ?? '' }}
+                                                <option value="{{ $blogCategory->id }}" @selected(isset($blog?->blogCategories[$key]['id']) == $blogCategory->id)>
+                                                    {{ $blogCategory->name ?? '' }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -61,7 +65,10 @@
                                     <div class="form-group">
                                         <label for="heading">Heading <span class="text-danger">*</span></label>
                                         <input type="text" name="heading" class="form-control" id="heading"
-                                            placeholder="Heading" value="{{ $blog->heading ?? '' }}" />
+                                            placeholder="Heading" value="{{ old('heading', $blog?->heading ?? '') }}" />
+                                        @error('heading')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -71,7 +78,10 @@
                                     <div class="form-group">
                                         <label for="category">Title <span class="text-danger">*</span></label>
                                         <input type="text" name="title" class="form-control" id="title"
-                                            placeholder="Title" value="{{ $blog->title ?? '' }}" />
+                                            placeholder="Title" value="{{ old('title', $blog?->title ?? '') }}" />
+                                        @error('title')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -79,7 +89,11 @@
                                     <div class="form-group">
                                         <label for="subTitle">Sub Title</label>
                                         <input type="text" name="sub_title" class="form-control" id="subTitle"
-                                            placeholder="Sub title" value="{{ $blog->sub_title ?? '' }}" />
+                                            placeholder="Sub title"
+                                            value="{{ old('sub_title', $blog?->sub_title ?? '') }}" />
+                                        @error('sub_title')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -88,14 +102,20 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="quote">Quote</label>
-                                        <textarea class="form-control" name="quote" id="quote" rows="4">{{ $blog->quote ?? '' }}</textarea>
+                                        <textarea class="form-control" name="quote" id="quote" rows="4">{{ old('quote', $blog?->quote ?? '') }}</textarea>
+                                        @error('quote')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="description">Description <span class="text-danger">*</span></label>
-                                        <textarea class="form-control" name="description" id="summernote" rows="4">{!! $blog->description ?? '' !!}</textarea>
+                                        <textarea class="form-control" name="description" id="summernote" rows="4">{!! old('description', $blog?->description ?? '') !!}</textarea>
+                                        @error('description')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>

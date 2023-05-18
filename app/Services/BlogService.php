@@ -3,10 +3,14 @@
 namespace App\Services;
 
 use App\Models\Blog;
+use App\Actions\ManageFileUpload;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
 
 class BlogService
 {
+    const PATH_BLOG_IMAGE = 'blog/main-image';
+
     /**
      * Get all record from database.
      */
@@ -28,7 +32,8 @@ class BlogService
      */
     public function getColumnValue($id, $attribute): mixed
     {
-        return Blog::whereId($id)->value($attribute);
+        $rawAttribute = $this->get($id);
+        return $rawAttribute->getAttributes()[$attribute];
     }
 
     /**
@@ -36,7 +41,33 @@ class BlogService
      */
     public function create(array $blog): Blog
     {
-        return Blog::create($blog);
+        $imageName = null;
+        if (isset($blog['image']) && !is_null($blog['image'])) {
+            $imageName = ManageFileUpload::handle($blog['image'], self::PATH_BLOG_IMAGE, 'blog');
+        }
+
+        // replace image value with custom image name
+        $blog = array_replace($blog, array('image' => $imageName));
+        $result = Blog::create($blog);
+
+        if ($result && !empty($result)) {
+            $this->updateOrStoreCategories($blog['category'], $result->id);
+        }
+        return $result;
+    }
+
+    /**
+     * Update or store blog categories in database.
+     */
+    private function updateOrStoreCategories(array $categories, string $blogId): void
+    {
+        foreach ($categories as $id) {
+            DB::table('category_blog')->updateOrInsert(
+                ['blog_id' => $blogId, 'blog_category_id' => $id],
+                ['blog_category_id' => $id, 'blog_id' => $blogId, 'created_at' => now(), 'updated_at' => now()]
+            );
+        }
+        DB::table('category_blog')->whereNotIn('blog_category_id', $categories)->where('blog_id', $blogId)->delete();
     }
 
     /**
@@ -44,7 +75,22 @@ class BlogService
      */
     public function update(string $id, array $blog): bool
     {
-        return Blog::find($id)->update($blog);
+        $imageName = null;
+        if (isset($blog['image']) && !is_null($blog['image'])) {
+            $imageName = ManageFileUpload::handle($blog['image'], self::PATH_BLOG_IMAGE, 'blog');
+        } else {
+            $imageName = $this->getColumnValue($id, 'image');
+        }
+
+        // replace image value with custom image name
+        $blog = array_replace($blog, array('image' => $imageName));
+
+        $result = $this->get($id)->update($blog);
+
+        if ($result && !empty($result)) {
+            $this->updateOrStoreCategories($blog['category'], $id);
+        }
+        return $result;
     }
 
     /**
@@ -53,7 +99,7 @@ class BlogService
     public function updateStatus(string $id, $status): bool
     {
         return (bool) Blog::withoutTimestamps(function () use ($id, $status) {
-            Blog::find($id)->update(['is_active' => $status]);
+            $this->get($id)->update(['is_active' => $status]);
         });
     }
 
@@ -62,6 +108,6 @@ class BlogService
      */
     public function destroy(string $id): bool
     {
-        return Blog::find($id)->delete();
+        return $this->get($id)->delete();
     }
 }

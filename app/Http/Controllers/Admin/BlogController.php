@@ -13,10 +13,6 @@ use App\Http\Requests\Blog\UpdateRequest;
 
 class BlogController extends Controller
 {
-    use FileUpload;
-
-    const PATH_BLOG_IMAGE = 'blog/main-image';
-
     public function __construct(private BlogService $blogService, private BlogCategoryService $blogCategoryService)
     {
         $this->blogService = $blogService;
@@ -46,24 +42,7 @@ class BlogController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $imageName = null;
-        if ($request->hasFile('image')) {
-            $imageName = 'blog_' . uniqid() . '_' . time() . '.' . $request->image->extension();
-        }
-
-        // replace image value with custom image name
-        $blog = array_replace($request->validated(), array('image' => $imageName));
-
-        $result = $this->blogService->create($blog);
-
-        // store blog categories
-        if (isset($result)) {
-            foreach ($request->category as $id) {
-                DB::table('category_blog')->insert(['blog_category_id' => $id, 'blog_id' => $result->id, 'created_at' => now(), 'updated_at' => now()]);
-            }
-        }
-
-        $this->handleUploadFile($request->image, self::PATH_BLOG_IMAGE, $imageName);
+        $result = $this->blogService->create($request->validated());
 
         if (!$result) {
             return back()->with('error', 'Failed to create blog, try again!');
@@ -97,18 +76,7 @@ class BlogController extends Controller
      */
     public function update(UpdateRequest $request, string $id)
     {
-        $imageName = null;
-        if ($request->hasFile('image')) {
-            $imageName = 'blog_' . uniqid() . '_' . time() . '.' . $request->image->extension();
-        } else {
-            $imageName = $this->blogService->getColumnValue($id, 'image');
-        }
-
-        // replace image value with custom image name
-        $blog = array_replace($request->validated(), array('image' => $imageName));
-
-        $result = $this->blogService->update($id, $blog);
-        $this->handleUploadFile($request->image, self::PATH_BLOG_IMAGE, $imageName);
+        $result = $this->blogService->update($id, $request->validated());
 
         if (!$result) {
             return back()->with('error', 'Failed to update blog, try again!');

@@ -23,7 +23,7 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => ['required', File::types(['png', 'jpg', 'jpeg'])->max(1024)],
+            'image' => ['nullable', File::types(['png', 'jpg', 'jpeg'])->max(1024)],
             'heading' => ['required', 'min:3', 'max:140'],
             'title' => ['required', 'unique:blogs,title,' . $this->id],
             'sub_title' => ['nullable'],

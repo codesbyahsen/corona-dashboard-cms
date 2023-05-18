@@ -44,7 +44,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label>Category &#40;ies&#41; <span class="text-danger">*</span></label>
-                                        <select name="category" class="dropdown-select-multiple" multiple="multiple"
+                                        <select name="category[]" class="dropdown-select-multiple" multiple="multiple"
                                             style="width:100%">
                                             @foreach ($blogCategories as $blogCategory)
                                                 <option value="{{ $blogCategory->id }}">{{ $blogCategory->name ?? '' }}
