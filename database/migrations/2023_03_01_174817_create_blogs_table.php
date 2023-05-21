@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('sub_title')->nullable();
             $table->string('quote', 500)->nullable();
             $table->text('description')->nullable();
-            $table->boolean('is_active')->default(Blog::STATUS_INACTIVE)->nullable();
+            $table->boolean('is_active')->nullable()->default(Blog::STATUS_INACTIVE);
             $table->timestamps();
         });
     }

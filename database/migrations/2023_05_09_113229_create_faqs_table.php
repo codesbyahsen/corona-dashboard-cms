@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('faq_category_id')->nullable();
             $table->string('question', 800)->nullable();
             $table->text('answer')->nullable();
-            $table->boolean('is_active')->default(Faq::STATUS_INACTIVE)->nullable();
+            $table->boolean('is_active')->nullable()->default(Faq::STATUS_INACTIVE);
             $table->timestamps();
         });
 

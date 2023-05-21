@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->string('from_address')->nullable();
             $table->string('from_name')->nullable();
-            $table->boolean('is_active')->default(MailConfiguration::STATUS_INACTIVE)->nullable();
+            $table->boolean('is_active')->nullable()->default(MailConfiguration::STATUS_INACTIVE);
             $table->timestamps();
         });
     }
