@@ -20,7 +20,9 @@
 
         <x-system-setup-navigation />
 
-        <span class="timestamp text-muted" title="Created: {{ $generalSetting?->created_at->format('d-M-Y') ?? '' }}">Updated: {{ $generalSetting?->updated_at->diffForHumans() ?? '' }}</span>
+        <span class="timestamp text-muted"
+            title="Created: {{ $generalSetting?->created_at->format('d-M-Y') ?? '' }}">Updated:
+            {{ $generalSetting?->updated_at->diffForHumans() ?? '' }}</span>
         <form class="forms-sample" action="{{ route('admin.general_settings.store') }}" method="POST"
             enctype="multipart/form-data">
             @csrf
@@ -245,7 +247,7 @@
                                         <select class="countries" name="timezone" style="width:100%">
                                             <option value="">Select</option>
                                             @foreach ($timezones as $timezone)
-                                            <option value="{{ $timezone ?? '' }}">{{ $timezone ?? '' }}</option>
+                                                <option value="{{ $timezone ?? '' }}" @selected(old('timezone', $generalSetting?->timezone) === $timezone)>{{ $timezone ?? '' }}</option>
                                             @endforeach
                                         </select>
                                         @error('timezone')

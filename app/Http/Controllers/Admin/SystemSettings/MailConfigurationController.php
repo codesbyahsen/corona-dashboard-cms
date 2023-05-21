@@ -39,7 +39,7 @@ class MailConfigurationController extends Controller
     {
         $result = $this->mailConfigurationService->create($request->validated());
         if (!$result) {
-            return redirect()->route('admin.smtp')->with('error', 'Failed to create mail configuration, try again.');
+            return back()->with('error', 'Failed to create mail configuration, try again.');
         }
         return redirect()->route('admin.smtp')->with('success', 'Mail configuration created successfully.');
     }
