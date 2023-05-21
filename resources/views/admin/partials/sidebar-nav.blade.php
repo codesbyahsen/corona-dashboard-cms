@@ -102,7 +102,7 @@
             </a>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="{{ route('social_links') }}">
+            <a class="nav-link" href="{{ route('admin.social_links') }}">
                 <span class="menu-icon">
                     <i class="mdi mdi-facebook"></i>
                 </span>
@@ -189,7 +189,7 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link {{ request()->routeIs('admin.terms_and_conditions') || request()->routeIs('admin.privacy_policies') ? 'active' : '' }}"
                             href="{{ route('admin.terms_and_conditions') }}">Pages</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{ route('social_links') }}">Social</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('admin.social_links') }}">Social</a></li>
                 </ul>
             </div>
         </li>

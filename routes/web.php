@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\SystemSettings\EnvironmentSetupController;
 use App\Http\Controllers\Admin\SystemSettings\GeneralSetupController;
 use App\Http\Controllers\Admin\SystemSettings\MailConfigurationController;
 use App\Http\Controllers\Admin\SystemSettings\PageController;
+use App\Http\Controllers\Admin\SystemSettings\SocialLinkController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -80,6 +81,15 @@ Route::prefix('admin')->as('admin.')->group(function () {
         Route::delete('/destroy/{id}', 'destroy')->name('smtp.destroy');
     });
 
+    # social link
+    Route::controller(SocialLinkController::class)->prefix('social-links')->group(function () {
+        Route::get('/', 'index')->name('social_links');
+        Route::post('/store', 'store')->name('social_links.store');
+        Route::put('/update/{id}', 'update')->name('social_links.update');
+        Route::patch('/update-status/{id}', 'updateStatus')->name('social_links.update.status');
+        Route::delete('/destroy/{id}', 'destroy')->name('social_links.destroy');
+    });
+
     # contact
     Route::controller(ContactController::class)->prefix('contacts')->group(function () {
         Route::get('/', 'index')->name('contacts');
@@ -108,8 +118,9 @@ Route::prefix('admin')->as('admin.')->group(function () {
         Route::get('/', 'privacyPolicy')->name('privacy_policy');
         Route::post('/store', 'storePrivacyPolicy')->name('privacy_policy.store');
     });
-});
 
+
+});
 
 Route::get('/login', function () {
     return view('admin.modules.authentication.login');
@@ -147,10 +158,6 @@ Route::get('/contact-queries', function () {
 Route::get('/contact-queries/show', function () {
     return view('admin.modules.contact-queries.show');
 })->name('contact_queries.show');
-
-Route::get('/social-links', function () {
-    return view('admin.modules.social-links.create-or-edit');
-})->name('social_links');
 
 
 Route::get('/newsletter/subscribers', function () {
