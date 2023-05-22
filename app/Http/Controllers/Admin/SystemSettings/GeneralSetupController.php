@@ -33,7 +33,7 @@ class GeneralSetupController extends Controller
     {
         $result = $this->generalSettingService->updateOrStore(self::ID, $request->validated());
         if (!$result) {
-            return redirect()->route('admin.general_settings')->with('error', 'Failed to create settings, try again.');
+            return back()->with('error', 'Failed to create settings, try again.');
         }
         return redirect()->route('admin.general_settings')->with('success', 'Settings created successfully.');
     }

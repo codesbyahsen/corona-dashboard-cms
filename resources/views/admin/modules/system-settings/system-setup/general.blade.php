@@ -4,6 +4,7 @@
 @section('injected-links')
     <link rel="stylesheet" href="{{ asset('assets/vendors/select2/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/toastr/toastr.min.css') }}">
 @endsection
 
 @section('page-content')
@@ -20,9 +21,11 @@
 
         <x-system-setup-navigation />
 
-        <span class="timestamp text-muted"
-            title="Created: {{ $generalSetting?->created_at->format('d-M-Y') ?? '' }}">Updated:
-            {{ $generalSetting?->updated_at->diffForHumans() ?? '' }}</span>
+        @isset($generalSetting?->created_at)
+            <span class="timestamp text-muted"
+                title="Created: {{ $generalSetting?->created_at->format('d-M-Y') ?? '' }}">Updated:
+                {{ $generalSetting?->updated_at->diffForHumans() ?? '' }}</span>
+        @endisset
         <form class="forms-sample" action="{{ route('admin.general_settings.store') }}" method="POST"
             enctype="multipart/form-data">
             @csrf
@@ -247,7 +250,8 @@
                                         <select class="countries" name="timezone" style="width:100%">
                                             <option value="">Select</option>
                                             @foreach ($timezones as $timezone)
-                                                <option value="{{ $timezone ?? '' }}" @selected(old('timezone', $generalSetting?->timezone) === $timezone)>{{ $timezone ?? '' }}</option>
+                                                <option value="{{ $timezone ?? '' }}" @selected(old('timezone', $generalSetting?->timezone) === $timezone)>
+                                                    {{ $timezone ?? '' }}</option>
                                             @endforeach
                                         </select>
                                         @error('timezone')
@@ -326,4 +330,6 @@
     <script src="{{ asset('assets/js/file-upload.js') }}"></script>
     <script src="{{ asset('assets/vendors/select2/select2.min.js') }}"></script>
     <script src="{{ asset('assets/js/select2.js') }}"></script>
+    <script src="{{ asset('assets/vendors/toastr/toastr.min.js') }}"></script>
+    <x-toastr-notification />
 @endpush

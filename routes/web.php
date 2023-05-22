@@ -108,7 +108,11 @@ Route::prefix('admin')->as('admin.')->group(function () {
         Route::post('/', 'store')->name('general_settings.store');
     });
 
-    Route::get('/environment-settings', [EnvironmentSetupController::class, 'index'])->name('environment_settings');
+    # environment setting
+    Route::controller(EnvironmentSetupController::class)->prefix('environment-settings')->group(function () {
+        Route::get('/', 'index')->name('environment_settings');
+        Route::post('/', 'store')->name('environment_settings.store');
+    });
 
     # terms
     Route::controller(PageController::class)->prefix('terms')->group(function () {
