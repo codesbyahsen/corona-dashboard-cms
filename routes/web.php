@@ -109,9 +109,9 @@ Route::prefix('admin')->as('admin.')->group(function () {
 
     Route::get('/environment-settings', [EnvironmentSetupController::class, 'index'])->name('environment_settings');
 
-    Route::controller(PageController::class)->prefix('terms-and-conditions')->group(function () {
-        Route::get('/', 'termsAndConditions')->name('terms_and_conditions');
-        Route::post('/store', 'storeTermsAndConditions')->name('terms_and_conditions.store');
+    Route::controller(PageController::class)->prefix('terms')->group(function () {
+        Route::get('/', 'terms')->name('terms');
+        Route::post('/store', 'storeTerms')->name('terms.store');
     });
 
     Route::controller(PageController::class)->prefix('privacy-policy')->group(function () {

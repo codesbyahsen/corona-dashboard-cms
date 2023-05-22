@@ -185,10 +185,10 @@
                 <span class="menu-title">Pages &amp; Social</span>
                 <i class="menu-arrow"></i>
             </a>
-            <div class="collapse {{ request()->routeIs('admin.terms_and_conditions') || request()->routeIs('admin.privacy_policies') ? 'show' : '' }}" id="pages_media_nav">
+            <div class="collapse {{ request()->routeIs('admin.terms') || request()->routeIs('admin.privacy_policy') ? 'show' : '' }}" id="pages_media_nav">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link {{ request()->routeIs('admin.terms_and_conditions') || request()->routeIs('admin.privacy_policies') ? 'active' : '' }}"
-                            href="{{ route('admin.terms_and_conditions') }}">Pages</a></li>
+                    <li class="nav-item"> <a class="nav-link {{ request()->routeIs('admin.terms') || request()->routeIs('admin.privacy_policy') ? 'active' : '' }}"
+                            href="{{ route('admin.terms') }}">Pages</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{ route('admin.social_links') }}">Social</a></li>
                 </ul>
             </div>

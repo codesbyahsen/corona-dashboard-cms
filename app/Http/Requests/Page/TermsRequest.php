@@ -4,7 +4,7 @@ namespace App\Http\Requests\Page;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TermsAndConditionsRequest extends FormRequest
+class TermsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

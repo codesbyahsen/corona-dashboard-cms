@@ -6,7 +6,7 @@ use App\Models\Page;
 use App\Services\PageService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Page\PrivacyPolicyRequest;
-use App\Http\Requests\Page\TermsAndConditionsRequest;
+use App\Http\Requests\Page\TermsRequest;
 
 class PageController extends Controller
 {
@@ -18,22 +18,22 @@ class PageController extends Controller
      * Show the terms and condition form for
      * creating or editing resource.
      */
-    public function termsAndConditions()
+    public function terms()
     {
-        $termsAndConditions = $this->pageService->get(Page::TYPE_TERMS_AND_CONDITIONS);
-        return view('admin.modules.system-settings.pages.terms', compact('termsAndConditions'));
+        $terms = $this->pageService->get(Page::TYPE_TERMS);
+        return view('admin.modules.system-settings.pages.terms', compact('terms'));
     }
 
     /**
      * Store or update resource in storage.
      */
-    public function storeTermsAndConditions(TermsAndConditionsRequest $request)
+    public function storeTerms(TermsRequest $request)
     {
-        $result = $this->pageService->updateOrStore(Page::TYPE_TERMS_AND_CONDITIONS, $request->validated());
+        $result = $this->pageService->updateOrStore(Page::TYPE_TERMS, $request->validated());
         if (!$result) {
             return back()->with('error', 'Failed to create terms and conditions, try again.');
         }
-        return redirect()->route('admin.general_settings')->with('success', 'The terms and conditions created successfully.');
+        return redirect()->route('admin.terms')->with('success', 'The terms and conditions created successfully.');
     }
 
     /**

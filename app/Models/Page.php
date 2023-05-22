@@ -13,6 +13,6 @@ class Page extends Model
 
     const STATUS_ACTIVE = true;
     const STATUS_INACTIVE = false;
-    const TYPE_TERMS_AND_CONDITIONS = 'terms-and-conditions';
-    const TYPE_PRIVACY_POLICY = 'privacy-policies';
+    const TYPE_TERMS = 'terms';
+    const TYPE_PRIVACY_POLICY = 'privacy-policy';
 }

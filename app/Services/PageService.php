@@ -9,7 +9,7 @@ class PageService
     /**
      * Get record by type from database.
      */
-    public function get(string $pageType): Page
+    public function get(string $pageType): Page|null
     {
         return Page::whereType($pageType)->first();
     }
