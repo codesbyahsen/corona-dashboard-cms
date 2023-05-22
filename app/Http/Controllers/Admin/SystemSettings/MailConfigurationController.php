@@ -12,7 +12,6 @@ class MailConfigurationController extends Controller
 {
     public function __construct(private MailConfigurationService $mailConfigurationService)
     {
-        $this->mailConfigurationService = $mailConfigurationService;
     }
 
     /**

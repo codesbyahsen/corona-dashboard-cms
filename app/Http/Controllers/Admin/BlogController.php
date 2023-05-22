@@ -13,8 +13,6 @@ class BlogController extends Controller
 {
     public function __construct(private BlogService $blogService, private BlogCategoryService $blogCategoryService)
     {
-        $this->blogService = $blogService;
-        $this->blogCategoryService = $blogCategoryService;
     }
 
     /**

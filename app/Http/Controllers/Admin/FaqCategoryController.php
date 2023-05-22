@@ -11,7 +11,6 @@ class FaqCategoryController extends Controller
 {
     public function __construct(private FaqCategoryService $faqCategoryService)
     {
-        $this->faqCategoryService = $faqCategoryService;
     }
 
     /**

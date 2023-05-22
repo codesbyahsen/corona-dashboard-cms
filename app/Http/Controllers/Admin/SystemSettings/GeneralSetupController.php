@@ -14,7 +14,6 @@ class GeneralSetupController extends Controller
 
     public function __construct(private GeneralSettingService $generalSettingService)
     {
-        $this->generalSettingService = $generalSettingService;
     }
 
     /**

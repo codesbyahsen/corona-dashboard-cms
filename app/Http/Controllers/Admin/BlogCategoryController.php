@@ -11,7 +11,6 @@ class BlogCategoryController extends Controller
 {
     public function __construct(private BlogCategoryService $blogCategoryService)
     {
-        $this->blogCategoryService = $blogCategoryService;
     }
 
     /**

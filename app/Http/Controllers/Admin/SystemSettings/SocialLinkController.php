@@ -12,7 +12,6 @@ class SocialLinkController extends Controller
 {
     public function __construct(private SocialLinkService $socialLinkService)
     {
-        $this->socialLinkService = $socialLinkService;
     }
 
     /**

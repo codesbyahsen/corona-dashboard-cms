@@ -12,7 +12,6 @@ class PageController extends Controller
 {
     public function __construct(private PageService $pageService)
     {
-        $this->pageService = $pageService;
     }
 
     /**
