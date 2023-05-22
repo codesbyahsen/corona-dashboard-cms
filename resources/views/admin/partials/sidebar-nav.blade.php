@@ -101,14 +101,6 @@
                 <span class="menu-title">Queries</span>
             </a>
         </li>
-        <li class="nav-item menu-items">
-            <a class="nav-link" href="{{ route('admin.social_links') }}">
-                <span class="menu-icon">
-                    <i class="mdi mdi-facebook"></i>
-                </span>
-                <span class="menu-title">Social</span>
-            </a>
-        </li>
         <li class="nav-item nav-category">
             <span class="nav-link">General</span>
         </li>

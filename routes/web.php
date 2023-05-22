@@ -102,6 +102,7 @@ Route::prefix('admin')->as('admin.')->group(function () {
         Route::delete('/destroy/{id}', 'destroy')->name('contacts.destroy');
     });
 
+    # general setting
     Route::controller(GeneralSetupController::class)->prefix('general-settings')->group(function () {
         Route::get('/', 'index')->name('general_settings');
         Route::post('/', 'store')->name('general_settings.store');
@@ -109,17 +110,17 @@ Route::prefix('admin')->as('admin.')->group(function () {
 
     Route::get('/environment-settings', [EnvironmentSetupController::class, 'index'])->name('environment_settings');
 
+    # terms
     Route::controller(PageController::class)->prefix('terms')->group(function () {
         Route::get('/', 'terms')->name('terms');
         Route::post('/store', 'storeTerms')->name('terms.store');
     });
 
+    # privacy policy
     Route::controller(PageController::class)->prefix('privacy-policy')->group(function () {
         Route::get('/', 'privacyPolicy')->name('privacy_policy');
         Route::post('/store', 'storePrivacyPolicy')->name('privacy_policy.store');
     });
-
-
 });
 
 Route::get('/login', function () {

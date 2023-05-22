@@ -12,7 +12,7 @@ class GeneralSettingService
     /**
      * Get record by id from database.
      */
-    public function get(string $id): GeneralSetting
+    public function get(string $id): GeneralSetting|null
     {
         return GeneralSetting::find($id);
     }
