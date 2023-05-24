@@ -2,7 +2,7 @@
 
 @section('title', 'Contacts')
 
-@section('extra-links')
+@section('injected-links')
     <link rel="stylesheet" href="{{ asset('assets/vendors/datatables/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/toastr/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/sweetalert2/borderless.min.css') }}">
@@ -22,101 +22,41 @@
         <div class="row">
             <div class="col-12">
                 <div class="mb-4 pr-2 float-right" title="Create new">
-                    <a href="{{ route('contacts.create') }}" class="btn btn-dark" type="button">
+                    <a href="{{ route('admin.contacts.create') }}" class="btn btn-dark" type="button">
                         <i class="mdi mdi-plus"></i>
                     </a>
                 </div>
             </div>
-        </div iv>
-        @isset($headOffice)
-            <div class="row">
-                <div class="col-12 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Head Office</h4>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Title</th>
-                                            <th>Phone Number</th>
-                                            <th>Email</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>{{ $headOffice->title ?? '' }}</td>
-                                            <td>{{ $headOffice->phone ?? '' }}</td>
-                                            <td>{{ $headOffice->email ?? '' }}</td>
-                                            <td>
-                                                <form action="{{ route('contacts_status.update', encrypt($headOffice->id)) }}"
-                                                    method="POST">
-                                                    @csrf @method('PUT')
-                                                    <button type="submit" style="border: none; background: none;">
-                                                        <span
-                                                            class="badge rounded-pill {{ $headOffice->is_active == config('constants.CONTACT_STATUS_ACTIVE') ? 'btn-inverse-success' : 'btn-inverse-danger' }}">{{ $headOffice->is_active == config('constants.CONTACT_STATUS_ACTIVE') ? 'Active' : 'Disabled' }}
-                                                        </span>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('contacts.show', encrypt($headOffice->id ?? '')) }}"
-                                                    title="View details"><i class="mdi mdi-file-eye"></i></a>
-                                                <a href="{{ route('contacts.edit', encrypt($headOffice->id ?? '')) }}"
-                                                    title="Edit"><i class="mdi mdi-square-edit-outline"></i></a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endisset
+        </div>
 
         <div class="row">
             <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Sub Offices</h4>
+                        <h4 class="card-title">Contacts</h4>
                         <div class="table-responsive">
-                            <table class="table" id="contact_info">
+                            <table class="table" id="contacts">
                                 <thead>
                                     <tr>
-                                        <th>Title</th>
-                                        <th>Phone Number</th>
+                                        <th>Name</th>
+                                        <th>Phone</th>
                                         <th>Email</th>
-                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($contacts as $contact)
                                         <tr>
-                                            <td>{{ $contact->title ?? '' }}</td>
-                                            <td>{{ $contact->phone ?? '' }}</td>
-                                            <td>{{ $contact->email ?? '' }}</td>
+                                            <td>{{ $contact?->name ?? '' }}</td>
+                                            <td>{{ $contact?->phone ?? '' }}</td>
+                                            <td>{{ $contact?->email ?? '' }}</td>
                                             <td>
-                                                <form action="{{ route('contacts_status.update', encrypt($contact->id)) }}"
-                                                    method="POST">
-                                                    @csrf @method('PUT')
-                                                    <button type="submit" style="border: none; background: none;">
-                                                        <span
-                                                            class="badge rounded-pill {{ $contact->is_active == config('constants.CONTACT_STATUS_ACTIVE') ? 'btn-inverse-success' : 'btn-inverse-danger' }}">{{ $contact->is_active == config('constants.CONTACT_STATUS_ACTIVE') ? 'Active' : 'Disabled' }}
-                                                        </span>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('contacts.show', encrypt($contact->id ?? '')) }}"
+                                                <a href="{{ route('admin.contacts.show', encrypt($contact->id ?? '')) }}"
                                                     title="View details"><i class="mdi mdi-file-eye"></i></a>
-                                                <a href="{{ route('contacts.edit', encrypt($contact->id ?? '')) }}"
+                                                <a href="{{ route('admin.contacts.edit', encrypt($contact->id ?? '')) }}"
                                                     title="Edit"><i class="mdi mdi-square-edit-outline"></i></a>
                                                 <a href="javascript:void(0)"
-                                                    onclick="confirmToDelete('{{ route('contacts.destroy', encrypt($contact->id)) }}')"
+                                                    onclick="confirmToDelete('{{ route('admin.contacts.destroy', $contact?->id) }}')"
                                                     title="Delete"><i class="mdi mdi-delete-outline"></i></a>
                                             </td>
                                         </tr>
@@ -131,7 +71,7 @@
     </div>
 @endsection
 
-@push('extra-scripts')
+@push('injected-scripts')
     <script src="{{ asset('assets/vendors/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/toastr/toastr.min.js') }}"></script>
     <x-toastr-notification />
@@ -139,7 +79,7 @@
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('#contact_info').DataTable();
+            $('#contacts').DataTable();
         });
     </script>
 @endpush

@@ -6,14 +6,12 @@ use App\Models\Contact;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Contact\StoreRequest;
 use App\Http\Requests\Contact\UpdateRequest;
+use App\Services\ContactService;
 
 class ContactController extends Controller
 {
-    public Contact $contact;
-
-    public function __construct(Contact $contact)
+    public function __construct(private ContactService $contactService)
     {
-        $this->contact = $contact;
     }
 
     /**
@@ -21,9 +19,8 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $headOffice = $this->contact->getHeadOffice();
-        $contacts = $this->contact->getAllContacts();
-        return view('admin.modules.contacts.index', compact('contacts', 'headOffice'));
+        $contacts = $this->contactService->getAll();
+        return view('admin.modules.contacts.index', compact('contacts'));
     }
 
     /**
@@ -39,12 +36,12 @@ class ContactController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $result = $this->contact->createContact($request->validated());
+        $result = $this->contactService->create($request->validated());
 
         if (!$result) {
-            return back()->with('error', 'Something went wrong, try again!');
+            return back()->with('error', 'Failed to create contact, try again!');
         }
-        return redirect()->route('contacts')->with('success', 'The contact created successfully.');
+        return redirect()->route('admin.contacts')->with('success', 'The contact created successfully.');
     }
 
     /**
@@ -53,7 +50,7 @@ class ContactController extends Controller
     public function show($id)
     {
         $id = decrypt($id);
-        $contact = $this->contact->getContact($id);
+        $contact = $this->contactService->get($id);
         return view('admin.modules.contacts.show', compact('contact'));
     }
 
@@ -63,7 +60,7 @@ class ContactController extends Controller
     public function edit($id)
     {
         $id = decrypt($id);
-        $contact = $this->contact->getContact($id);
+        $contact = $this->contactService->get($id);
         return view('admin.modules.contacts.edit', compact('contact'));
     }
 
@@ -72,30 +69,12 @@ class ContactController extends Controller
      */
     public function update(UpdateRequest $request, $id)
     {
-        $id = decrypt($id);
-        $result = $this->contact->updateContact($id, $request->validated());
+        $result = $this->contactService->update($id, $request->validated());
 
         if (!$result) {
-            return back()->with('error', 'Something went wrong, try again!');
+            return back()->with('error', 'Failed to update contact, try again!');
         }
-        return redirect()->route('contacts')->with('success', 'The contact updated successfully.');
-    }
-
-    /**
-     * Update the specified status in storage
-     */
-    public function updateStatus($id)
-    {
-        $id = decrypt($id);
-        $contact = $this->contact->getContact($id);
-        $status = ($contact->is_active == Contact::STATUS_ACTIVE ? Contact::STATUS_INACTIVE : Contact::STATUS_ACTIVE);
-        $contactStatus = array('is_active' => $status);
-        $result = $this->contact->updateContact($id, $contactStatus);
-
-        if (!isset($result)) {
-            return back()->with('error', 'Something went wrong, try again!');
-        }
-        return back();
+        return redirect()->route('admin.contacts')->with('success', 'The contact updated successfully.');
     }
 
     /**
@@ -103,8 +82,7 @@ class ContactController extends Controller
      */
     public function destroy($id)
     {
-        $id = decrypt($id);
-        $result = $this->contact->destroyContact($id);
+        $result = $this->contactService->destroy($id);
 
         if (!$result) {
             return response()->json(['success' => false, 'message' => 'Something went wrong, try again!']);

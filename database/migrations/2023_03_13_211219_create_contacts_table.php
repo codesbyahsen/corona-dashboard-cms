@@ -14,19 +14,21 @@ return new class extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
+            $table->string('avatar')->nullable();
+            $table->string('name')->nullable();
             $table->string('email')->unique()->nullable();
-            $table->string('phone')->unique()->nullable();
-            $table->string('mobile')->unique()->nullable();
+            $table->string('phone', 20)->unique()->nullable();
+            $table->string('mobile', 20)->unique()->nullable();
             $table->string('address_line_one')->nullable();
             $table->string('address_line_two')->nullable();
             $table->string('city', 100)->nullable();
             $table->string('state', 100)->nullable();
             $table->string('country', 100)->nullable();
             $table->string('post_code', 50)->nullable();
-            $table->tinyText('map', 1000)->nullable();
-            $table->string('type')->nullable();
-            $table->boolean('is_active')->default(Contact::STATUS_INACTIVE);
+            $table->string('birthday')->nullable();
+            $table->string('website')->nullable();
+            $table->string('note', 1000)->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

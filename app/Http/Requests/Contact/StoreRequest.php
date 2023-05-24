@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Contact;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\File;
 
 class StoreRequest extends FormRequest
 {
@@ -22,8 +23,9 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required'],
-            'email' => ['required'],
+            'avatar' => ['nullable', File::types(['png', 'jpg', 'jpeg'])->max(1024)],
+            'name' => ['required'],
+            'email' => ['nullable'],
             'phone' => ['nullable'],
             'mobile' => ['nullable', 'unique:contacts,mobile'],
             'address_line_one' => ['nullable'],
@@ -32,8 +34,9 @@ class StoreRequest extends FormRequest
             'state' => ['nullable'],
             'country' => ['nullable'],
             'post_code' => ['nullable'],
-            'map' => ['nullable'],
-            'type' => ['required']
+            'birthday' => ['nullable'],
+            'website' => ['nullable'],
+            'note' => ['nullable']
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Contact;
 
+use Illuminate\Validation\Rules\File;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRequest extends FormRequest
@@ -22,18 +23,20 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required'],
-            'email' => ['required'],
+            'avatar' => ['nullable', File::types(['png', 'jpg', 'jpeg'])->max(1024)],
+            'name' => ['required'],
+            'email' => ['nullable'],
             'phone' => ['nullable'],
-            'mobile' => ['nullable', 'unique:contacts,mobile,' . decrypt($this->id)],
+            'mobile' => ['nullable', 'unique:contacts,mobile,' . $this->id],
             'address_line_one' => ['nullable'],
             'address_line_two' => ['nullable'],
             'city' => ['nullable'],
             'state' => ['nullable'],
             'country' => ['nullable'],
             'post_code' => ['nullable'],
-            'map' => ['nullable'],
-            'type' => ['required']
+            'birthday' => ['nullable'],
+            'website' => ['nullable'],
+            'note' => ['nullable']
         ];
     }
 }

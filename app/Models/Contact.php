@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Contact extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +17,8 @@ class Contact extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'title',
+        'avatar',
+        'name',
         'email',
         'phone',
         'mobile',
@@ -26,69 +28,16 @@ class Contact extends Model
         'state',
         'country',
         'post_code',
-        'map',
-        'type',
-        'is_active'
+        'birthday',
+        'website',
+        'note'
     ];
 
     const STATUS_ACTIVE = true;
     const STATUS_INACTIVE = false;
-    const TYPE_HEAD_OFFICE = 'head office';
-    const TYPE_SUB_OFFICE = 'sub office';
 
-    /**
-     * Get the collection of contact
-     */
-    public function getAllContacts(): Collection
+    public function getFullAddress()
     {
-        return $this->all();
-    }
-
-    /**
-     * Get head office contact
-     */
-    public function getHeadOffice()
-    {
-        return $this->where('type', self::TYPE_HEAD_OFFICE)->first();
-    }
-
-    /**
-     * Get the specified contact record
-     */
-    public function getContact($id)
-    {
-        return $this->find($id);
-    }
-
-    /**
-     * Get the specified contact column value
-     */
-    public function getContactColumnValue($id, $attribute): string
-    {
-        return $this->where('id', $id)->value($attribute);
-    }
-
-    /**
-     * Store contact in storage.
-     */
-    public function createContact(array $contactDetails)
-    {
-        return $this->create($contactDetails);
-    }
-
-    /**
-     * Update specified contact in storage.
-     */
-    public function updateContact($id, array $contactDetails)
-    {
-        return $this->find($id)->update($contactDetails);
-    }
-
-    /**
-     * Destroy specified contact from storage.
-     */
-    public function destroyContact($id)
-    {
-        return $this->find($id)->delete();
+        return ($this->address_line_one ? $this->address_line_one . ', ' : '') . ($this->address_line_two ? $this->address_line_two . ', ' : '' ) . ($this->city ? $this->city . ', ' : '') . ($this->state ? $this->state . ', ' : '') . ($this->country ? $this->country . ', ' : '') . ($this->post_code ?? '') . '.';
     }
 }

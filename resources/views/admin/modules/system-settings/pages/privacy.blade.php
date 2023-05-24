@@ -34,7 +34,8 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="title">Title</label>
+                                        <label for="title">Title <span
+                                            class="text-muted small">&#40;optional&#41;</span></label>
                                         <input type="text" class="form-control" id="title" name="title"
                                             placeholder="Title" value="{{ old('title', $privacyPolicy?->title) }}" />
                                         @error('title')

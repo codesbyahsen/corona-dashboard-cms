@@ -62,19 +62,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Contact type head office
-    |--------------------------------------------------------------------------
-    |
-    | This value is the head office type of contact module. This value is used to
-    | specify the type and retrieve contacts data on head office type based or
-    | used to any other location as required.
-    |
-    */
-
-    'CONTACT_TYPE_HEAD_OFFICE' => Contact::TYPE_HEAD_OFFICE,
-
-    /*
-    |--------------------------------------------------------------------------
     | Mail configuration status active
     |--------------------------------------------------------------------------
     |
