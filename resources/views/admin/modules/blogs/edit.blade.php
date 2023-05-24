@@ -120,11 +120,11 @@
                                 </div>
                             </div>
 
-                            <div class="row pt-3 pr-3">
-                                <button type="submit" class="btn btn-primary btn-icon-text ml-auto">
+                            <div class="row pt-3 pr-3 float-right">
+                                <a href="{{ route('admin.blogs') }}"
+                                    class="btn btn-outline-secondary btn-md mr-2">Cancel </a>
+                                <button type="submit" class="btn btn-primary btn-icon-text">
                                     <i class="mdi mdi-file-check btn-icon-prepend"></i> Submit </button>
-                                <a href="{{ route('admin.blogs') }}" class="btn btn-outline-secondary btn-md ml-2">
-                                    Cancel </a>
                             </div>
                         </form>
                     </div>

@@ -22,26 +22,29 @@
                     <div class="card-body">
                         {{-- <h4 class="card-title">Default form</h4> --}}
                         {{-- <p class="card-description"> Basic form layout </p> --}}
-                        <form class="forms-sample" action="{{ route('admin.blog.categories.update', $blogCategory->id) }}" method="POST">
+                        <form class="forms-sample" action="{{ route('admin.blog.categories.update', $blogCategory->id) }}"
+                            method="POST">
                             @csrf @method('PUT')
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="categoryName">Category Name</label>
                                         <input type="text" name="name" class="form-control" id="categoryName"
-                                            value="{{ old('name', $blogCategory->name ?? '') }}" placeholder="Category name" />
-                                            @error('name')
+                                            value="{{ old('name', $blogCategory->name ?? '') }}"
+                                            placeholder="Category name" />
+                                        @error('name')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row pt-3 pr-3">
-                                <button type="submit" class="btn btn-primary btn-icon-text ml-auto">
-                                    <i class="mdi mdi-file-check btn-icon-prepend"></i> Submit </button>
-                                <a href="{{ route('admin.blog.categories') }}" class="btn btn-outline-secondary btn-md ml-2">
+                            <div class="row pt-3 pr-3 float-right">
+                                <a href="{{ route('admin.blog.categories') }}"
+                                    class="btn btn-outline-secondary btn-md mr-2">
                                     Cancel </a>
+                                <button type="submit" class="btn btn-primary btn-icon-text">
+                                    <i class="mdi mdi-file-check btn-icon-prepend"></i> Submit </button>
                             </div>
                         </form>
                     </div>

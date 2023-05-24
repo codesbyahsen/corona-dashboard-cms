@@ -182,8 +182,8 @@
                             <div class="row pt-2">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="socialNameEdit">Name</label>
-                                        <select class="dropdown-select-single" name="name" id="socialNameEdit"
+                                        <label>Name</label>
+                                        <select class="dropdown-select-single" name="name"
                                             style="width:100%">
                                             <option value="">Select</option>
                                             <option value="facebook" @selected('facebook' === $socialLink?->getAttributes()['name'])>Facebook</option>

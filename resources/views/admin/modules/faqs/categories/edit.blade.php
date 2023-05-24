@@ -40,7 +40,9 @@
                                 </div>
                             </div>
 
-                            <div class="row pt-3 pr-3">
+                            <div class="row pt-3 pr-3 float-right">
+                                <a href="{{ route('admin.faq_categories') }}"
+                                    class="btn btn-outline-secondary btn-md mr-2">Cancel </a>
                                 <button type="submit" class="btn btn-primary btn-icon-text ml-auto">
                                     <i class="mdi mdi-file-check btn-icon-prepend"></i> Submit </button>
                             </div>
