@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\FaqCategoryController;
 use App\Http\Controllers\Admin\FaqController;
+use App\Http\Controllers\Admin\ScreenshotController;
 use App\Http\Controllers\Admin\SystemSettings\EnvironmentSetupController;
 use App\Http\Controllers\Admin\SystemSettings\GeneralSetupController;
 use App\Http\Controllers\Admin\SystemSettings\MailConfigurationController;
@@ -124,6 +125,12 @@ Route::prefix('admin')->as('admin.')->group(function () {
     Route::controller(PageController::class)->prefix('privacy-policy')->group(function () {
         Route::get('/', 'privacyPolicy')->name('privacy_policy');
         Route::post('/store', 'storePrivacyPolicy')->name('privacy_policy.store');
+    });
+
+    # screenshot
+    Route::controller(ScreenshotController::class)->prefix('screenshots')->group(function () {
+        Route::get('/', 'index')->name('screenshots');
+        Route::get('/store', 'store')->name('screenshots.store');
     });
 });
 

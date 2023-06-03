@@ -37,7 +37,7 @@ class FaqCategoryController extends Controller
     {
         $result = $this->faqCategoryService->create($request->validated());
         if (!$result) {
-            return redirect()->route('admin.faq_categories')->with('error', 'Failed to create faq category, try again.');
+            return back()->with('error', 'Failed to create faq category, try again.');
         }
         return redirect()->route('admin.faq_categories')->with('success', 'Faq category created successfully.');
     }
@@ -59,7 +59,7 @@ class FaqCategoryController extends Controller
     {
         $result = $this->faqCategoryService->update($id, $request->validated());
         if (!$result) {
-            return redirect()->route('admin.faq_categories')->with('error', 'Failed to update faq category, try again.');
+            return back()->with('error', 'Failed to update faq category, try again.');
         }
         return redirect()->route('admin.faq_categories')->with('success', 'Faq category updated successfully.');
     }

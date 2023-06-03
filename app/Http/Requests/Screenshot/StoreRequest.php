@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Requests\SocialLink;
+namespace App\Http\Requests\Screenshot;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreRequest extends FormRequest
 {
@@ -22,8 +24,17 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required' , 'unique:social_links,name'],
-            'link' => ['required', 'unique:social_links,link']
+            'url' => ['required'],
+            'width' => ['required'],
+            'height' => ['required']
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'errors' => $validator->errors(),
+            'status' => true
+        ]));
     }
 }

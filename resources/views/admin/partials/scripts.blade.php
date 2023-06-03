@@ -15,4 +15,37 @@
 <script src="{{ asset('assets') }}/js/settings.js"></script>
 <script src="{{ asset('assets') }}/js/todolist.js"></script>
 
+
 @stack('injected-scripts')
+{{-- <script>
+    $.ajaxSetup({
+        headers: {
+            'Accepts': 'application/json',
+            // 'Content-Type': 'application/json; charset=utf-8',
+            'X-CSRF-TOKEN': $('meta[name="X-CSRF-TOKEN"]').attr('content')
+        }
+    });
+
+    $('#screenshot').click(function(e) {
+        e.preventDefault();
+        var url = $(location).attr('href');
+        var width = screen.width;
+        var height = screen.height;
+
+        $.ajax({
+            type: 'POST',
+            url: '/admin/screenshots/store',
+            data: {
+                'url': url,
+                'width': width,
+                'height': height
+            },
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(response) {
+                console.log(response);
+            }
+        });
+    });
+</script> --}}

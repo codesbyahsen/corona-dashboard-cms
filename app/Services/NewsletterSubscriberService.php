@@ -2,41 +2,33 @@
 
 namespace App\Services;
 
-use App\Models\Faq;
+use App\Models\NewsletterSubscriber;
 use Illuminate\Database\Eloquent\Collection;
 
-class FaqService
+class NewsletterSubscriberService
 {
     /**
      * Get all record from database.
      */
     public function getAll(): Collection
     {
-        return Faq::with('faqCategory')->get();
+        return NewsletterSubscriber::all();
     }
 
     /**
      * Get record by id from database.
      */
-    public function get(string $id): Faq
+    public function get(string $id): NewsletterSubscriber
     {
-        return Faq::with('faqCategory')->find($id);
+        return NewsletterSubscriber::find($id);
     }
 
     /**
      * Store new record in database.
      */
-    public function create(array $faq): Faq
+    public function create(array $subscriber): NewsletterSubscriber
     {
-        return Faq::create($faq);
-    }
-
-    /**
-     * Update record by id in database.
-     */
-    public function update(string $id, array $faq): bool
-    {
-        return $this->get($id)->update($faq);
+        return NewsletterSubscriber::create($subscriber);
     }
 
     /**
@@ -44,7 +36,7 @@ class FaqService
      */
     public function updateStatus(string $id, $status): bool
     {
-        return (bool) Faq::withoutTimestamps(function () use ($id, $status) {
+        return (bool) NewsletterSubscriber::withoutTimestamps(function () use ($id, $status) {
             $this->get($id)->update(['is_active' => $status]);
         });
     }

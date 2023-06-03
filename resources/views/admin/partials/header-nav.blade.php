@@ -14,12 +14,12 @@
         </li>
       </ul>
       <ul class="navbar-nav navbar-nav-right">
-        <li class="nav-item dropdown border-left">
-          <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-            <i class="mdi mdi-email"></i>
-            <span class="count bg-success"></span>
+        <li class="nav-item border-left">
+          <a class="nav-link count-indicator" id="screenshot" href="{{ route('admin.screenshots.store') }}">
+            <i class="mdi mdi-camera"></i>
+            {{-- <span class="count bg-success"></span> --}}
           </a>
-          <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+          {{-- <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="screenshot">
             <h6 class="p-3 mb-0">Messages</h6>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item preview-item">
@@ -53,7 +53,7 @@
             </a>
             <div class="dropdown-divider"></div>
             <p class="p-3 mb-0 text-center">4 new messages</p>
-          </div>
+          </div> --}}
         </li>
         <li class="nav-item dropdown border-left">
           <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">

@@ -40,7 +40,7 @@ class FaqController extends Controller
     {
         $result = $this->faqService->create($request->validated());
         if (!$result) {
-            return redirect()->route('admin.faqs')->with('error', 'Failed to create faq, try again.');
+            return back()->with('error', 'Failed to create faq, try again.');
         }
         return redirect()->route('admin.faqs')->with('success', 'Faq created successfully.');
     }
@@ -73,7 +73,7 @@ class FaqController extends Controller
     {
         $result = $this->faqService->update($id, $request->validated());
         if (!$result) {
-            return redirect()->route('admin.faqs')->with('error', 'Failed to update faq, try again.');
+            return back()->with('error', 'Failed to update faq, try again.');
         }
         return redirect()->route('admin.faqs')->with('success', 'Faq updated successfully.');
     }
