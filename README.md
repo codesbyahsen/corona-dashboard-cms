@@ -8,6 +8,7 @@ Please feel free to reach out to me if you are interested in joining this exciti
 
 <br/>
 <br/>
+
 ## Versions
 #### PHP 8.2
 #### Composer 2.5
@@ -15,6 +16,7 @@ Please feel free to reach out to me if you are interested in joining this exciti
 
 <br/>
 <br/>
+
 ## Download
 Download Corona Admin Dashboard
-<br/> <a href="https://themewagon.com/themes/corona-free-responsive-bootstrap-4-admin-dashboard-template/">Click here</a>
+<br/> <a href="https://themewagon.com/themes/corona-free-responsive-bootstrap-4-admin-dashboard-template/">Click here to download</a>
