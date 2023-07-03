@@ -6,13 +6,15 @@ If someone passionate about Laravel development and would like to contribute to 
 
 Please feel free to reach out to me if you are interested in joining this exciting endeavor.
 
-
+<br/>
+<br/>
 ## Versions
 #### PHP 8.2
 #### Composer 2.5
 #### Laravel 10.14
 
-
+<br/>
+<br/>
 ## Download
 Download Corona Admin Dashboard
-<a href="https://themewagon.com/themes/corona-free-responsive-bootstrap-4-admin-dashboard-template/">Click here</a>
+<br/> <a href="https://themewagon.com/themes/corona-free-responsive-bootstrap-4-admin-dashboard-template/">Click here</a>
