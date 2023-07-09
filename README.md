@@ -16,5 +16,5 @@ Please feel free to reach out to me if you are interested in joining this exciti
 <br/>
 
 ## Download
-Download Corona Admin Dashboard
+Download Corona Admin Dashboard Theme
 <br/> <a href="https://themewagon.com/themes/corona-free-responsive-bootstrap-4-admin-dashboard-template/">Click here to download</a>
