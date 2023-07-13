@@ -77,16 +77,17 @@
               </div>
             </a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item preview-item">
+            <form class="dropdown-item preview-item" method="POST" action="{{ route('logout') }}">
+                @csrf
               <div class="preview-thumbnail">
                 <div class="preview-icon bg-dark rounded-circle">
                   <i class="mdi mdi-logout text-danger"></i>
                 </div>
               </div>
               <div class="preview-item-content">
-                <p class="preview-subject mb-1">Log out</p>
+                <button type="submit" class="preview-subject mb-1 bg-transparent text-white border-0">{{ __('Log out') }}</button>
               </div>
-            </a>
+            </form>
             {{-- <div class="dropdown-divider"></div>
             <p class="p-3 mb-0 text-center">Advanced settings</p> --}}
           </div>
