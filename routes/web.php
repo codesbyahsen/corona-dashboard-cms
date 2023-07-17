@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\Settings\SocialLinkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,10 @@ Route::middleware(['auth', 'verified'])
     ->group(function () {
         # dashboard
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+        # social link
+        Route::resource('social-links', SocialLinkController::class)->except(['create', 'show', 'edit']);
+        Route::patch('/social-links/update-status/{id}', [SocialLinkController::class, 'updateStatus'])->name('social-links.update.status');
     });
 
 require __DIR__ . '/auth.php';

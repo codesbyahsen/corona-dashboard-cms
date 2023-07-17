@@ -55,6 +55,7 @@
                 </div>
             </div>
         </li>
+        {{-- dashboard nav --}}
         <li class="nav-item menu-items">
             <a class="nav-link" href="{{ route('admin.dashboard') }}">
                 <span class="menu-icon">
@@ -62,6 +63,27 @@
                 </span>
                 <span class="menu-title">Dashboard</span>
             </a>
+        </li>
+
+        {{-- pages & social nav --}}
+            {{-- add active class --}}
+        <li class="nav-item menu-items">
+            <a class="nav-link" data-toggle="collapse" href="#pages_media_nav" aria-expanded="false"
+                aria-controls="pages_media_nav">
+                <span class="menu-icon">
+                    <i class="mdi mdi-briefcase"></i>
+                </span>
+                <span class="menu-title">Pages &amp; Social</span>
+                <i class="menu-arrow"></i>
+            </a>
+            {{-- add show class --}}
+            <div class="collapse" id="pages_media_nav">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link"
+                            href="">Pages</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="">Social</a></li>
+                </ul>
+            </div>
         </li>
     </ul>
 </nav>
