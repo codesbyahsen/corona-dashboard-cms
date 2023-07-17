@@ -66,7 +66,17 @@
           <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
             {{-- <h6 class="p-3 mb-0">Profile</h6>
             <div class="dropdown-divider"></div> --}}
-            <a href="#" class="dropdown-item preview-item">
+            <a href="{{ route('admin.profile') }}" class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-dark rounded-circle">
+                    <i class="mdi mdi-face text-success"></i>
+                  </div>
+                </div>
+                <div class="preview-item-content">
+                  <p class="preview-subject mb-1">Profile</p>
+                </div>
+              </a>
+            <a href="{{ route('admin.profile.edit') }}" class="dropdown-item preview-item">
               <div class="preview-thumbnail">
                 <div class="preview-icon bg-dark rounded-circle">
                   <i class="mdi mdi-settings text-success"></i>
