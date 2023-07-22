@@ -18,7 +18,7 @@ class AdminSeeder extends Seeder
             'last_name' => 'Corona',
             'email' => 'admin@admin.com',
             'email_verified_at' => now(),
-            'password' => bcrypt('password'),
+            'password' => bcrypt('12345678'),
             'created_at' => now(),
             'updated_at' => now()
         ]);

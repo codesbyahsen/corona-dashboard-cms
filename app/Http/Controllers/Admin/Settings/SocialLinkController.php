@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SocialLinkRequest;
 use App\Services\SocialLinkService;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class SocialLinkController extends Controller
 {
@@ -16,7 +17,7 @@ class SocialLinkController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
         $socialLinks = $this->socialLinkService->getAll();
         return view('admin.modules.settings.social.index', compact('socialLinks'));
@@ -37,7 +38,7 @@ class SocialLinkController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(SocialLinkRequest $request, $id)
     {
         $result = $this->socialLinkService->update($id, $request->validated());
         if (!$result) {
@@ -49,7 +50,7 @@ class SocialLinkController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $result = $this->socialLinkService->destroy($id);
         if (!$result) {

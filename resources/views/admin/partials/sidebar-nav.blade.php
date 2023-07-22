@@ -81,7 +81,7 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link"
                             href="">Pages</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="">Social</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('admin.social-links.index') }}">Social</a></li>
                 </ul>
             </div>
         </li>

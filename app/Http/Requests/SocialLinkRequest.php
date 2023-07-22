@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\SocialLinkRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SocialLinkRequest extends FormRequest
@@ -24,14 +25,21 @@ class SocialLinkRequest extends FormRequest
         switch ($this->getMethod()) {
             case 'POST':
                 return [
-                    'name' => ['required', 'unique:social_links,name'],
-                    'link' => ['required', 'unique:social_links,link']
+                    'name' => ['required', 'max:255'],
+                    'link' => ['required', new SocialLinkRule]
                 ];
             case 'PUT':
                 return [
-                    'name' => ['required', 'unique:social_links,name,' . $this->id],
-                    'link' => ['required', 'unique:social_links,link,' . $this->id]
+                    'name' => ['required', 'max:255'],
+                    'link' => ['required', new SocialLinkRule($this->social_link)]
                 ];
         }
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'The social name is required.',
+        ];
     }
 }

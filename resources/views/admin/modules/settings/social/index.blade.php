@@ -59,7 +59,7 @@
                                             <td>{{ $socialLink?->link ?? '' }}</td>
                                             <td>
                                                 <form
-                                                    action="{{ route('admin.social_links.update.status', $socialLink->id) }}"
+                                                    action="{{ route('admin.social-links.update.status', $socialLink->id) }}"
                                                     method="POST">
                                                     @csrf @method('PATCH')
                                                     <input type="text" name="status"
@@ -77,7 +77,7 @@
                                                     data-target="#editSocialLink-{{ $socialLink?->id }}"><i
                                                         class="mdi mdi-square-edit-outline"></i></a>
                                                 <a href="javascript:void(0)" title="Delete"
-                                                    onclick="confirmToDelete('{{ route('admin.social_links.destroy', $socialLink?->id) }}')"><i
+                                                    onclick="confirmToDelete('{{ route('admin.social-links.destroy', $socialLink?->id) }}')"><i
                                                         class="mdi mdi-delete-outline"></i></a>
                                             </td>
                                         </tr>
@@ -112,7 +112,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('admin.social_links.store') }}" method="POST">
+                    <form action="{{ route('admin.social-links.store') }}" method="POST">
                         @csrf
                         <div class="row pt-2">
                             <div class="col-12">
@@ -167,7 +167,7 @@
 
     <!-- Edit Social Link Modal -->
     @foreach ($socialLinks as $socialLink)
-        <div class="modal fade" id="editSocialLink-{{ $socialLink?->id }}" tabindex="-1" role="dialog"
+        <div class="modal fade" id="editSocialLink-{{ $socialLink?->id }}" data-backdrop="static" tabindex="-1" role="dialog"
             aria-labelledby="editSocialLinkLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -178,7 +178,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form class="forms-sample" action="{{ route('admin.social_links.update', $socialLink?->id) }}"
+                        <form class="forms-sample" action="{{ route('admin.social-links.update', $socialLink?->id) }}"
                             method="POST">
                             @csrf @method('PUT')
                             <div class="row pt-2">
@@ -237,7 +237,7 @@
     <script src="{{ asset('assets/vendors/select2/select2.min.js') }}"></script>
     <script src="{{ asset('assets/js/select2.js') }}"></script>
     <script src="{{ asset('assets/vendors/toastr/toastr.min.js') }}"></script>
-    <x-toastr-notification />
+    {{-- <x-toastr-notification /> --}}
     <script src="{{ asset('assets/vendors/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     <script>
