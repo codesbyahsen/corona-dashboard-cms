@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SocialLinkRequest;
 use App\Services\SocialLinkService;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class SocialLinkController extends Controller
 {
@@ -17,10 +16,12 @@ class SocialLinkController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index()
     {
         $socialLinks = $this->socialLinkService->getAll();
-        return view('admin.modules.settings.social.index', compact('socialLinks'));
+        return  $this->socialLinkService
+            ->getAllWithDatatable()
+            ->render('admin.modules.settings.social.index', ['socialLinks' => $socialLinks]);
     }
 
     /**

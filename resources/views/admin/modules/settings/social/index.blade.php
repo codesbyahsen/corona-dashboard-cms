@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/toastr/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/sweetalert2/borderless.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap4.css') }}">
 @endsection
 
 @section('content')
@@ -35,60 +36,7 @@
             <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        {{-- <h4 class="card-title">FAQs</h4> --}}
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Link</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse ($socialLinks as $socialLink)
-                                        <tr>
-                                            <td>
-                                                @isset($socialLink?->name)
-                                                    <span class="pr-2"><i
-                                                            class="mdi mdi-{{ $socialLink?->getAttributes()['name'] == 'github' ? $socialLink?->getAttributes()['name'] . '-circle' : $socialLink?->getAttributes()['name'] ?? '' }}"></i></span>
-                                                @endisset
-                                                {{ $socialLink?->name ?? '' }}
-                                            </td>
-                                            <td>{{ $socialLink?->link ?? '' }}</td>
-                                            <td>
-                                                <form
-                                                    action="{{ route('admin.social-links.update.status', $socialLink->id) }}"
-                                                    method="POST">
-                                                    @csrf @method('PATCH')
-                                                    <input type="text" name="status"
-                                                        value="{{ $socialLink->is_active == config('constants.SOCIAL_LINK_STATUS_ACTIVE') ? config('constants.SOCIAL_LINK_STATUS_INACTIVE') : config('constants.SOCIAL_LINK_STATUS_ACTIVE') }}"
-                                                        hidden />
-                                                    <button type="submit" style="border: none; background: none;">
-                                                        <span
-                                                            class="badge rounded-pill {{ $socialLink->is_active == config('constants.SOCIAL_LINK_STATUS_ACTIVE') ? 'btn-inverse-success' : 'btn-inverse-danger' }}">{{ $socialLink->is_active == config('constants.SOCIAL_LINK_STATUS_ACTIVE') ? 'Active' : 'Disabled' }}
-                                                        </span>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td>
-                                                <a href="javascript:void(0)" title="Edit" data-toggle="modal"
-                                                    data-target="#editSocialLink-{{ $socialLink?->id }}"><i
-                                                        class="mdi mdi-square-edit-outline"></i></a>
-                                                <a href="javascript:void(0)" title="Delete"
-                                                    onclick="confirmToDelete('{{ route('admin.social-links.destroy', $socialLink?->id) }}')"><i
-                                                        class="mdi mdi-delete-outline"></i></a>
-                                            </td>
-                                        </tr>
-                                    @empty
-                                        <tr>
-                                            <td class="text-center pt-5" colspan="4">No social link created yet.</td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
-                        </div>
+                        {{ $dataTable->table() }}
                     </div>
                 </div>
             </div>
@@ -167,8 +115,8 @@
 
     <!-- Edit Social Link Modal -->
     @foreach ($socialLinks as $socialLink)
-        <div class="modal fade" id="editSocialLink-{{ $socialLink?->id }}" data-backdrop="static" tabindex="-1" role="dialog"
-            aria-labelledby="editSocialLinkLabel" aria-hidden="true">
+        <div class="modal fade" id="editSocialLink-{{ $socialLink?->id }}" data-backdrop="static" tabindex="-1"
+            role="dialog" aria-labelledby="editSocialLinkLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -239,7 +187,10 @@
     <script src="{{ asset('assets/vendors/toastr/toastr.min.js') }}"></script>
     {{-- <x-toastr-notification /> --}}
     <script src="{{ asset('assets/vendors/sweetalert2/sweetalert2.min.js') }}"></script>
-    <script src="{{ asset('assets/js/custom.js') }}"></script>
+    <script src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap4.js') }}"></script>
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+    {{-- <script src="{{ asset('assets/js/custom.js') }}"></script> --}}
     <script>
         const cancel = () => {
             // var option = document.querySelector('#socialName').value = '';

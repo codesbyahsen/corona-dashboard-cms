@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\SocialLink;
+use App\DataTables\SocialLinkDataTable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -14,6 +15,15 @@ class SocialLinkService
     public function getAll(): Collection
     {
         return SocialLink::all();
+    }
+
+    /**
+     * Get all record from database with
+     * datatable.
+     */
+    public function getAllWithDatatable(): SocialLinkDataTable
+    {
+        return (new SocialLinkDataTable);
     }
 
     /**
@@ -52,7 +62,7 @@ class SocialLinkService
     public function updateStatus(string $id, $status): bool
     {
         return (bool) SocialLink::withoutTimestamps(function () use ($id, $status) {
-            $this->get($id)->update(['is_active' => $status]);
+            $this->get($id)->update(['active' => $status]);
         });
     }
 

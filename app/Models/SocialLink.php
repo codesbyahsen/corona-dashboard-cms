@@ -12,8 +12,8 @@ class SocialLink extends Model
 
     protected $fillable = ['name', 'link', 'active'];
 
-    const STATUS_ACTIVE = true;
-    const STATUS_INACTIVE = false;
+    const STATUS_ACTIVE = 1;
+    const STATUS_INACTIVE = 0;
 
 
     public function name(): Attribute
