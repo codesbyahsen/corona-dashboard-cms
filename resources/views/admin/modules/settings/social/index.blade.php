@@ -5,9 +5,9 @@
 @section('inject-links')
     <link rel="stylesheet" href="{{ asset('assets/vendors/select2/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/toastr/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/sweetalert2/borderless.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/datatables/css/dataTables.bootstrap4.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/jquery-toast/jquery.toast.min.css') }}">
 @endsection
 
 @section('content')
@@ -31,6 +31,12 @@
                 </div>
             </div>
         </div>
+
+        @if (Session::has('error'))
+            <div class="alert alert-danger" role="alert">
+                {{ Session::get('error') }}
+            </div>
+        @endif
 
         <div class="row">
             <div class="col-12 grid-margin stretch-card">
@@ -66,7 +72,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="socialName">Name</label>
-                                    <select class="dropdown-select-single" name="name" id="socialName"
+                                    <select class="dropdown-select-single field-name" name="name" id="socialName"
                                         style="width:100%">
                                         <option value="">Select</option>
                                         <option value="facebook">Facebook</option>
@@ -92,8 +98,8 @@
 
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="socialLink">Link</label>
-                                    <input type="text" class="form-control" name="link" id="socialLink"
+                                    <label for="link">Link</label>
+                                    <input type="text" class="form-control field-link" name="link"
                                         value="{{ old('link') }}" placeholder="Link" />
                                     @error('link')
                                         <span class="text-danger small">{{ $message }}</span>
@@ -104,7 +110,7 @@
 
                         <div class="row p-1 pr-3 float-right">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                onclick="cancel()">Cancel</button>
+                                onclick="resetCreateForm()">Cancel</button>
                             <button type="submit" class="ml-2 btn btn-primary">Save</button>
                         </div>
                     </form>
@@ -133,7 +139,8 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label>Name</label>
-                                        <select class="dropdown-select-single" name="name" style="width:100%">
+                                        <select class="dropdown-select-single field-name" name="name"
+                                            style="width:100%">
                                             <option value="">Select</option>
                                             <option value="facebook" @selected('facebook' === $socialLink?->getAttributes()['name'])>Facebook</option>
                                             <option value="instagram" @selected('instagram' === $socialLink?->getAttributes()['name'])>Instagram</option>
@@ -159,7 +166,7 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="socialLink">Link</label>
-                                        <input type="text" class="form-control" name="link" id="socialLink"
+                                        <input type="text" class="form-control field-link" name="link"
                                             value="{{ old('link', $socialLink?->link ?? '') }}" placeholder="Link" />
                                         @error('link')
                                             <span class="text-danger small">{{ $message }}</span>
@@ -170,7 +177,7 @@
 
                             <div class="row p-1 pr-3 float-right">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                    onclick="cancel()">Cancel</button>
+                                    onclick="cancelEdit()">Cancel</button>
                                 <button type="submit" class="ml-2 btn btn-primary">Save</button>
                             </div>
                         </form>
@@ -184,17 +191,26 @@
 @push('inject-scripts')
     <script src="{{ asset('assets/vendors/select2/select2.min.js') }}"></script>
     <script src="{{ asset('assets/js/select2.js') }}"></script>
-    <script src="{{ asset('assets/vendors/toastr/toastr.min.js') }}"></script>
-    {{-- <x-toastr-notification /> --}}
     <script src="{{ asset('assets/vendors/sweetalert2/sweetalert2.min.js') }}"></script>
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
     <script src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap4.js') }}"></script>
-    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
-    {{-- <script src="{{ asset('assets/js/custom.js') }}"></script> --}}
+    <script src="{{ asset('assets/vendors/jquery-toast/jquery.toast.min.js') }}"></script>
+
+    <script src="{{ asset('assets/js/modules/social-links.js') }}"></script>
     <script>
-        const cancel = () => {
-            // var option = document.querySelector('#socialName').value = '';
-            document.getElementById('socialLink').value = '';
-        }
+        $(function() {
+            @if (Session::has('success'))
+                $.toast({
+                    heading: 'Success',
+                    text: "{{ Session::get('success') }}",
+                    hideAfter: 5000,
+                    icon: 'success',
+                    bgColor: '#808080',
+                    textColor: '#fff',
+                    position: 'top-right'
+                })
+            @endif
+        });
     </script>
 @endpush

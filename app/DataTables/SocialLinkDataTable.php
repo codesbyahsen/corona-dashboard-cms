@@ -27,46 +27,38 @@ class SocialLinkDataTable extends DataTable
                     "<span class=\"pr-2\"><i class=\"mdi mdi-"
                     .
                     ($row?->getAttributes()['name'] === "github"
-                    ? $row?->getAttributes()['name'] . "-circle"
-                    : $row?->getAttributes()['name'])
+                        ? $row?->getAttributes()['name'] . "-circle"
+                        : $row?->getAttributes()['name'])
                     .
                     "\"></i></span>" . " " . $row?->name;
             })
             ->addColumn('action', function ($row) {
                 return "
                     <a href=\"javascript:void(0)\" title=\"Edit\" data-toggle=\"modal\"
-                        data-target=\"#editSocialLink-{$row?->id}\"><i
-                        class=\"mdi mdi-square-edit-outline\"></i></a>
-                        <a href=\"javascript:void(0)\" title=\"Delete\"
-                        onclick=\"confirmToDelete('" . route('admin.social-links.destroy', $row?->id) . "')\"><i
-                        class=\"mdi mdi-delete-outline\"></i></a>
+                    data-target=\"#editSocialLink-{$row?->id}\"><i
+                    class=\"mdi mdi-square-edit-outline\"></i></a>
+                    <a href=\"javascript:void(0)\" title=\"Delete\"
+                    class=\"destroy\" data-url=\"" . route('admin.social-links.destroy', $row?->id) . "\"><i
+                    class=\"mdi mdi-delete-outline\"></i></a>
                 ";
             })
             ->addColumn('status', function ($row) {
                 return
-                    "<form action=\""
+                    "<form class=\"change-status\" action=\""
                     .
                     route('admin.social-links.update.status', $row->id)
                     .
                     "\" method=\"POST\">"
                     .
-                    "<input type=\"hidden\" name=\"_token\" value=\""
-                    .
-                    csrf_token()
-                    .
-                    "\" />"
-                    .
-                    "<input type=\"hidden\" name=\"_method\" value=\"PATCH\" />"
-                    .
                     "<input type=\"text\" name=\"status\" value=\""
                     .
-                    ($row->active == SocialLink::STATUS_ACTIVE
+                    ($row->active === SocialLink::STATUS_ACTIVE
                         ? SocialLink::STATUS_INACTIVE
                         : SocialLink::STATUS_ACTIVE)
                     .
                     "\" hidden /><button type=\"submit\" style=\"border: none; background: none;\"><span class=\"badge rounded-pill "
                     .
-                    ($row->active == SocialLink::STATUS_ACTIVE
+                    ($row->active === SocialLink::STATUS_ACTIVE
                         ? "btn-inverse-success"
                         : "btn-inverse-danger")
                     .
@@ -77,6 +69,20 @@ class SocialLinkDataTable extends DataTable
                         : "Disabled")
                     .
                     "</span></button></form>";
+
+                    // "<button type=\"button\" class=\"change-status\" style=\"border: none; background: none;\" data-url=\"" . route('admin.social-links.update.status', $row->id) . "\"><span class=\"badge rounded-pill "
+                    // .
+                    // ($row->active == SocialLink::STATUS_ACTIVE
+                    //     ? "btn-inverse-success"
+                    //     : "btn-inverse-danger")
+                    // .
+                    // "\">"
+                    // .
+                    // ($row->active == SocialLink::STATUS_ACTIVE
+                    //     ? "Active"
+                    //     : "Disabled")
+                    // .
+                    // "</span></button>";
             })
             ->rawColumns(['name', 'status', 'action'])
             ->setRowId('id');

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SocialLinkRequest;
 use App\Services\SocialLinkService;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class SocialLinkController extends Controller
 {
@@ -29,8 +30,8 @@ class SocialLinkController extends Controller
      */
     public function store(SocialLinkRequest $request)
     {
-        $result = $this->socialLinkService->create($request->validated());
-        if (!$result) {
+        $response = $this->socialLinkService->create($request->validated());
+        if (!$response) {
             return back()->with('error', 'Failed to create social link, try again.');
         }
         return redirect()->route('admin.social-links.index')->with('success', 'The social link created successfully.');
@@ -41,23 +42,12 @@ class SocialLinkController extends Controller
      */
     public function update(SocialLinkRequest $request, $id)
     {
-        $result = $this->socialLinkService->update($id, $request->validated());
-        if (!$result) {
-            return back()->with('error', 'Failed to update social link, try again.');
-        }
-        return redirect()->route('admin.social-links.index')->with('success', 'The social link updated successfully.');
-    }
+        $response = $this->socialLinkService->update($id, $request->validated());
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        $result = $this->socialLinkService->destroy($id);
-        if (!$result) {
-            return response()->json(['success' => false, 'message' => 'Something went wrong, try again!']);
+        if (!$response) {
+            return redirect()->route('admin.social-links.index')->with('success', 'The social link updated successfully.');
         }
-        return response()->json(['success' => true, 'message' => 'The social link deleted successfully.'], 200);
+        return back();
     }
 
     /**
@@ -65,11 +55,23 @@ class SocialLinkController extends Controller
      */
     public function updateStatus(Request $request, $id)
     {
-        $result = $this->socialLinkService->updateStatus($id, $request->status);
+        $response = $this->socialLinkService->updateStatus($id, $request->status);
 
-        if (!$result) {
-            return back()->with('error', 'Failed to update social link status, try again!');
+        if (!$response) {
+            return response()->json(['success' => true, 'message' => 'The social link status updated successfully.'], Response::HTTP_OK);
         }
-        return back();
+        return response()->json($response->getData(), $response->getStatusCode());
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
+    {
+        $response = $this->socialLinkService->destroy($id);
+        if (!$response) {
+            return response()->json(['success' => true, 'message' => 'The social link deleted successfully.'], Response::HTTP_OK);
+        }
+        return response()->json($response->getData(), $response->getStatusCode());
     }
 }
