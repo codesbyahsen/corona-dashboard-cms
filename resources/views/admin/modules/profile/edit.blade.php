@@ -4,6 +4,7 @@
 
 @section('inject-links')
     <link rel="stylesheet" href="{{ asset('assets/vendors/intl-tel-input-master/build/css/intlTelInput.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/jquery-toast/jquery.toast.min.css') }}">
 @endsection
 
 @section('content')
@@ -52,9 +53,24 @@
 
 @push('inject-scripts')
     <script src="{{ asset('assets/vendors/intl-tel-input-master/build/js/intlTelInput-jquery.js') }}"></script>
+    <script src="{{ asset('assets/vendors/jquery-toast/jquery.toast.min.js') }}"></script>
     <script>
         $("#phone").intlTelInput({
             preferredCountries: ["pk", "us"],
+        });
+
+        $(function() {
+            @if (Session::has('status'))
+                $.toast({
+                    heading: 'Success',
+                    text: "{{ Session::get('status') }}",
+                    hideAfter: 5000,
+                    icon: 'success',
+                    bgColor: '#808080',
+                    textColor: '#fff',
+                    position: 'top-right'
+                })
+            @endif
         });
     </script>
 @endpush

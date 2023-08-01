@@ -61,13 +61,12 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="createSocialLinkLabel">Create Social Link</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close cancel-create-form" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('admin.social-links.store') }}" method="POST">
-                        @csrf
+                    <form action="{{ route('admin.social-links.store') }}" data-method="POST">
                         <div class="row pt-2">
                             <div class="col-12">
                                 <div class="form-group">
@@ -90,9 +89,7 @@
                                         <option value="youtube">YouTube</option>
                                         <option value="vimeo">Vimeo</option>
                                     </select>
-                                    @error('name')
-                                        <span class="text-danger small">{{ $message }}</span>
-                                    @enderror
+                                    <span class="text-danger small error-name"></span>
                                 </div>
                             </div>
 
@@ -101,16 +98,14 @@
                                     <label for="link">Link</label>
                                     <input type="text" class="form-control field-link" name="link"
                                         value="{{ old('link') }}" placeholder="Link" />
-                                    @error('link')
-                                        <span class="text-danger small">{{ $message }}</span>
-                                    @enderror
+                                    <span class="text-danger small error-link"></span>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row p-1 pr-3 float-right">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                onclick="resetCreateForm()">Cancel</button>
+                            <button type="button" class="btn btn-secondary cancel-create-form"
+                                data-dismiss="modal">Cancel</button>
                             <button type="submit" class="ml-2 btn btn-primary">Save</button>
                         </div>
                     </form>
@@ -133,8 +128,7 @@
                     </div>
                     <div class="modal-body">
                         <form class="forms-sample" action="{{ route('admin.social-links.update', $socialLink?->id) }}"
-                            method="POST">
-                            @csrf @method('PUT')
+                            data-method="PUT">
                             <div class="row pt-2">
                                 <div class="col-12">
                                     <div class="form-group">
@@ -176,8 +170,7 @@
                             </div>
 
                             <div class="row p-1 pr-3 float-right">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                    onclick="cancelEdit()">Cancel</button>
+                                <button type="button" class="btn btn-secondary .cancel-edit-form" data-dismiss="modal">Cancel</button>
                                 <button type="submit" class="ml-2 btn btn-primary">Save</button>
                             </div>
                         </form>
@@ -198,19 +191,5 @@
     <script src="{{ asset('assets/vendors/jquery-toast/jquery.toast.min.js') }}"></script>
 
     <script src="{{ asset('assets/js/modules/social-links.js') }}"></script>
-    <script>
-        $(function() {
-            @if (Session::has('success'))
-                $.toast({
-                    heading: 'Success',
-                    text: "{{ Session::get('success') }}",
-                    hideAfter: 5000,
-                    icon: 'success',
-                    bgColor: '#808080',
-                    textColor: '#fff',
-                    position: 'top-right'
-                })
-            @endif
-        });
-    </script>
+    <script src="{{ asset('assets/js/notify.js') }}"></script>
 @endpush

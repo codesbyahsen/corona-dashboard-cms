@@ -5,9 +5,6 @@ namespace App\Services;
 use App\Models\SocialLink;
 use App\DataTables\SocialLinkDataTable;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Response;
-use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
 class SocialLinkService
 {
@@ -31,68 +28,42 @@ class SocialLinkService
     /**
      * Get record by id from database.
      */
-    public function get(string $id)
+    public function get(string $id): SocialLink
     {
-        try {
-            return SocialLink::findOrFail($id);
-        } catch (ModelNotFoundException $exception) {
-            return back()->with('error', 'Unable to find this Social Link');
-        } catch (\Exception $exception) {
-            return back()->with('error', $exception->getMessage());
-        }
+        return SocialLink::findOrFail($id);
     }
 
     /**
      * Store new record in database.
      */
-    public function create(array $socialLink): SocialLink
+    public function create(array $socialLink): void
     {
-        return SocialLink::create($socialLink);
+        SocialLink::create($socialLink);
     }
 
     /**
      * Update record by id in database.
      */
-    public function update(string $id, array $socialLink)
+    public function update(string $id, array $socialLink): void
     {
-        try {
-            SocialLink::findOrFail($id)->update($socialLink);
-        } catch (ModelNotFoundException $exception) {
-            return back()->with('error', 'Unable to find this Social Link');
-        } catch (\Exception $exception) {
-            return back()->with('error', $exception->getMessage());
-        }
+        $this->get($id)->update($socialLink);
     }
 
     /**
      * Update status by id in database.
      */
-    public function updateStatus(string $id, $status)
+    public function updateStatus(string $id, $status): void
     {
-        try {
-            $socialLink = SocialLink::findOrFail($id);
-            SocialLink::withoutTimestamps(function () use ($socialLink, $status) {
-                $socialLink->update(['active' => $status]);
-            });
-        } catch (ModelNotFoundException $exception) {
-            return response()->json(['message' => 'Unable to find this Social Link'], HttpFoundationResponse::HTTP_NOT_FOUND);
-        } catch (\Exception $exception) {
-            return response()->json(['message' => $exception->getMessage()], HttpFoundationResponse::HTTP_INTERNAL_SERVER_ERROR);
-        }
+        SocialLink::withoutTimestamps(function () use ($id, $status) {
+            $this->get($id)->update(['active' => $status]);
+        });
     }
 
     /**
      * Delete record by id from database.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): void
     {
-        try {
-            $socialLink = SocialLink::findOrFail($id);
-            $socialLink->delete();
-        } catch (ModelNotFoundException $exception) {
-            return response()->json(['message' => 'Unable to find this Social Link'], HttpFoundationResponse::HTTP_NOT_FOUND);
-        } catch (\Exception $exception) {
-            return response()->json(['message' => $exception->getMessage()], HttpFoundationResponse::HTTP_INTERNAL_SERVER_ERROR);
-        }
+        $this->get($id)->delete();
     }
 }

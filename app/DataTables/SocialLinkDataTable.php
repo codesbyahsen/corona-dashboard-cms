@@ -69,20 +69,6 @@ class SocialLinkDataTable extends DataTable
                         : "Disabled")
                     .
                     "</span></button></form>";
-
-                    // "<button type=\"button\" class=\"change-status\" style=\"border: none; background: none;\" data-url=\"" . route('admin.social-links.update.status', $row->id) . "\"><span class=\"badge rounded-pill "
-                    // .
-                    // ($row->active == SocialLink::STATUS_ACTIVE
-                    //     ? "btn-inverse-success"
-                    //     : "btn-inverse-danger")
-                    // .
-                    // "\">"
-                    // .
-                    // ($row->active == SocialLink::STATUS_ACTIVE
-                    //     ? "Active"
-                    //     : "Disabled")
-                    // .
-                    // "</span></button>";
             })
             ->rawColumns(['name', 'status', 'action'])
             ->setRowId('id');

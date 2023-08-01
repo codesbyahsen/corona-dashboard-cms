@@ -5,11 +5,15 @@ namespace App\Http\Controllers\Admin\Settings;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SocialLinkRequest;
 use App\Services\SocialLinkService;
+use App\Traits\AjaxResponse;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class SocialLinkController extends Controller
 {
+    use AjaxResponse;
+
     public function __construct(private SocialLinkService $socialLinkService)
     {
     }
@@ -30,11 +34,12 @@ class SocialLinkController extends Controller
      */
     public function store(SocialLinkRequest $request)
     {
-        $response = $this->socialLinkService->create($request->validated());
-        if (!$response) {
-            return back()->with('error', 'Failed to create social link, try again.');
+        try {
+            $response = $this->socialLinkService->create($request->validated());
+            return $this->success('The social link created successfully.', $response, Response::HTTP_CREATED);
+        } catch (\Exception $exception) {
+            return $this->error($exception->getMessage());
         }
-        return redirect()->route('admin.social-links.index')->with('success', 'The social link created successfully.');
     }
 
     /**
@@ -42,12 +47,14 @@ class SocialLinkController extends Controller
      */
     public function update(SocialLinkRequest $request, $id)
     {
-        $response = $this->socialLinkService->update($id, $request->validated());
-
-        if (!$response) {
-            return redirect()->route('admin.social-links.index')->with('success', 'The social link updated successfully.');
+        try {
+            $this->socialLinkService->update($id, $request->validated());
+            return $this->success('The social link updated successfully.', Response::HTTP_NO_CONTENT);
+        } catch (ModelNotFoundException $exception) {
+            return $this->error('Unable to find this Social Link.', Response::HTTP_NOT_FOUND);
+        } catch (\Exception $exception) {
+            return $this->error($exception->getMessage());
         }
-        return back();
     }
 
     /**
@@ -55,12 +62,14 @@ class SocialLinkController extends Controller
      */
     public function updateStatus(Request $request, $id)
     {
-        $response = $this->socialLinkService->updateStatus($id, $request->status);
-
-        if (!$response) {
-            return response()->json(['success' => true, 'message' => 'The social link status updated successfully.'], Response::HTTP_OK);
+        try {
+            $this->socialLinkService->updateStatus($id, $request->status);
+            return $this->success('The social link status updated successfully.', Response::HTTP_NO_CONTENT);
+        } catch (ModelNotFoundException $exception) {
+            return $this->error('Unable to find this Social Link.', Response::HTTP_NOT_FOUND);
+        } catch (\Exception $exception) {
+            return $this->error($exception->getMessage());
         }
-        return response()->json($response->getData(), $response->getStatusCode());
     }
 
     /**
@@ -68,10 +77,14 @@ class SocialLinkController extends Controller
      */
     public function destroy($id)
     {
-        $response = $this->socialLinkService->destroy($id);
-        if (!$response) {
-            return response()->json(['success' => true, 'message' => 'The social link deleted successfully.'], Response::HTTP_OK);
+        try {
+            $this->socialLinkService->destroy($id);
+            return $this->success('The social link deleted successfully.', Response::HTTP_NO_CONTENT);
+        } catch (ModelNotFoundException $exception) {
+            return $this->error('Unable to find this Social Link.', Response::HTTP_NOT_FOUND);
+        } catch (\Exception $exception) {
+            return $this->error($exception->getMessage());
         }
-        return response()->json($response->getData(), $response->getStatusCode());
+
     }
 }

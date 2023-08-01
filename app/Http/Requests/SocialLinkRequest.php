@@ -4,6 +4,9 @@ namespace App\Http\Requests;
 
 use App\Rules\SocialLinkRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class SocialLinkRequest extends FormRequest
 {
@@ -41,5 +44,13 @@ class SocialLinkRequest extends FormRequest
         return [
             'name.required' => 'The social :attribute is required.',
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'success' => false,
+            'message' => $validator->errors()
+        ], Response::HTTP_UNPROCESSABLE_ENTITY));
     }
 }
