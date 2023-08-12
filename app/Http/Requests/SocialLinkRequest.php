@@ -42,7 +42,7 @@ class SocialLinkRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'The social :attribute is required.',
+            'name.required' => 'The social :attribute field is required.',
         ];
     }
 

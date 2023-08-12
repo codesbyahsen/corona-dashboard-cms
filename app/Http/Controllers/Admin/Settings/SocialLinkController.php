@@ -43,6 +43,21 @@ class SocialLinkController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        try {
+            $response = $this->socialLinkService->get($id);
+            return $this->success('The social link fetched successfully.', $response);
+        } catch (ModelNotFoundException $exception) {
+            return $this->error('Unable to find this Social Link.', Response::HTTP_NOT_FOUND);
+        } catch (\Exception $exception) {
+            return $this->error($exception->getMessage());
+        }
+    }
+
+    /**
      * Update the specified resource in storage.
      */
     public function update(SocialLinkRequest $request, $id)
@@ -85,6 +100,5 @@ class SocialLinkController extends Controller
         } catch (\Exception $exception) {
             return $this->error($exception->getMessage());
         }
-
     }
 }

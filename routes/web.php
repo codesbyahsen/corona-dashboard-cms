@@ -25,15 +25,16 @@ Route::middleware('auth')
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     });
 
-Route::middleware(['auth', 'verified'])
-    ->prefix('admin')
+# admin routes
+Route::prefix('admin')
     ->as('admin.')
+    ->middleware(['auth', 'verified'])
     ->group(function () {
         # dashboard
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         # social link
-        Route::resource('social-links', SocialLinkController::class)->except(['create', 'show', 'edit']);
+        Route::resource('social-links', SocialLinkController::class)->except(['create', 'show']);
         Route::patch('/social-links/update-status/{id}', [SocialLinkController::class, 'updateStatus'])->name('social-links.update.status');
     });
 

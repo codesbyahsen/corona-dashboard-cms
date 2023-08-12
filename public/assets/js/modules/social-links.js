@@ -1,16 +1,34 @@
 /**
  | ----------------------------------------------------------------
- |  Show errors
+ |  Close bootstrap alert
  | ----------------------------------------------------------------
  |
- | It accepts the object parameter and shows the input
- | field errors
+ | It hides the bootstrap alert
  |
  */
- const showErrors = (response) => {
+
+$('.alert .close').click(function (e) {
+    e.preventDefault();
+    $('.alert').removeClass('show');
+})
+
+
+
+/**
+| ----------------------------------------------------------------
+|  Show errors
+| ----------------------------------------------------------------
+|
+| It accepts the object parameter and shows the input
+| field errors
+|
+*/
+
+const showErrors = (response) => {
     $('.error-name').html(response.message.name ?? '');
     $('.error-link').html(response.message.link ?? '');
 }
+
 
 
 /**
@@ -28,6 +46,24 @@ const resetErrors = () => {
 }
 
 
+
+/**
+ | ----------------------------------------------------------------
+ |  Show Fields
+ | ----------------------------------------------------------------
+ |
+ | It accepts the parameter and show the input fields of
+ | social link
+ |
+ */
+
+const showFields = (response) => {
+    $('#editSocialLink .field-name').val(response?.data?.name.toLowerCase()).trigger('change');
+    $('#editSocialLink .field-link').val(response?.data?.link);
+}
+
+
+
 /**
  | ----------------------------------------------------------------
  |  Reset Fields
@@ -41,6 +77,7 @@ const resetFields = () => {
     $('#createSocialLink .field-name').val(null).select2();
     $('#createSocialLink .field-link').val(null);
 }
+
 
 
 /**
@@ -58,6 +95,7 @@ $('.cancel-create-form').click(function () {
 });
 
 
+
 /**
  | ----------------------------------------------------------------
  |  Cancel Edit Form
@@ -67,9 +105,10 @@ $('.cancel-create-form').click(function () {
  |
  */
 
- $('.cancel-edit-form').click(function () {
+$('.cancel-edit-form').click(function () {
     resetErrors();
 });
+
 
 
 /**
@@ -80,7 +119,7 @@ $('.cancel-create-form').click(function () {
  | Send ajax request to store social link
  |
  */
- $('#createSocialLink form').submit(function (e) {
+$('#createSocialLink form').submit(function (e) {
     e.preventDefault();
 
     $.ajaxSetup({
@@ -91,15 +130,14 @@ $('.cancel-create-form').click(function () {
     });
 
     $.ajax({
-        type: $(this).data('method'),
+        type: 'POST',
         url: $(this).attr('action'),
         data: $(this).serialize(),
         success: function (result) {
             if (result.success === true) {
                 $('#createSocialLink').modal('hide');
-                resetFields();
                 resetErrors();
-                notify(result.message);
+                notify('Created');
 
                 // refresh the list of social links
                 LaravelDataTables["sociallink-table"].ajax.reload();
@@ -110,6 +148,87 @@ $('.cancel-create-form').click(function () {
         }
     });
 });
+
+
+
+/**
+ | ----------------------------------------------------------------
+ |  Edit
+ | ----------------------------------------------------------------
+ |
+ | It sends ajax request and get specific social link data
+ | against id
+ |
+ */
+
+$('#sociallink-table').on('click', '.edit', function () {
+    // get update url
+    $('#editSocialLink form').attr('action', $(this).data('update-url'));
+    $.ajax({
+        type: 'GET',
+        url: $(this).data('url'),
+        success: function (result) {
+            if (result.success === true) {
+                $('#editSocialLink').modal('show');
+                showFields(result);
+            }
+        },
+        error: function (result) {
+            $('.alert').addClass('show');
+            $('.error ').html(result?.responseJSON?.message);
+        }
+    });
+});
+
+
+
+/**
+ | ----------------------------------------------------------------
+ |  Update
+ | ----------------------------------------------------------------
+ |
+ | It sends ajax request with put method and update specific
+ | social link data against id
+ |
+ */
+
+$('#editSocialLink form').submit(function (e) {
+    e.preventDefault();
+
+    $.ajaxSetup({
+        headers: {
+            'Accepts': 'application/json',
+            'X-CSRF-TOKEN': $('meta[name="CSRF-TOKEN"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        type: 'PUT',
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        success: function (result) {
+            if (result.success === true) {
+                $('#editSocialLink').modal('hide');
+                resetFields();
+                resetErrors();
+                notify('Saved');
+
+                // refresh the list of social links
+                LaravelDataTables["sociallink-table"].ajax.reload();
+            }
+        },
+        error: function (result) {
+            if (result?.status === 422) {
+                showErrors(result.responseJSON);
+            } else {
+                $('#editSocialLink').modal('hide');
+                $('.alert').addClass('show');
+                $('.error ').html(result?.responseJSON?.message);
+            }
+        }
+    });
+});
+
 
 
 /**
@@ -147,26 +266,19 @@ $('#sociallink-table').on('submit', '.change-status', function (e) {
                 data: $(this).serialize(),
                 success: function (result) {
                     if (result.success === true) {
+                        // refresh the list of social links
                         LaravelDataTables["sociallink-table"].ajax.reload();
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...!',
-                            text: result.message,
-                        })
                     }
                 },
                 error: function (result) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: result.status,
-                        text: result.responseJSON.message,
-                    })
+                    $('.alert').addClass('show');
+                    $('.error ').html(result?.responseJSON?.message);
                 }
             });
         }
     })
 });
+
 
 
 /**
@@ -209,21 +321,13 @@ $('#sociallink-table').on('click', '.destroy', function (e) {
                             title: 'Deleted!',
                             text: result.message
                         })
+                        // refresh the list of social links
                         LaravelDataTables["sociallink-table"].ajax.reload();
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...!',
-                            text: result.message,
-                        })
                     }
                 },
                 error: function (result) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: result.status,
-                        text: result.responseJSON.message,
-                    })
+                    $('.alert').addClass('show');
+                    $('.error ').html(result?.responseJSON?.message);
                 }
             });
         }

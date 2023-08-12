@@ -22,49 +22,49 @@ class SocialLinkDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->editColumn('name', function ($row) {
+            ->editColumn('name', function (SocialLink $socialLink) {
                 return
                     "<span class=\"pr-2\"><i class=\"mdi mdi-"
                     .
-                    ($row?->getAttributes()['name'] === "github"
-                        ? $row?->getAttributes()['name'] . "-circle"
-                        : $row?->getAttributes()['name'])
+                    ($socialLink?->getAttributes()['name'] === "github"
+                        ? $socialLink?->getAttributes()['name'] . "-circle"
+                        : $socialLink?->getAttributes()['name'])
                     .
-                    "\"></i></span>" . " " . $row?->name;
+                    "\"></i></span>" . " " . $socialLink?->name;
             })
-            ->addColumn('action', function ($row) {
+            ->addColumn('action', function ($socialLink) {
                 return "
-                    <a href=\"javascript:void(0)\" title=\"Edit\" data-toggle=\"modal\"
-                    data-target=\"#editSocialLink-{$row?->id}\"><i
+                    <a href=\"javascript:void(0)\" class=\"edit\" title=\"Edit\" data-url=\"" . route('admin.social-links.edit', $socialLink?->id) . "\"
+                    data-update-url=\"" . route('admin.social-links.update', $socialLink?->id) . "\"><i
                     class=\"mdi mdi-square-edit-outline\"></i></a>
                     <a href=\"javascript:void(0)\" title=\"Delete\"
-                    class=\"destroy\" data-url=\"" . route('admin.social-links.destroy', $row?->id) . "\"><i
+                    class=\"destroy\" data-url=\"" . route('admin.social-links.destroy', $socialLink?->id) . "\"><i
                     class=\"mdi mdi-delete-outline\"></i></a>
                 ";
             })
-            ->addColumn('status', function ($row) {
+            ->addColumn('status', function (SocialLink $socialLink) {
                 return
                     "<form class=\"change-status\" action=\""
                     .
-                    route('admin.social-links.update.status', $row->id)
+                    route('admin.social-links.update.status', $socialLink->id)
                     .
-                    "\" method=\"POST\">"
+                    "\">"
                     .
                     "<input type=\"text\" name=\"status\" value=\""
                     .
-                    ($row->active === SocialLink::STATUS_ACTIVE
+                    ($socialLink->active === SocialLink::STATUS_ACTIVE
                         ? SocialLink::STATUS_INACTIVE
                         : SocialLink::STATUS_ACTIVE)
                     .
                     "\" hidden /><button type=\"submit\" style=\"border: none; background: none;\"><span class=\"badge rounded-pill "
                     .
-                    ($row->active === SocialLink::STATUS_ACTIVE
+                    ($socialLink->active === SocialLink::STATUS_ACTIVE
                         ? "btn-inverse-success"
                         : "btn-inverse-danger")
                     .
                     "\">"
                     .
-                    ($row->active == SocialLink::STATUS_ACTIVE
+                    ($socialLink->active == SocialLink::STATUS_ACTIVE
                         ? "Active"
                         : "Disabled")
                     .
