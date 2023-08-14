@@ -79,8 +79,7 @@
             {{-- add show class --}}
             <div class="collapse" id="pages_media_nav">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link"
-                            href="">Pages</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('admin.pages.index') }}">Pages</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{ route('admin.social-links.index') }}">Social</a></li>
                 </ul>
             </div>

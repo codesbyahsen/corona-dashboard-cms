@@ -13,14 +13,19 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('users')->insert([
-            'first_name' => 'Admin',
-            'last_name' => 'Corona',
-            'email' => 'admin@admin.com',
-            'email_verified_at' => now(),
-            'password' => bcrypt('12345678'),
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
+        DB::table('users')->updateOrInsert(
+            [
+                'email' => 'admin@admin.com'
+            ],
+            [
+                'first_name' => 'Admin',
+                'last_name' => 'Corona',
+                'email' => 'admin@admin.com',
+                'email_verified_at' => now(),
+                'password' => bcrypt('12345678'),
+                'created_at' => now(),
+                'updated_at' => now()
+            ]
+        );
     }
 }

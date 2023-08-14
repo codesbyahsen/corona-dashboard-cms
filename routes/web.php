@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\Settings\PageController;
 use App\Http\Controllers\Admin\Settings\SocialLinkController;
 
 /*
@@ -32,6 +33,10 @@ Route::prefix('admin')
     ->group(function () {
         # dashboard
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+        # page
+        Route::resource('/pages', PageController::class);
+        Route::patch('/pages/update-status/{id}', [PageController::class, 'updateStatus'])->name('pages.update.status');
 
         # social link
         Route::resource('social-links', SocialLinkController::class)->except(['create', 'show']);
