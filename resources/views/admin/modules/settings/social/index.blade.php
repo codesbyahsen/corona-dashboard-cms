@@ -187,6 +187,6 @@
     <script src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap4.js') }}"></script>
     <script src="{{ asset('assets/vendors/jquery-toast/jquery.toast.min.js') }}"></script>
 
-    <script src="{{ asset('assets/js/modules/social-links.js') }}"></script>
-    <script src="{{ asset('assets/js/notify.js') }}"></script>
+    <script src="{{ asset('assets/js/modules/social-link.js') }}"></script>
+    <script src="{{ asset('assets/js/helper.js') }}"></script>
 @endpush

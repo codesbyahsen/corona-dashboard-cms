@@ -52,19 +52,19 @@ class SocialLinkDataTable extends DataTable
                     .
                     "<input type=\"text\" name=\"status\" value=\""
                     .
-                    ($socialLink->active === SocialLink::STATUS_ACTIVE
+                    ($socialLink->is_active === SocialLink::STATUS_ACTIVE
                         ? SocialLink::STATUS_INACTIVE
                         : SocialLink::STATUS_ACTIVE)
                     .
                     "\" hidden /><button type=\"submit\" style=\"border: none; background: none;\"><span class=\"badge rounded-pill "
                     .
-                    ($socialLink->active === SocialLink::STATUS_ACTIVE
+                    ($socialLink->is_active === SocialLink::STATUS_ACTIVE
                         ? "btn-inverse-success"
                         : "btn-inverse-danger")
                     .
                     "\">"
                     .
-                    ($socialLink->active == SocialLink::STATUS_ACTIVE
+                    ($socialLink->is_active == SocialLink::STATUS_ACTIVE
                         ? "Active"
                         : "Disabled")
                     .

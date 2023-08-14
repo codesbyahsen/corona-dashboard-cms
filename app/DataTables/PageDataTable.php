@@ -49,19 +49,19 @@ class PageDataTable extends DataTable
                     .
                     "<input type=\"text\" name=\"status\" value=\""
                     .
-                    ($page->active === Page::STATUS_ACTIVE
+                    ($page->is_active === Page::STATUS_ACTIVE
                         ? Page::STATUS_INACTIVE
                         : Page::STATUS_ACTIVE)
                     .
                     "\" hidden /><button type=\"submit\" style=\"border: none; background: none;\"><span class=\"badge rounded-pill "
                     .
-                    ($page->active === Page::STATUS_ACTIVE
+                    ($page->is_active === Page::STATUS_ACTIVE
                         ? "btn-inverse-success"
                         : "btn-inverse-danger")
                     .
                     "\">"
                     .
-                    ($page->active == Page::STATUS_ACTIVE
+                    ($page->is_active == Page::STATUS_ACTIVE
                         ? "Active"
                         : "Disabled")
                     .

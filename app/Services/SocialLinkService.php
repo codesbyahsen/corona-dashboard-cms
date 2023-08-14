@@ -55,7 +55,7 @@ class SocialLinkService
     public function updateStatus(string $id, $status): void
     {
         SocialLink::withoutTimestamps(function () use ($id, $status) {
-            $this->get($id)->update(['active' => $status]);
+            $this->get($id)->update(['is_active' => $status]);
         });
     }
 
