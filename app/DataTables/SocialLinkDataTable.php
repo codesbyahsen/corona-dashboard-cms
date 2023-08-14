@@ -32,7 +32,7 @@ class SocialLinkDataTable extends DataTable
                     .
                     "\"></i></span>" . " " . $socialLink?->name;
             })
-            ->addColumn('action', function ($socialLink) {
+            ->addColumn('action', function (SocialLink $socialLink) {
                 return "
                     <a href=\"javascript:void(0)\" class=\"edit\" title=\"Edit\" data-url=\"" . route('admin.social-links.edit', $socialLink?->id) . "\"
                     data-update-url=\"" . route('admin.social-links.update', $socialLink?->id) . "\"><i
@@ -112,8 +112,13 @@ class SocialLinkDataTable extends DataTable
         return [
             Column::make('name'),
             Column::make('link'),
-            Column::make('status'),
-            Column::make('action'),
+            Column::make('status')
+                ->orderable(false),
+            Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                ->width(70)
+                ->addClass('text-center'),
         ];
     }
 

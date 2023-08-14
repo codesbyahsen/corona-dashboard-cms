@@ -137,6 +137,7 @@ $('#createSocialLink form').submit(function (e) {
             if (result.success === true) {
                 $('#createSocialLink').modal('hide');
                 resetErrors();
+                resetFields();
                 notify('Created');
 
                 // refresh the list of social links
@@ -209,7 +210,6 @@ $('#editSocialLink form').submit(function (e) {
         success: function (result) {
             if (result.success === true) {
                 $('#editSocialLink').modal('hide');
-                resetFields();
                 resetErrors();
                 notify('Saved');
 

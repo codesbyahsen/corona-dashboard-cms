@@ -10,7 +10,7 @@ class SocialLink extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'link', 'active'];
+    protected $fillable = ['name', 'link', 'is_active'];
 
     const STATUS_ACTIVE = 1;
     const STATUS_INACTIVE = 0;

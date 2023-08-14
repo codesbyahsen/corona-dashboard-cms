@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('link', 500)->unique()->nullable();
-            $table->boolean('active')->nullable()->default(SocialLink::STATUS_INACTIVE);
+            $table->boolean('is_active')->nullable()->default(SocialLink::STATUS_INACTIVE);
             $table->timestamps();
         });
     }
